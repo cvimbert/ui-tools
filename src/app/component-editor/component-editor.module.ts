@@ -3,9 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { ComponentEditorRoutingModule } from './component-editor-routing.module';
 import { ComponentEditorComponent } from './components/component-editor/component-editor.component';
+import { ComponentEditorService } from './component-editor.service';
 
 @NgModule({
-  declarations: [ComponentEditorComponent],
+  providers: [
+    ComponentEditorService
+  ],
+  declarations: [
+    ComponentEditorComponent
+  ],
   imports: [
     CommonModule,
     ComponentEditorRoutingModule

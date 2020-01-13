@@ -11,21 +11,24 @@ export class ComponentEditorScene extends Phaser.Scene {
     }
 
     preload() {
-        console.log("preload");
-        
         this.load.setBaseURL("./assets/");
     }
 
     create() {
-        console.log("create");
-        
         let rect = new BasicRectSprite(this, {
-            x: 40,
-            y: 40,
+            x: 0,
+            y: 0,
             height: 40,
-            width: 50
+            width: 40
         });
 
-        this.tempRects.push(rect);
+        let rect2 = new BasicRectSprite(this, {
+            x: 120,
+            y: 100,
+            height: 40,
+            width: 40
+        });
+
+        this.tempRects.push(rect, rect2);
     }
 }

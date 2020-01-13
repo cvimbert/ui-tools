@@ -51,6 +51,10 @@ export class BasicRectSprite extends FlexibleRectangle {
 
     }
 
+    set resizable(value: boolean) {
+        
+    }
+
     render() {        
         this.children.forEach(child => {
             child.x = this.x;

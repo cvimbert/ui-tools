@@ -11,8 +11,6 @@ export class ComponentEditorService {
   constructor() { }
 
   selectObject(object: BasicRectSprite) {
-    this.selectedObject = object;
-    console.log("ok");
-    
+    this.selectedObject = object;    
   }
 }

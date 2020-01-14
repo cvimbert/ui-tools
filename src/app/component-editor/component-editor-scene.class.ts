@@ -37,7 +37,10 @@ export class ComponentEditorScene extends Phaser.Scene {
             width: 40
         });
 
-        this.tempRects.push(rect);
+        rect2.resizable = true;
+
+        // ??
+        this.tempRects.push(rect, rect2);
 
         /*let dlg = this.add.nineslice(
             110, 110,   // this is the starting x/y location

@@ -8,6 +8,9 @@ export class ResizingOverlay extends FlexibleRectangle {
     private container: Phaser.GameObjects.Container;
     private anchors: { [key: string]: Phaser.GameObjects.Rectangle } = {};
 
+    private XAXIS = "x";
+    private YAXIS = "y";
+
     private POSITIONS = [
         AnchorPosition.TOP,
         AnchorPosition.TOP_RIGHT,
@@ -25,11 +28,15 @@ export class ResizingOverlay extends FlexibleRectangle {
         AnchorPosition.TOP_LEFT
     ];
 
+    TOP_ANCHORS: Phaser.GameObjects.Rectangle[];
+
     BOTTOMS = [
         AnchorPosition.BOTTOM_RIGHT,
         AnchorPosition.BOTTOM,
         AnchorPosition.BOTTOM_LEFT,
     ];
+
+    BOTTOM_ANCHORS: Phaser.GameObjects.Rectangle[];
 
     VCENTERED = [
         AnchorPosition.LEFT,
@@ -42,11 +49,15 @@ export class ResizingOverlay extends FlexibleRectangle {
         AnchorPosition.TOP_LEFT
     ];
 
+    LEFT_ANCHORS: Phaser.GameObjects.Rectangle[];
+
     RIGHTS = [
         AnchorPosition.TOP_RIGHT,
         AnchorPosition.RIGHT,
         AnchorPosition.BOTTOM_RIGHT,
     ];
+
+    RIGHT_ANCHORS: Phaser.GameObjects.Rectangle[];
 
     HCENTERED = [
         AnchorPosition.TOP,
@@ -54,14 +65,42 @@ export class ResizingOverlay extends FlexibleRectangle {
     ];
 
     constructor(
-        rect: Rectangle,
-        private scene: ComponentEditorScene
+        rect: FlexibleRectangle,
+        scene: ComponentEditorScene
     ) {
         super(rect);
 
         this.POSITIONS.forEach(position => {
-            this.anchors[position] = scene.add.rectangle(0, 0, 10, 10, 0x000000);
+            let rect = scene.add.rectangle(0, 0, 10, 10, 0x000000);
+
+            rect.setInteractive({
+                useHandCursor: true,
+                draggable: true
+            });
+
+            rect.setStrokeStyle(1, 0xffffff);
+            this.anchors[position] = rect;
         });
+
+        scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
+
+            // Pas forcément nécessaire
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+
+            // this.render();
+        });
+
+        this.TOP_ANCHORS = this.getAnchors(this.TOPS);
+        this.BOTTOM_ANCHORS = this.getAnchors(this.BOTTOMS);
+        this.LEFT_ANCHORS = this.getAnchors(this.LEFTS);
+        this.RIGHT_ANCHORS = this.getAnchors(this.RIGHTS);
+
+        this.render();
+    }
+    
+    getAnchors(ids: string[]): Phaser.GameObjects.Rectangle[] {
+        return ids.map(id => this.anchors[id]);
     }
 
     render() {
@@ -72,9 +111,34 @@ export class ResizingOverlay extends FlexibleRectangle {
         let topY = this.y;
         let centerY = this.y + this.height / 2;
         let bottomY = this.y + this.height;
+
+        // On X
+        this.setVal(this.LEFTS, this.XAXIS, leftX);
+        this.setVal(this.HCENTERED, this.XAXIS, centerX);
+        this.setVal(this.RIGHTS, this.XAXIS, rightX);
+
+        // On Y
+        this.setVal(this.TOPS, this.YAXIS, topY);
+        this.setVal(this.VCENTERED, this.YAXIS, centerY);
+        this.setVal(this.BOTTOMS, this.YAXIS, bottomY);
     }
 
     setVal(anchorIds: string[], prop: string, value: number) {
-        
+
+        anchorIds.forEach(id => {
+            switch (prop) {
+                case this.XAXIS:
+                    this.anchors[id].x = value;
+                    break;
+    
+                case this.YAXIS:
+                    this.anchors[id].y = value;
+                    break;
+            }
+        });
+    }
+
+    destroy() {
+        // TODO
     }
 }

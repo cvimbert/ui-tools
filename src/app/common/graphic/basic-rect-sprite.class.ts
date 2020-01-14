@@ -1,11 +1,13 @@
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
+import { ResizingOverlay } from './resizing-overlay.class';
 
 export class BasicRectSprite extends FlexibleRectangle {
 
     private sprite: Phaser.GameObjects.Rectangle;
     private selectionRect: Phaser.GameObjects.Rectangle;
+    private resizeOverlay: ResizingOverlay;
 
     private children: Phaser.GameObjects.Shape[] = [];
 
@@ -52,7 +54,16 @@ export class BasicRectSprite extends FlexibleRectangle {
     }
 
     set resizable(value: boolean) {
-        
+        if (value) {
+            if (!this.resizeOverlay) {
+                this.resizeOverlay = new ResizingOverlay(this, this.scene);
+            }
+        } else {
+            if (this.resizeOverlay) {
+                this.resizeOverlay.destroy();
+                this.resizeOverlay = undefined;
+            }
+        }
     }
 
     render() {        

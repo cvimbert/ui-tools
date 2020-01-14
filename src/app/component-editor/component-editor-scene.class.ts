@@ -37,16 +37,17 @@ export class ComponentEditorScene extends Phaser.Scene {
             width: 40
         });
 
-        rect2.resizable = true;
+        //rect2.resizable = true;
+        rect2.viewPivot = true;
 
         // ??
         this.tempRects.push(rect, rect2);
 
-        let dlg = this.add.nineslice(
+        /*let dlg = this.add.nineslice(
             0, 0,   // this is the starting x/y location
             300, 80,   // the width and height of your object
             't1', // a key to an already loaded image
             10, 4         // the width and height to offset for a corner slice
-          );
+          );*/
     }
 }

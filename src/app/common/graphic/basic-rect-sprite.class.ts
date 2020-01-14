@@ -7,6 +7,7 @@ export class BasicRectSprite extends FlexibleRectangle {
 
     private sprite: Phaser.GameObjects.Rectangle;
     private selectionRect: Phaser.GameObjects.Rectangle;
+    private pivotDisplay: Phaser.GameObjects.Graphics;
     private resizeOverlay: ResizingOverlay;
 
     private children: Phaser.GameObjects.Shape[] = [];
@@ -62,6 +63,34 @@ export class BasicRectSprite extends FlexibleRectangle {
             if (this.resizeOverlay) {
                 this.resizeOverlay.destroy();
                 this.resizeOverlay = undefined;
+            }
+        }
+    }
+
+    set viewPivot(value: boolean) {
+        if (value) {
+            if (!this.pivotDisplay) {
+                this.pivotDisplay = this.scene.add.graphics({
+                    fillStyle: {
+                        color: 0x000000
+                    }
+                });
+
+                this.pivotDisplay.fillCircle(0, 0, 5);
+
+                this.pivotDisplay.setInteractive({
+                    useHandCursor: true,
+                    draggable: true,
+                    hitArea: new Phaser.Geom.Circle(0, 0, 5),
+                    hitAreaCallback: () => {
+                        console.log("hit");
+                    }
+                });
+            }
+        } else {
+            if (this.pivotDisplay) {
+                this.pivotDisplay.destroy();
+                this.pivotDisplay = undefined;
             }
         }
     }

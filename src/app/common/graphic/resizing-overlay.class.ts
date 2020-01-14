@@ -95,6 +95,10 @@ export class ResizingOverlay extends FlexibleRectangle {
     onDrag(pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) {
 
         // Pas forcément nécessaire
+        if (this.TOP_ANCHORS.indexOf(gameObject) !== -1) {
+            
+        }
+
         gameObject.x = dragX;
         gameObject.y = dragY;
 

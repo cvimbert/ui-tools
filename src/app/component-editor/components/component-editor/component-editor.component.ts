@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ComponentEditorScene } from '../../component-editor-scene.class';
-import { Game } from 'phaser';
 import { ComponentEditorService } from '../../component-editor.service';
-//import Phaser from 'phaser';
-//import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
+import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
 
 @Component({
   selector: 'app-component-editor',
@@ -21,22 +19,26 @@ export class ComponentEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.editorScene = new ComponentEditorScene(this.editorService);
+    this.editorScene = new ComponentEditorScene(this.editorService);  
 
-    let config: Phaser.Types.Core.GameConfig = {
+    let config: any = {
       type: Phaser.WEBGL,
       width: 400,
       height: 200,
+      pixelArt: true,
+      resolution: window.devicePixelRatio,
+      //zoom: 0.5,
       scale: {
-        mode: Phaser.Scale.NONE
+        //mode: Phaser.Scale.NO_ZOOM
       },
       scene: this.editorScene,
       backgroundColor: '#ff0000',
       parent: this.canvasContainer.nativeElement,
       plugins: {
-        // global: [ NineSlicePlugin.DefaultCfg ],
+        global: [ NineSlicePlugin.DefaultCfg ],
       }
     };
+    
 
     this.editorGame = new Phaser.Game(config);
   }

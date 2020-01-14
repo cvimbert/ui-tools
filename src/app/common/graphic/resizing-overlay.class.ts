@@ -66,7 +66,7 @@ export class ResizingOverlay extends FlexibleRectangle {
 
     constructor(
         rect: FlexibleRectangle,
-        scene: ComponentEditorScene
+        private scene: ComponentEditorScene
     ) {
         super(rect);
 
@@ -82,14 +82,7 @@ export class ResizingOverlay extends FlexibleRectangle {
             this.anchors[position] = rect;
         });
 
-        scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
-
-            // Pas forcément nécessaire
-            gameObject.x = dragX;
-            gameObject.y = dragY;
-
-            // this.render();
-        });
+        scene.input.on('drag', this.onDrag, this);
 
         this.TOP_ANCHORS = this.getAnchors(this.TOPS);
         this.BOTTOM_ANCHORS = this.getAnchors(this.BOTTOMS);
@@ -97,6 +90,15 @@ export class ResizingOverlay extends FlexibleRectangle {
         this.RIGHT_ANCHORS = this.getAnchors(this.RIGHTS);
 
         this.render();
+    }
+
+    onDrag(pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) {
+
+        // Pas forcément nécessaire
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+
+        // this.render();
     }
     
     getAnchors(ids: string[]): Phaser.GameObjects.Rectangle[] {
@@ -140,5 +142,6 @@ export class ResizingOverlay extends FlexibleRectangle {
 
     destroy() {
         // TODO
+        this.scene.input.off("drag", this.onDrag);
     }
 }

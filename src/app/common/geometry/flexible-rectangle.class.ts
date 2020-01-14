@@ -9,6 +9,8 @@ export class FlexibleRectangle {
   private _y = 0;
   private _width = 0;
   private _height = 0;
+  private _scaleX = 1;
+  private _scaleY = 1;
 
   top: number;
   right: number;
@@ -54,5 +56,21 @@ export class FlexibleRectangle {
 
   set height(value: number) {
     this._height = value;
+  }
+
+  get scaleX(): number {
+    return this._scaleX;
+  }
+
+  set scaleX(value: number) {
+    this._scaleX = value;
+  }
+
+  get scaleY(): number {
+    return this._scaleY;
+  }
+
+  set scaleY(value: number) {
+    this._scaleY = value;
   }
 }

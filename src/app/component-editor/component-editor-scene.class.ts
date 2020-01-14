@@ -42,12 +42,11 @@ export class ComponentEditorScene extends Phaser.Scene {
         // ??
         this.tempRects.push(rect, rect2);
 
-        /*let dlg = this.add.nineslice(
-            110, 110,   // this is the starting x/y location
-            340, 240,   // the width and height of your object
+        let dlg = this.add.nineslice(
+            0, 0,   // this is the starting x/y location
+            300, 80,   // the width and height of your object
             't1', // a key to an already loaded image
-            88,         // the width and height to offset for a corner slice
-            24          // (optional) pixels to offset when computing the safe usage area
-          );*/
+            10, 4         // the width and height to offset for a corner slice
+          );
     }
 }

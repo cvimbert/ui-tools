@@ -61,4 +61,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-//import 'phaser/dist/phaser';
+import 'phaser/dist/phaser';
+import 'phaser3-nineslice/dist/nineslice'

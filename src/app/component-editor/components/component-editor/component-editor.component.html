@@ -1,6 +1,13 @@
-<div class="buttons">
-  <input type="button" value="Scene size" (click)="editSceneSize()">
-</div>
-<div class="editor-main-container">
-  <div class="canvas-container" #canvasContainer></div>
+<div class="main">
+  <div class="left">
+    <div class="editor-main-container">
+      <div class="canvas-container" #canvasContainer></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="buttons">
+      <input type="button" value="Scene size" (click)="editSceneSize()">
+    </div>
+    <properties-editor [inspected]="editorService.selectedObject" *ngIf="editorService.selectedObject"></properties-editor>
+  </div>
 </div>

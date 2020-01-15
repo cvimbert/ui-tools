@@ -44,7 +44,6 @@ export class ComponentEditorComponent implements OnInit {
       }
     };
     
-
     this.editorGame = new Phaser.Game(config);
   }
 

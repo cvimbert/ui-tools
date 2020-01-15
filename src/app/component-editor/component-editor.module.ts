@@ -6,6 +6,8 @@ import { ComponentEditorComponent } from './components/component-editor/componen
 import { ComponentEditorService } from './component-editor.service';
 import { SceneSizeModalComponent } from './components/scene-size-modal/scene-size-modal/scene-size-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PropertiesEditorComponent } from './components/properties-editor/properties-editor.component';
+import { PropertyLineComponent } from './components/property-line/property-line.component';
 
 @NgModule({
   providers: [
@@ -13,7 +15,9 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   declarations: [
     ComponentEditorComponent,
-    SceneSizeModalComponent
+    SceneSizeModalComponent,
+    PropertiesEditorComponent,
+    PropertyLineComponent
   ],
   imports: [
     CommonModule,

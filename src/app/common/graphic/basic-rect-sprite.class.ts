@@ -5,6 +5,8 @@ import { ResizingOverlay } from './resizing-overlay.class';
 
 export class BasicRectSprite extends FlexibleRectangle {
 
+    name: string;
+
     private sprite: Phaser.GameObjects.Rectangle;
     private selectionRect: Phaser.GameObjects.Rectangle;
     private pivotDisplay: Phaser.GameObjects.Graphics;
@@ -39,8 +41,6 @@ export class BasicRectSprite extends FlexibleRectangle {
         ///////
 
         this.children.push(this.sprite);
-
-        this.select();
     }
 
     select() {
@@ -51,7 +51,10 @@ export class BasicRectSprite extends FlexibleRectangle {
     }
 
     unselect() {
-
+        if (this.selectionRect) {
+            this.selectionRect.destroy();
+            this.selectionRect = undefined;
+        }
     }
 
     set resizable(value: boolean) {
@@ -83,7 +86,7 @@ export class BasicRectSprite extends FlexibleRectangle {
                     draggable: true,
                     hitArea: new Phaser.Geom.Circle(0, 0, 5),
                     hitAreaCallback: () => {
-                        console.log("hit");
+                        // console.log("hit");
                     }
                 });
             }

@@ -30,12 +30,16 @@ export class ComponentEditorScene extends Phaser.Scene {
             width: 40
         });
 
+        rect.name = "Basic rect 1";
+
         let rect2 = new BasicRectSprite(this, {
             x: 120,
             y: 100,
             height: 40,
             width: 40
         });
+
+        rect2.name = "Basic rect 2";
 
         //rect2.resizable = true;
         rect2.viewPivot = true;

@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ComponentEditorScene } from '../../component-editor-scene.class';
 import { ComponentEditorService } from '../../component-editor.service';
 import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
+import { MatDialog } from '@angular/material/dialog';
+import { SceneSizeModalComponent } from '../scene-size-modal/scene-size-modal/scene-size-modal.component';
+import { SceneSize } from '../scene-size-modal/scene-size.interface';
 
 @Component({
   selector: 'app-component-editor',
@@ -15,10 +18,12 @@ export class ComponentEditorComponent implements OnInit {
   editorGame: Phaser.Game;
 
   constructor(
-    private editorService: ComponentEditorService
+    private editorService: ComponentEditorService,
+    private dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
+
     this.editorScene = new ComponentEditorScene(this.editorService);  
 
     let config: any = {
@@ -29,7 +34,7 @@ export class ComponentEditorComponent implements OnInit {
       resolution: window.devicePixelRatio,
       //zoom: 0.5,
       scale: {
-        //mode: Phaser.Scale.NO_ZOOM
+        mode: Phaser.Scale.NONE
       },
       scene: this.editorScene,
       backgroundColor: '#ff0000',
@@ -41,6 +46,19 @@ export class ComponentEditorComponent implements OnInit {
     
 
     this.editorGame = new Phaser.Game(config);
+  }
+
+  editSceneSize() {    
+    this.dialog.open(SceneSizeModalComponent, {
+      data: <SceneSize> {
+        width: this.editorGame.scale.width,
+        height: this.editorGame.scale.height
+      }
+    }).afterClosed().subscribe((size: SceneSize) => {
+      if (size) {
+        this.editorGame.scale.resize(size.width, size.height);
+      }      
+    });
   }
 
 }

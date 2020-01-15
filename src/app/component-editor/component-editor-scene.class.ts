@@ -42,7 +42,7 @@ export class ComponentEditorScene extends Phaser.Scene {
         rect2.name = "Basic rect 2";
 
         //rect2.resizable = true;
-        rect2.viewPivot = true;
+        // rect2.viewPivot = true;
 
         // ??
         this.tempRects.push(rect, rect2);

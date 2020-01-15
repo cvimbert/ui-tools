@@ -73,4 +73,8 @@ export class FlexibleRectangle {
   set scaleY(value: number) {
     this._scaleY = value;
   }
+
+  render() {
+    console.log("Must be overriden");
+  }
 }

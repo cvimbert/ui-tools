@@ -44,10 +44,17 @@ export class BasicRectSprite extends FlexibleRectangle {
     }
 
     select() {
+        this.drawSelectionRect();
+        this.children.push(this.selectionRect);
+    }
+
+    drawSelectionRect() {
+        if (this.selectionRect) {
+            this.selectionRect.destroy();
+        }
+
         this.selectionRect = this.scene.add.rectangle(this.x, this.y, this.width, this.height).setOrigin(0, 0);
         this.selectionRect.setStrokeStyle(1, 0x000000);
-
-        this.children.push(this.selectionRect);
     }
 
     unselect() {
@@ -98,10 +105,16 @@ export class BasicRectSprite extends FlexibleRectangle {
         }
     }
 
-    render() {        
-        this.children.forEach(child => {
+    render() {   
+        this.children.forEach(child => {            
             child.x = this.x;
             child.y = this.y;
+            child.width = this.width;
+            child.height = this.height;
         });
+
+        this.drawSelectionRect();
+
+        this.sprite.update();
     }
 }

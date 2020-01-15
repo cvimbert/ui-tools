@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ComponentEditorScene } from '../../component-editor-scene.class';
 import { ComponentEditorService } from '../../component-editor.service';
 import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
@@ -19,12 +19,14 @@ export class ComponentEditorComponent implements OnInit {
 
   constructor(
     private editorService: ComponentEditorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {    
 
-    this.editorScene = new ComponentEditorScene(this.editorService);  
+    this.editorScene = new ComponentEditorScene(this.editorService);
+    this.editorService.editorComponent = this;
 
     let config: any = {
       type: Phaser.WEBGL,
@@ -34,7 +36,7 @@ export class ComponentEditorComponent implements OnInit {
       resolution: window.devicePixelRatio,
       //zoom: 0.5,
       scale: {
-        mode: Phaser.Scale.NONE
+        //mode: Phaser.Scale.NONE
       },
       scene: this.editorScene,
       backgroundColor: '#ff0000',
@@ -60,4 +62,7 @@ export class ComponentEditorComponent implements OnInit {
     });
   }
 
+  update() {    
+    this.cdRef.detectChanges();
+  }
 }

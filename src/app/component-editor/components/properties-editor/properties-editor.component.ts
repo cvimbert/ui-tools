@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
+import { ComponentEditorService } from '../../component-editor.service';
 
 @Component({
   selector: 'properties-editor',
@@ -15,12 +16,22 @@ export class PropertiesEditorComponent implements OnInit {
     name: string;
   }[] = [
     { id: "x", name: "X" },
-    { id: "y", name: "Y" }
-  ]
+    { id: "y", name: "Y" },
+    { id: "width", name: "Width" },
+    { id: "height", name: "Height" },
+    { id: "scaleX", name: "Scale X" },
+    { id: "scaleY", name: "Scale Y" }
+  ];
 
-  constructor() { }
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    public editorService: ComponentEditorService
+  ) { }
 
   ngOnInit() {
   }
 
+  update() {
+    // this.cdRef.detectChanges();
+  }
 }

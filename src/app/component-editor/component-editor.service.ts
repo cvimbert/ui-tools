@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicRectSprite } from '../common/graphic/basic-rect-sprite.class';
+import { ComponentEditorComponent } from './components/component-editor/component-editor.component';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { BasicRectSprite } from '../common/graphic/basic-rect-sprite.class';
 export class ComponentEditorService {
 
   selectedObject: BasicRectSprite;
+  editorComponent: ComponentEditorComponent;
 
   constructor() { }
 
@@ -17,6 +19,8 @@ export class ComponentEditorService {
     }
 
     object.select();
-    this.selectedObject = object;    
+    this.selectedObject = object;   
+    
+    // this.editorComponent.update();
   }
 }

@@ -75,6 +75,7 @@ export class ComponentEditorComponent implements OnInit {
     this.viewport.width = width;
     this.viewport.height = height;
     this.editorGame.scale.resize(width, height);
+    this.editorScene.render();
   }
 
   update() {    

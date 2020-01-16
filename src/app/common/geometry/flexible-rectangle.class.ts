@@ -9,6 +9,7 @@ export class FlexibleRectangle {
   private _y = 0;
   private _width = 0;
   private _height = 0;
+  private _rotation = 0;
   private _scaleX = 1;
   private _scaleY = 1;
 
@@ -62,6 +63,14 @@ export class FlexibleRectangle {
     this._height = value;
   }
 
+  get rotation(): number {
+    return this._rotation;
+  }
+
+  set rotation(value: number) {
+    this._rotation = value;
+  }
+
   get scaleX(): number {
     return this._scaleX;
   }
@@ -84,15 +93,7 @@ export class FlexibleRectangle {
 
   set top(value: number) {
     this._top = value;
-
-    if (this.mode === CoordinatesMode.TRBL) {
-      this._y = value;
-
-      if (this._bottom != undefined && this.parent) {
-        // Mise à jour de la hauteur de l'objet
-        this._height = this.parent.height - (this._top + this._height);
-      }
-    }
+    this.calculate();
   }
 
   get right(): number {
@@ -109,20 +110,7 @@ export class FlexibleRectangle {
 
   set bottom(value: number) {
     this._bottom = value;
-
-    if (this.mode === CoordinatesMode.TRBL) {
-
-      if (this.parent) {
-        
-        if (this._top != undefined) {
-          // top est défini, donc on modifie la hauteur de l'objet...
-          this._height = this.parent.height - (this._top + this._height);
-        } else {
-          // ... sinon on modifie sa position sur l'axe y
-          this._y = this.parent.height - (this._height + this._bottom);
-        }
-      }
-    }
+    this.calculate();
   }
 
   get left(): number {
@@ -134,6 +122,34 @@ export class FlexibleRectangle {
   }
 
   render() {
-    console.log("Must be overriden");
+    this.calculate();
+  }
+
+  calculate() {
+    if (this.mode === CoordinatesMode.TRBL) {
+      if (this._top != undefined) {
+        this._y = this._top;
+      }
+
+      if (this._bottom != undefined && this._top == undefined && this.parent) {
+        this._y = this.parent.height - (this._height + this._bottom);
+      }
+
+      if (this._top != undefined && this._bottom != undefined && this.parent) {
+        this._height = this.parent.height - (this._top + this._bottom);
+      }
+
+      if (this._left != undefined) {
+        this._x = this._left;
+      }
+  
+      if (this._right != undefined && this._left == undefined && this.parent) {
+        this._x = this.parent.width - (this._width + this._right);
+      }
+  
+      if (this._left != undefined && this._right != undefined && this.parent) {
+        this._width = this.parent.width - (this._left + this._right);
+      }
+    }
   }
 }

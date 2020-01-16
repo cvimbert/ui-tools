@@ -1,7 +1,7 @@
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
-import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { ResizingOverlay } from './resizing-overlay.class';
+import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 
 export class BasicRectSprite extends FlexibleRectangle {
 
@@ -107,16 +107,16 @@ export class BasicRectSprite extends FlexibleRectangle {
         }
     }
 
-    render() {   
+    render() {  
+        this.calculate();
+
         this.children.forEach(child => {            
             child.x = this.x;
             child.y = this.y;
             child.width = this.width;
-            child.height = this.height;
+            child.height = this.height;            
         });
 
-        this.drawSelectionRect();
-
-        this.sprite.update();
+        // this.drawSelectionRect();
     }
 }

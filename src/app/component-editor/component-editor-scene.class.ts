@@ -1,12 +1,14 @@
 import { BasicRectSprite } from '../common/graphic/basic-rect-sprite.class';
 import { ComponentEditorService } from './component-editor.service';
+import { FlexibleRectangle } from '../common/geometry/flexible-rectangle.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
     private tempRects: BasicRectSprite[] = [];
 
     constructor(
-        public editorService: ComponentEditorService
+        public editorService: ComponentEditorService,
+        public viewport: FlexibleRectangle
     ) {
         super({
             key: "ComponentEditorScene"
@@ -28,7 +30,7 @@ export class ComponentEditorScene extends Phaser.Scene {
             y: 0,
             height: 40,
             width: 40
-        });
+        }, this.viewport);
 
         rect.name = "Basic rect 1";
 
@@ -37,14 +39,10 @@ export class ComponentEditorScene extends Phaser.Scene {
             y: 100,
             height: 40,
             width: 40
-        });
+        }, this.viewport);
 
         rect2.name = "Basic rect 2";
 
-        //rect2.resizable = true;
-        // rect2.viewPivot = true;
-
-        // ??
         this.tempRects.push(rect, rect2);
 
         /*let dlg = this.add.nineslice(
@@ -53,5 +51,6 @@ export class ComponentEditorScene extends Phaser.Scene {
             't1', // a key to an already loaded image
             10, 4         // the width and height to offset for a corner slice
           );*/
+
     }
 }

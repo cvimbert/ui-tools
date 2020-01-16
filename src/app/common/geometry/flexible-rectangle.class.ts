@@ -12,12 +12,16 @@ export class FlexibleRectangle {
   private _scaleX = 1;
   private _scaleY = 1;
 
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  private _top: number;
+  private _right: number;
+  private _bottom: number;
+  private _left: number;
 
-  constructor(rectangle?: Rectangle) {
+  constructor(
+    rectangle?: Rectangle,
+    public parent?: FlexibleRectangle
+  ) {    
+
     if (rectangle) {
       this._x = rectangle.x || 0;
       this._y = rectangle.y || 0;
@@ -72,6 +76,54 @@ export class FlexibleRectangle {
 
   set scaleY(value: number) {
     this._scaleY = value;
+  }
+
+  get top(): number {
+    return this._top;
+  }
+
+  set top(value: number) {
+    this._top = value;
+
+    if (this.mode === CoordinatesMode.TRBL) {
+      this._y = value;
+
+      if (this._bottom != undefined && this.parent) {
+        // Mise à jour de la hauteur de l'objet
+        this._height = this.parent.height - (this._top + this._height);
+      }
+    }
+  }
+
+  get right(): number {
+    return this._right;
+  }
+
+  set right(value: number) {
+    this._right = value;
+  }
+
+  get bottom(): number {
+    return this._bottom;
+  }
+
+  set bottom(value: number) {
+    this._bottom = value;
+
+    if (this.mode === CoordinatesMode.TRBL) {
+
+      if (this.parent) {
+        this._height = this.parent.height - (this._top + this._height);
+      }
+    }
+  }
+
+  get left(): number {
+    return this._left;
+  }
+
+  set left(value: number) {
+    this._left = value;
   }
 
   render() {

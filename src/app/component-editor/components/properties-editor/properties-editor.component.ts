@@ -24,7 +24,6 @@ export class PropertiesEditorComponent implements OnInit {
   ];
 
   constructor(
-    private cdRef: ChangeDetectorRef,
     public editorService: ComponentEditorService
   ) { }
 
@@ -32,6 +31,6 @@ export class PropertiesEditorComponent implements OnInit {
   }
 
   update() {
-    // this.cdRef.detectChanges();
+    
   }
 }

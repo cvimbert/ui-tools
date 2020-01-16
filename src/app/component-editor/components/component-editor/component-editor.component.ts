@@ -5,6 +5,7 @@ import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
 import { MatDialog } from '@angular/material/dialog';
 import { SceneSizeModalComponent } from '../scene-size-modal/scene-size-modal/scene-size-modal.component';
 import { SceneSize } from '../scene-size-modal/scene-size.interface';
+import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -16,6 +17,7 @@ export class ComponentEditorComponent implements OnInit {
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
   editorScene: ComponentEditorScene;
   editorGame: Phaser.Game;
+  viewport: FlexibleRectangle;
 
   constructor(
     private editorService: ComponentEditorService,
@@ -23,15 +25,22 @@ export class ComponentEditorComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {  
+    
+    this.viewport = new FlexibleRectangle({
+      x: 0,
+      y: 0,
+      width: 400,
+      height: 200
+    });
 
-    this.editorScene = new ComponentEditorScene(this.editorService);
+    this.editorScene = new ComponentEditorScene(this.editorService, this.viewport);
     this.editorService.editorComponent = this;
 
     let config: any = {
       type: Phaser.WEBGL,
-      width: 400,
-      height: 200,
+      width: this.viewport.width,
+      height: this.viewport.height,
       pixelArt: true,
       resolution: window.devicePixelRatio,
       //zoom: 0.5,
@@ -57,9 +66,15 @@ export class ComponentEditorComponent implements OnInit {
       }
     }).afterClosed().subscribe((size: SceneSize) => {
       if (size) {
-        this.editorGame.scale.resize(size.width, size.height);
+        this.resize(size.width, size.height);
       }      
     });
+  }
+
+  resize(width: number, height: number) {
+    this.viewport.width = width;
+    this.viewport.height = height;
+    this.editorGame.scale.resize(width, height);
   }
 
   update() {    

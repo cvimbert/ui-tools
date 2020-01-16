@@ -16,9 +16,11 @@ export class BasicRectSprite extends FlexibleRectangle {
 
     constructor(
         private scene: ComponentEditorScene,
-        rect?: Rectangle
+        rect?: Rectangle,
+        parent?: FlexibleRectangle
     ) {
-        super(rect);        
+        super(rect, parent);
+            
         this.sprite = this.scene.add.rectangle(this.x, this.y, this.width, this.height, 0xffff00, 1).setOrigin(0, 0);
 
         // Only for editor mode

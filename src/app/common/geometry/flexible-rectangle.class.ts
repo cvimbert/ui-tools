@@ -113,7 +113,14 @@ export class FlexibleRectangle {
     if (this.mode === CoordinatesMode.TRBL) {
 
       if (this.parent) {
-        this._height = this.parent.height - (this._top + this._height);
+        
+        if (this._top != undefined) {
+          // top est défini, donc on modifie la hauteur de l'objet...
+          this._height = this.parent.height - (this._top + this._height);
+        } else {
+          // ... sinon on modifie sa position sur l'axe y
+          this._y = this.parent.height - (this._height + this._bottom);
+        }
       }
     }
   }

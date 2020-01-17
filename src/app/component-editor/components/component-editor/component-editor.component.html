@@ -1,7 +1,9 @@
 <div class="main">
   <div class="left">
-    <div class="editor-main-container">
-      <div class="canvas-container" #canvasContainer></div>
+    <div class="editor-main-container" #mainContainer>
+      <div class="wrapper">
+        <div class="canvas-container" #canvasContainer [style.line-height.px]="containerHeight"></div>
+      </div>
     </div>
   </div>
   <div class="right">

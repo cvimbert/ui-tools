@@ -8,6 +8,7 @@ import { Image } from '../common/graphic/image.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
+    private background: Phaser.GameObjects.Graphics;
     private tempRects: FlexibleRectangle[] = [];
 
     constructor(
@@ -29,6 +30,8 @@ export class ComponentEditorScene extends Phaser.Scene {
 
     create() {
         console.log("Creating...");
+
+        this.drawBackground();
 
         let rect = new BasicRectSprite(this, {
             x: 0,
@@ -86,7 +89,46 @@ export class ComponentEditorScene extends Phaser.Scene {
         this.render();
     }
 
+    drawBackground() {
+        if (this.background) {
+            this.background.clear();
+        } else {
+            this.background = this.add.graphics({
+                x: 0,
+                y: 0
+            });
+        }
+
+        let w = this.game.scale.width;
+        let h = this.game.scale.height;
+        let cw = 0;
+        let ch = 0;
+
+        const size = 10;
+        let even = true;
+
+        while (ch < h) {
+            while (cw < w) {
+                if (even) {
+                    this.background.fillStyle(0xeeeeee);
+                } else {
+                    this.background.fillStyle(0xcccccc);
+                }
+    
+                this.background.fillRect(cw, ch, size, size);
+                even = !even;
+                cw += size;
+            }
+
+            cw = 0;
+            ch += size;
+            even = !even;
+        }
+    }
+
     render() {
+        this.drawBackground();
+        this.editorService.editorComponent.onResize();
         this.tempRects.forEach(rect => rect.render());
     }
 }

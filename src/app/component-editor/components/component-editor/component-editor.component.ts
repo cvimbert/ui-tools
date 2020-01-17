@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { ComponentEditorScene } from '../../component-editor-scene.class';
 import { ComponentEditorService } from '../../component-editor.service';
 import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
@@ -15,9 +15,11 @@ import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.cl
 export class ComponentEditorComponent implements OnInit {
 
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
+  @ViewChild("mainContainer") mainContainer: ElementRef;
   editorScene: ComponentEditorScene;
   editorGame: Phaser.Game;
   viewport: FlexibleRectangle;
+  containerHeight: number;
 
   constructor(
     private editorService: ComponentEditorService,
@@ -25,7 +27,7 @@ export class ComponentEditorComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     
     this.viewport = new FlexibleRectangle({
       x: 0,
@@ -56,6 +58,15 @@ export class ComponentEditorComponent implements OnInit {
     };
     
     this.editorGame = new Phaser.Game(config);
+
+    this.onResize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(e?: Event) {
+    console.log(this.canvasContainer.nativeElement);
+    
+    this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
   }
 
   editSceneSize() {    

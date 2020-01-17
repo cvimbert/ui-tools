@@ -1,9 +1,6 @@
 .editor-main-container {
-    position: absolute;
-    // width: 100%;
-    // height: 100%;
+    height: 100%;
     text-align: center;
-    // padding-top: 200px;
 }
 
 .main {
@@ -18,4 +15,8 @@
     .left {
         flex: 1;
     }
+}
+
+.wrapper {
+    vertical-align: middle;
 }

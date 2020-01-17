@@ -11,16 +11,30 @@ export class PropertiesEditorComponent implements OnInit {
 
   @Input() inspected: FlexibleRectangle;
 
-  PROPERTIES: {
+  XYWH_PROPERTIES: {
     id: string;
     name: string;
+    step?: number;
   }[] = [
     { id: "x", name: "X" },
     { id: "y", name: "Y" },
     { id: "width", name: "Width" },
     { id: "height", name: "Height" },
+    { id: "xOrigin", name: "X origin" },
+    { id: "yOrigin", name: "Y origin" },
     { id: "scaleX", name: "Scale X" },
     { id: "scaleY", name: "Scale Y" }
+  ];
+
+  TRBL_PROPERTIES: {
+    id: string;
+    name: string;
+    step?: number;
+  }[] = [
+    { id: "top", name: "Top" },
+    { id: "right", name: "Right" },
+    { id: "bottom", name: "Bottom" },
+    { id: "left", name: "Left" }
   ];
 
   constructor(

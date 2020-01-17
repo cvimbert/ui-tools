@@ -45,6 +45,8 @@ export class ComponentEditorScene extends Phaser.Scene {
         rect.mode = CoordinatesMode.TRBL;
         rect.name = "Basic rect 1";
 
+        return;
+
         let rect2 = new BasicRectSprite(this, {
             x: 120,
             y: 100,

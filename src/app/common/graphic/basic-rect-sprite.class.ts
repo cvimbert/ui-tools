@@ -21,7 +21,7 @@ export class BasicRectSprite extends FlexibleRectangle {
     ) {
         super(rect, parent);
             
-        this.sprite = this.scene.add.rectangle(this.x, this.y, this.width, this.height, 0xffff00, 1).setOrigin(this.xOrigin, this.yOrigin);
+        this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
         // Only for editor mode
         this.sprite.setInteractive({
@@ -35,8 +35,8 @@ export class BasicRectSprite extends FlexibleRectangle {
 
         scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
             if (gameObject === this.sprite) {
-                this.x = dragX;
-                this.y = dragY;
+                this.x.value = dragX;
+                this.y.value = dragY;
                 this.render();
             }
         });
@@ -55,7 +55,7 @@ export class BasicRectSprite extends FlexibleRectangle {
             this.selectionRect.destroy();
         }
 
-        this.selectionRect = this.scene.add.rectangle(this.x, this.y, this.width, this.height).setOrigin(0, 0);
+        this.selectionRect = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value).setOrigin(0, 0);
         this.selectionRect.setStrokeStyle(1, 0x000000);
     }
 
@@ -111,10 +111,10 @@ export class BasicRectSprite extends FlexibleRectangle {
         this.calculate();
 
         this.children.forEach(child => {            
-            child.x = this.x;
-            child.y = this.y;
-            child.width = this.width;
-            child.height = this.height;            
+            child.x = this.x.value;
+            child.y = this.y.value;
+            child.width = this.width.value;
+            child.height = this.height.value;            
         });
 
         // this.drawSelectionRect();

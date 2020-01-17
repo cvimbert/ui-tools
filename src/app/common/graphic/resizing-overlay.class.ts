@@ -68,7 +68,7 @@ export class ResizingOverlay extends FlexibleRectangle {
         rect: FlexibleRectangle,
         private scene: ComponentEditorScene
     ) {
-        super(rect);
+        super(null, rect);
 
         this.POSITIONS.forEach(position => {
             let rect = scene.add.rectangle(0, 0, 10, 10, 0x000000);
@@ -110,13 +110,13 @@ export class ResizingOverlay extends FlexibleRectangle {
     }
 
     render() {
-        let leftX = this.x;
-        let centerX = this.x + this.width / 2;
-        let rightX = this.x + this.width;
+        let leftX = this.x.value;
+        let centerX = this.x.value + this.width .value/ 2;
+        let rightX = this.x.value + this.width.value;
 
-        let topY = this.y;
-        let centerY = this.y + this.height / 2;
-        let bottomY = this.y + this.height;
+        let topY = this.y.value;
+        let centerY = this.y.value + this.height.value / 2;
+        let bottomY = this.y.value + this.height.value;
 
         // On X
         this.setVal(this.LEFTS, this.XAXIS, leftX);

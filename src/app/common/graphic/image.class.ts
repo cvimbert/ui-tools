@@ -13,15 +13,15 @@ export class Image extends FlexibleRectangle {
         parent?: FlexibleRectangle
     ) {
         super(rect, parent);
-        this.image = scene.add.image(this.x, this.y, textureId).setOrigin(this.xOrigin, this.yOrigin);
-        this.width = this.image.width;
-        this.height = this.image.height;
+        this.image = scene.add.image(this.x.value, this.y.value, textureId).setOrigin(this.xOrigin.value, this.yOrigin.value);
+        this.width.value = this.image.width;
+        this.height.value = this.image.height;
     }
 
     render() {
         this.calculate();
-        this.image.x = this.x;
-        this.image.y = this.y;
-        this.image.rotation = this.rotation;
+        this.image.x = this.x.value;
+        this.image.y = this.y.value;
+        this.image.rotation = this.rotation.value;
     }
 }

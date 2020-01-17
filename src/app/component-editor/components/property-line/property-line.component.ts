@@ -24,11 +24,11 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   }
 
   get value(): any {
-    return this.object[this.property];
+    return this.object[this.property].value;
   }
 
   set value(value: any) {
-    this.object[this.property] = value;
+    this.object[this.property].value = value;
     this.object.render();
   }
 

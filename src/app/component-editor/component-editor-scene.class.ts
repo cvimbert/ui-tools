@@ -57,10 +57,10 @@ export class ComponentEditorScene extends Phaser.Scene {
         rect2.mode = CoordinatesMode.TRBL;
         rect2.name = "Basic rect 2";
 
-        rect2.top = 5;
-        rect2.bottom = 5;
-        rect2.left = 40;
-        rect2.right = 30;
+        rect2.top.value = 5;
+        rect2.bottom.value = 5;
+        rect2.left.value = 40;
+        rect2.right.value = 30;
 
         this.tempRects.push(rect, rect2);
 
@@ -72,10 +72,10 @@ export class ComponentEditorScene extends Phaser.Scene {
         }, this.viewport);
 
         nslc.mode = CoordinatesMode.TRBL;
-        nslc.right = 15;
-        nslc.left = 15;
-        nslc.top = 15;
-        nslc.bottom = 15;
+        nslc.right.value = 15;
+        nslc.left.value = 15;
+        nslc.top.value = 15;
+        nslc.bottom.value = 15;
 
         this.tempRects.push(nslc);
 
@@ -85,8 +85,8 @@ export class ComponentEditorScene extends Phaser.Scene {
         }, this.viewport);
 
         img.mode = CoordinatesMode.TRBL;
-        img.rotation = Math.PI;
-        img.right = 5;
+        img.rotation.value = Math.PI;
+        img.right.value = 5;
 
         this.tempRects.push(img);
 

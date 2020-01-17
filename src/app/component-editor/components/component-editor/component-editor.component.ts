@@ -36,24 +36,28 @@ export class ComponentEditorComponent implements OnInit {
       height: 200
     });
 
+    console.log(this.viewport);
+    
+
     this.editorScene = new ComponentEditorScene(this.editorService, this.viewport);
     this.editorService.editorComponent = this;
 
-    let config: any = {
+    let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
-      width: this.viewport.width,
-      height: this.viewport.height,
-      pixelArt: true,
+      width: this.viewport.width.value,
+      height: this.viewport.height.value,
+      //pixelArt: true,
       resolution: window.devicePixelRatio,
-      //zoom: 0.5,
       scale: {
-        //mode: Phaser.Scale.NONE
+        mode: Phaser.Scale.NONE
       },
       scene: this.editorScene,
       backgroundColor: '#ffffff',
       parent: this.canvasContainer.nativeElement,
       plugins: {
-        global: [ NineSlicePlugin.DefaultCfg ],
+        global: [
+          NineSlicePlugin.DefaultCfg
+        ],
       }
     };
     
@@ -62,8 +66,8 @@ export class ComponentEditorComponent implements OnInit {
     this.onResize();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(e?: Event) {    
+  @HostListener('window:resize')
+  onResize() {    
     this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
   }
 
@@ -81,8 +85,8 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   resize(width: number, height: number) {
-    this.viewport.width = width;
-    this.viewport.height = height;
+    this.viewport.width.value = width;
+    this.viewport.height.value = height;
     this.editorGame.scale.resize(width, height);
     this.editorScene.render();
   }

@@ -17,20 +17,20 @@ export class NineSliceImage extends FlexibleRectangle {
         super(rect, parent);
 
         this.image = scene.add.nineslice(
-            this.x, this.y,
-            this.width, this.height,
+            this.x.value, this.y.value,
+            this.width.value, this.height.value,
             textureName,
             sliceSize, sliceSize
-        ).setOrigin(this.xOrigin, this.yOrigin);
+        ).setOrigin(this.xOrigin.value, this.yOrigin.value);
     }
 
     render() {
         this.calculate();
 
-        this.image.x = this.x;
-        this.image.y = this.y;
-        this.image.rotation = this.rotation;
+        this.image.x = this.x.value;
+        this.image.y = this.y.value;
+        this.image.rotation = this.rotation.value;
 
-        this.image.resize(this.width, this.height);
+        this.image.resize(this.width.value, this.height.value);
     }
 }

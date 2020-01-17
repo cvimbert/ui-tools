@@ -1,24 +1,25 @@
 import { CoordinatesMode } from './coordinates-modes.enum';
 import { Rectangle } from './interfaces/rectangle.interface';
+import { ValueUnitPair } from './value-unit-pair.class';
 
 export class FlexibleRectangle {
 
   mode = CoordinatesMode.XYWH;
 
-  private _x = 0;
-  private _y = 0;
-  private _xOrigin = 0;
-  private _yOrigin = 0;
-  private _width = 0;
-  private _height = 0;
-  private _rotation = 0;
-  private _scaleX = 1;
-  private _scaleY = 1;
+  private _x: ValueUnitPair = new ValueUnitPair(0);
+  private _y: ValueUnitPair = new ValueUnitPair(0);
+  private _xOrigin: ValueUnitPair = new ValueUnitPair(0);
+  private _yOrigin: ValueUnitPair = new ValueUnitPair(0);
+  private _width: ValueUnitPair = new ValueUnitPair(0);
+  private _height: ValueUnitPair = new ValueUnitPair(0);
+  private _rotation: ValueUnitPair = new ValueUnitPair(0);
+  private _scaleX: ValueUnitPair = new ValueUnitPair(1);
+  private _scaleY: ValueUnitPair = new ValueUnitPair(1);
 
-  private _top: number;
-  private _right: number;
-  private _bottom: number;
-  private _left: number;
+  private _top: ValueUnitPair = new ValueUnitPair();
+  private _right: ValueUnitPair = new ValueUnitPair();
+  private _bottom: ValueUnitPair = new ValueUnitPair();
+  private _left: ValueUnitPair = new ValueUnitPair();
 
   constructor(
     rectangle?: Rectangle,
@@ -26,118 +27,118 @@ export class FlexibleRectangle {
   ) {    
 
     if (rectangle) {
-      this._x = rectangle.x || 0;
-      this._y = rectangle.y || 0;
-      this._width = rectangle.width || 0;
-      this._height = rectangle.height || 0;
-      this._xOrigin = rectangle.xOrigin || 0;
-      this._yOrigin = rectangle.yOrigin || 0;
+      this._x.value = rectangle.x || 0;
+      this._y.value = rectangle.y || 0;
+      this._width.value = rectangle.width || 0;
+      this._height.value = rectangle.height || 0;
+      this._xOrigin.value = rectangle.xOrigin || 0;
+      this._yOrigin.value = rectangle.yOrigin || 0;
     }
   }
 
-  get x(): number {
+  get x(): ValueUnitPair {
     return this._x;
   }
 
-  set x(value: number) {
+  set x(value: ValueUnitPair) {
     this._x = value;
   }
 
-  get y(): number {
+  get y(): ValueUnitPair {
     return this._y;
   }
 
-  set y(value: number) {
+  set y(value: ValueUnitPair) {
     this._y = value;
   }
 
-  get xOrigin(): number {
+  get xOrigin(): ValueUnitPair {
     return this._xOrigin;
   }
 
-  set xOrigin(value: number) {
+  set xOrigin(value: ValueUnitPair) {
     this._xOrigin = value;
   }
 
-  get yOrigin(): number {
+  get yOrigin(): ValueUnitPair {
     return this._yOrigin;
   }
 
-  set yOrigin(value: number) {
+  set yOrigin(value: ValueUnitPair) {
     this._yOrigin = value;
   }
 
-  get width(): number {
+  get width(): ValueUnitPair {
     return this._width;
   }
 
-  set width(value: number) {
+  set width(value: ValueUnitPair) {
     this._width = value;
   }
 
-  get height(): number {
+  get height(): ValueUnitPair {
     return this._height;
   }
 
-  set height(value: number) {
+  set height(value: ValueUnitPair) {
     this._height = value;
   }
 
-  get rotation(): number {
+  get rotation(): ValueUnitPair {
     return this._rotation;
   }
 
-  set rotation(value: number) {
+  set rotation(value: ValueUnitPair) {
     this._rotation = value;
   }
 
-  get scaleX(): number {
+  get scaleX(): ValueUnitPair {
     return this._scaleX;
   }
 
-  set scaleX(value: number) {
+  set scaleX(value: ValueUnitPair) {
     this._scaleX = value;
   }
 
-  get scaleY(): number {
+  get scaleY(): ValueUnitPair {
     return this._scaleY;
   }
 
-  set scaleY(value: number) {
+  set scaleY(value: ValueUnitPair) {
     this._scaleY = value;
   }
 
-  get top(): number {
+  get top(): ValueUnitPair {
     return this._top;
   }
 
-  set top(value: number) {
+  set top(value: ValueUnitPair) {
     this._top = value;
     this.calculate();
   }
 
-  get right(): number {
+  get right(): ValueUnitPair {
     return this._right;
   }
 
-  set right(value: number) {
+  set right(value: ValueUnitPair) {
     this._right = value;
   }
 
-  get bottom(): number {
+  get bottom(): ValueUnitPair {
     return this._bottom;
   }
 
-  set bottom(value: number) {
+  set bottom(value: ValueUnitPair) {
     this._bottom = value;
     this.calculate();
   }
 
-  get left(): number {
+  get left(): ValueUnitPair {
     return this._left;
   }
 
-  set left(value: number) {
+  set left(value: ValueUnitPair) {
     this._left = value;
   }
 
@@ -147,28 +148,28 @@ export class FlexibleRectangle {
 
   calculate() {
     if (this.mode === CoordinatesMode.TRBL) {
-      if (this._top != undefined) {
-        this._y = this._top;
+      if (this._top.value != undefined) {
+        this._y.value = this._top.value;
       }
 
-      if (this._bottom != undefined && this._top == undefined && this.parent) {
-        this._y = this.parent.height - (this._height + this._bottom);
+      if (this._bottom.value != undefined && this._top.value == undefined && this.parent) {
+        this._y.value = this.parent.height.value - (this._height.value + this._bottom.value);
       }
 
-      if (this._top != undefined && this._bottom != undefined && this.parent) {
-        this._height = this.parent.height - (this._top + this._bottom);
+      if (this._top.value != undefined && this._bottom.value != undefined && this.parent) {
+        this._height.value = this.parent.height.value - (this._top.value + this._bottom.value);
       }
 
-      if (this._left != undefined) {
-        this._x = this._left;
+      if (this._left.value != undefined) {
+        this._x.value = this._left.value;
       }
   
-      if (this._right != undefined && this._left == undefined && this.parent) {
-        this._x = this.parent.width - (this._width + this._right);
+      if (this._right.value != undefined && this._left.value == undefined && this.parent) {
+        this._x.value = this.parent.width.value - (this._width.value + this._right.value);
       }
   
-      if (this._left != undefined && this._right != undefined && this.parent) {
-        this._width = this.parent.width - (this._left + this._right);
+      if (this._left.value != undefined && this._right.value != undefined && this.parent) {
+        this._width.value = this.parent.width.value - (this._left.value + this._right.value);
       }
     }
   }

@@ -21,7 +21,7 @@ export class BasicRectSprite extends FlexibleRectangle {
     ) {
         super(rect, parent);
             
-        this.sprite = this.scene.add.rectangle(this.x, this.y, this.width, this.height, 0xffff00, 1).setOrigin(0, 0);
+        this.sprite = this.scene.add.rectangle(this.x, this.y, this.width, this.height, 0xffff00, 1).setOrigin(this.xOrigin, this.yOrigin);
 
         // Only for editor mode
         this.sprite.setInteractive({

@@ -50,7 +50,7 @@ export class ComponentEditorComponent implements OnInit {
         //mode: Phaser.Scale.NONE
       },
       scene: this.editorScene,
-      backgroundColor: '#ff0000',
+      backgroundColor: '#ffffff',
       parent: this.canvasContainer.nativeElement,
       plugins: {
         global: [ NineSlicePlugin.DefaultCfg ],
@@ -63,9 +63,7 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(e?: Event) {
-    console.log(this.canvasContainer.nativeElement);
-    
+  onResize(e?: Event) {    
     this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
   }
 

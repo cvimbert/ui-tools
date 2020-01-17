@@ -7,6 +7,8 @@ export class FlexibleRectangle {
 
   private _x = 0;
   private _y = 0;
+  private _xOrigin = 0;
+  private _yOrigin = 0;
   private _width = 0;
   private _height = 0;
   private _rotation = 0;
@@ -28,6 +30,8 @@ export class FlexibleRectangle {
       this._y = rectangle.y || 0;
       this._width = rectangle.width || 0;
       this._height = rectangle.height || 0;
+      this._xOrigin = rectangle.xOrigin || 0;
+      this._yOrigin = rectangle.yOrigin || 0;
     }
   }
 
@@ -45,6 +49,22 @@ export class FlexibleRectangle {
 
   set y(value: number) {
     this._y = value;
+  }
+
+  get xOrigin(): number {
+    return this._xOrigin;
+  }
+
+  set xOrigin(value: number) {
+    this._xOrigin = value;
+  }
+
+  get yOrigin(): number {
+    return this._yOrigin;
+  }
+
+  set yOrigin(value: number) {
+    this._yOrigin = value;
   }
 
   get width(): number {

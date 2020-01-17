@@ -1,9 +1,15 @@
 <div class="main">
   <div class="left">
     <div class="editor-main-container" #mainContainer>
-      <div class="wrapper">
-        <div class="canvas-container" #canvasContainer [style.line-height.px]="containerHeight"></div>
+      <div class="wrapper" [style.line-height.px]="containerHeight">
+        <div class="canvas-container" #canvasContainer>
+          <outline-cross class="cross-lt"></outline-cross>
+          <outline-cross class="cross-rt"></outline-cross>
+          <outline-cross class="cross-lb"></outline-cross>
+          <outline-cross class="cross-rb"></outline-cross>
+        </div>
       </div>
+      
     </div>
   </div>
   <div class="right">

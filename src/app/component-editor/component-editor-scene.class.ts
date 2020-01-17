@@ -33,6 +33,8 @@ export class ComponentEditorScene extends Phaser.Scene {
 
         this.drawBackground();
 
+        // return;
+
         let rect = new BasicRectSprite(this, {
             x: 0,
             y: 0,

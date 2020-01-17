@@ -21,7 +21,7 @@ export class NineSliceImage extends FlexibleRectangle {
             this.width, this.height,
             textureName,
             sliceSize, sliceSize
-        );
+        ).setOrigin(this.xOrigin, this.yOrigin);
     }
 
     render() {

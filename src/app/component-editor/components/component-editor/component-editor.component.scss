@@ -1,6 +1,16 @@
 .editor-main-container {
     height: 100%;
     text-align: center;
+    vertical-align: middle;
+    background-color: #f1f1f1;
+}
+
+.canvas-container {
+    vertical-align: middle;
+    line-height: 0;
+    position: relative;
+    display: inline-block;
+    border: 2px solid lightgrey;
 }
 
 .main {
@@ -18,5 +28,29 @@
 }
 
 .wrapper {
-    vertical-align: middle;
+    height: 100%;
+}
+
+.cross-lt {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+}
+
+.cross-rt {
+    position: absolute;
+    right: 0px;
+    top: -2px;
+}
+
+.cross-rb {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.cross-lb {
+    position: absolute;
+    bottom: 0px;
+    left: -2px;
 }

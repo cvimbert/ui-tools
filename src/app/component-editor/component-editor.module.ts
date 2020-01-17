@@ -8,6 +8,7 @@ import { SceneSizeModalComponent } from './components/scene-size-modal/scene-siz
 import { MatDialogModule } from '@angular/material/dialog';
 import { PropertiesEditorComponent } from './components/properties-editor/properties-editor.component';
 import { PropertyLineComponent } from './components/property-line/property-line.component';
+import { OutlineCrossComponent } from './components/outline-cross/outline-cross.component';
 
 @NgModule({
   providers: [
@@ -17,7 +18,8 @@ import { PropertyLineComponent } from './components/property-line/property-line.
     ComponentEditorComponent,
     SceneSizeModalComponent,
     PropertiesEditorComponent,
-    PropertyLineComponent
+    PropertyLineComponent,
+    OutlineCrossComponent
   ],
   imports: [
     CommonModule,

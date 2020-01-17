@@ -13,7 +13,7 @@ export class Image extends FlexibleRectangle {
         parent?: FlexibleRectangle
     ) {
         super(rect, parent);
-        this.image = scene.add.image(this.x, this.y, textureId).setOrigin(0, 0);
+        this.image = scene.add.image(this.x, this.y, textureId).setOrigin(this.xOrigin, this.yOrigin);
         this.width = this.image.width;
         this.height = this.image.height;
     }

@@ -17,6 +17,8 @@ export class FlexibleRectangle {
   private _scaleX: ValueUnitPair = new ValueUnitPair(1);
   private _scaleY: ValueUnitPair = new ValueUnitPair(1);
 
+  private _alpha = new ValueUnitPair(1);
+
   private _top: ValueUnitPair = new ValueUnitPair();
   private _right: ValueUnitPair = new ValueUnitPair();
   private _bottom: ValueUnitPair = new ValueUnitPair();
@@ -113,6 +115,14 @@ export class FlexibleRectangle {
     return this._top;
   }
 
+  get alpha(): ValueUnitPair {
+    return this._alpha;
+  }
+
+  set alpha(value: ValueUnitPair) {
+    this._alpha = value;
+  }
+
   set top(value: ValueUnitPair) {
     this._top = value;
     this.calculate();
@@ -147,9 +157,9 @@ export class FlexibleRectangle {
     this.calculate();
   }
 
-  getCalculatedValue(valuePair: ValueUnitPair, percentCallback: () => number) {
-    if (valuePair.unity === Unity.PERCENT) {
-      return percentCallback() * 100;
+  getCalculatedValue(valuePair: ValueUnitPair, percentCallback: () => number) {    
+    if (valuePair.unity === Unity.PERCENT && this.parent) {     
+      return percentCallback();
     } else {
       return valuePair.value;
     }
@@ -159,17 +169,17 @@ export class FlexibleRectangle {
     if (this.mode === CoordinatesMode.TRBL) {
 
       // Pourcentage uniquement pour le mode TRLB ?
-      let topPxVal = this.getCalculatedValue(this._top, () => this._height.value * this._top.value);
-      let rightPxVal = this.getCalculatedValue(this._right, () => 1 - this._right.value / this._width.value);
-      let bottomPxVal = this.getCalculatedValue(this._bottom, () => 1 - this._bottom.value / this._height.value);
-      let leftPxVal = this.getCalculatedValue(this._left, () => this._width.value * this._left.value);
+      let topPxVal = this.getCalculatedValue(this._top, () => this.parent.height.value * this._top.value / 100);
+      let rightPxVal = this.getCalculatedValue(this._right, () => this.parent.width.value * (1 - this._right.value / 100));
+      let bottomPxVal = this.getCalculatedValue(this._bottom, () => this.parent.height.value * (1 - this._bottom.value / 100));
+      let leftPxVal = this.getCalculatedValue(this._left, () => this.parent.width.value * this._left.value / 100);
 
       if (topPxVal != undefined) {
         this._y.value = topPxVal;
       }
 
       if (bottomPxVal != undefined && topPxVal == undefined && this.parent) {
-        this._y.value = this.parent.height.value - (this._height.value + bottomPxVal);
+        this._y.value = this.parent.height.value - bottomPxVal;
       }
 
       if (topPxVal != undefined && bottomPxVal != undefined && this.parent) {
@@ -181,7 +191,7 @@ export class FlexibleRectangle {
       }
   
       if (rightPxVal != undefined && leftPxVal == undefined && this.parent) {
-        this._x.value = this.parent.width.value - (this._width.value + rightPxVal);
+        this._x.value = this.parent.width.value - rightPxVal;
       }
   
       if (leftPxVal != undefined && rightPxVal != undefined && this.parent) {

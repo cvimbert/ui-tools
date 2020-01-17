@@ -23,7 +23,8 @@ export class PropertiesEditorComponent implements OnInit {
     { id: "xOrigin", name: "X origin" },
     { id: "yOrigin", name: "Y origin" },
     { id: "scaleX", name: "Scale X" },
-    { id: "scaleY", name: "Scale Y" }
+    { id: "scaleY", name: "Scale Y" },
+    { id: "alpha", name: "Alpha" }
   ];
 
   TRBL_PROPERTIES: {

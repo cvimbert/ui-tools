@@ -39,7 +39,9 @@ export class ComponentEditorScene extends Phaser.Scene {
             x: 0,
             y: 0,
             height: 40,
-            width: 40
+            width: 40,
+            xOrigin: 0.5,
+            yOrigin: 0.5
         }, this.viewport);
 
         rect.mode = CoordinatesMode.TRBL;

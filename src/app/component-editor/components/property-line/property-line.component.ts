@@ -37,8 +37,9 @@ export class PropertyLineComponent implements OnInit, OnChanges {
     return this.object[this.property].unity;
   }
 
-  set unity(value: Unity) {
+  set unity(value: Unity) {    
     this.object[this.property].unity = value;
+    this.object.render();
   }
 
   ngOnChanges() {

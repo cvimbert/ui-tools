@@ -1,4 +1,4 @@
 export enum Unity {
     PIXEL = "px",
-    PERCENT = "%"
+    PERCENT = "percent"
 }

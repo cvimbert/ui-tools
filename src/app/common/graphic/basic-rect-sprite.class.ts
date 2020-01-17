@@ -114,8 +114,10 @@ export class BasicRectSprite extends FlexibleRectangle {
             child.x = this.x.value;
             child.y = this.y.value;
             child.width = this.width.value;
-            child.height = this.height.value;            
+            child.height = this.height.value;           
         });
+
+        this.sprite.alpha = this.alpha.value;
 
         // this.drawSelectionRect();
     }

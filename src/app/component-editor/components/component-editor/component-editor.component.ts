@@ -33,11 +33,9 @@ export class ComponentEditorComponent implements OnInit {
       x: 0,
       y: 0,
       width: 400,
-      height: 200
+      height: 200,
+      xOrigin: 0.5
     });
-
-    console.log(this.viewport);
-    
 
     this.editorScene = new ComponentEditorScene(this.editorService, this.viewport);
     this.editorService.editorComponent = this;

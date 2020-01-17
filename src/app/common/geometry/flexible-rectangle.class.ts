@@ -1,6 +1,7 @@
 import { CoordinatesMode } from './coordinates-modes.enum';
 import { Rectangle } from './interfaces/rectangle.interface';
 import { ValueUnitPair } from './value-unit-pair.class';
+import { Unity } from './unity.enum';
 
 export class FlexibleRectangle {
 
@@ -146,30 +147,45 @@ export class FlexibleRectangle {
     this.calculate();
   }
 
+  getCalculatedValue(valuePair: ValueUnitPair, percentCallback: () => number) {
+    if (valuePair.unity === Unity.PERCENT) {
+      return percentCallback() * 100;
+    } else {
+      return valuePair.value;
+    }
+  }
+
   calculate() {
     if (this.mode === CoordinatesMode.TRBL) {
-      if (this._top.value != undefined) {
-        this._y.value = this._top.value;
+
+      // Pourcentage uniquement pour le mode TRLB ?
+      let topPxVal = this.getCalculatedValue(this._top, () => this._height.value * this._top.value);
+      let rightPxVal = this.getCalculatedValue(this._right, () => 1 - this._right.value / this._width.value);
+      let bottomPxVal = this.getCalculatedValue(this._bottom, () => 1 - this._bottom.value / this._height.value);
+      let leftPxVal = this.getCalculatedValue(this._left, () => this._width.value * this._left.value);
+
+      if (topPxVal != undefined) {
+        this._y.value = topPxVal;
       }
 
-      if (this._bottom.value != undefined && this._top.value == undefined && this.parent) {
-        this._y.value = this.parent.height.value - (this._height.value + this._bottom.value);
+      if (bottomPxVal != undefined && topPxVal == undefined && this.parent) {
+        this._y.value = this.parent.height.value - (this._height.value + bottomPxVal);
       }
 
-      if (this._top.value != undefined && this._bottom.value != undefined && this.parent) {
-        this._height.value = this.parent.height.value - (this._top.value + this._bottom.value);
+      if (topPxVal != undefined && bottomPxVal != undefined && this.parent) {
+        this._height.value = this.parent.height.value - (topPxVal + bottomPxVal);
       }
 
-      if (this._left.value != undefined) {
-        this._x.value = this._left.value;
+      if (leftPxVal != undefined) {
+        this._x.value = leftPxVal;
       }
   
-      if (this._right.value != undefined && this._left.value == undefined && this.parent) {
-        this._x.value = this.parent.width.value - (this._width.value + this._right.value);
+      if (rightPxVal != undefined && leftPxVal == undefined && this.parent) {
+        this._x.value = this.parent.width.value - (this._width.value + rightPxVal);
       }
   
-      if (this._left.value != undefined && this._right.value != undefined && this.parent) {
-        this._width.value = this.parent.width.value - (this._left.value + this._right.value);
+      if (leftPxVal != undefined && rightPxVal != undefined && this.parent) {
+        this._width.value = this.parent.width.value - (leftPxVal + rightPxVal);
       }
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
 import { ComponentEditorService } from '../../component-editor.service';
+import { Unity } from 'src/app/common/geometry/unity.enum';
 
 @Component({
   selector: 'property-line',
@@ -30,6 +31,14 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   set value(value: any) {
     this.object[this.property].value = value;
     this.object.render();
+  }
+
+  get unity(): Unity {
+    return this.object[this.property].unity;
+  }
+
+  set unity(value: Unity) {
+    this.object[this.property].unity = value;
   }
 
   ngOnChanges() {

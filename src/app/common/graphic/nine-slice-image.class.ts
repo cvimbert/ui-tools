@@ -14,14 +14,7 @@ export class NineSliceImage extends FlexibleRectangle {
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
-        super(rect, parent);
-
-        this.image = scene.add.nineslice(
-            this.x.value, this.y.value,
-            this.width.value, this.height.value,
-            textureName,
-            sliceSize, sliceSize
-        ).setOrigin(this.xOrigin.value, this.yOrigin.value);
+        super();
     }
 
     render() {

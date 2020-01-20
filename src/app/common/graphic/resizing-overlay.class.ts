@@ -68,7 +68,7 @@ export class ResizingOverlay extends FlexibleRectangle {
         rect: FlexibleRectangle,
         private scene: ComponentEditorScene
     ) {
-        super(null, rect);
+        super();
 
         this.POSITIONS.forEach(position => {
             let rect = scene.add.rectangle(0, 0, 10, 10, 0x000000);

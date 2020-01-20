@@ -55,15 +55,20 @@ export class FlexibleRectangle extends BaseDataItem {
   @JsonProperty("left", ValueUnitPair)
   private _left: ValueUnitPair = new ValueUnitPair();
 
+  private rectangle?: Rectangle;
+  public parent?: FlexibleRectangle
+
   constructor(
-    private rectangle?: Rectangle,
-    public parent?: FlexibleRectangle
+    
   ) {    
     super();
   }
 
   // à faire après la création de l'objet
-  init() {
+  init(rect?: Rectangle, parent?: FlexibleRectangle) {
+    this.rectangle = rect;
+    this.parent = parent;
+
     if (this.rectangle) {
       this._x.value = this.rectangle.x || 0;
       this._y.value = this.rectangle.y || 0;

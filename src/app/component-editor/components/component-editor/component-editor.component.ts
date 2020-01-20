@@ -32,7 +32,9 @@ export class ComponentEditorComponent implements OnInit {
 
   ngOnInit() {
     
-    this.viewport = new FlexibleRectangle({
+    this.viewport = new FlexibleRectangle();
+
+    this.viewport.init({
       x: 0,
       y: 0,
       width: 400,
@@ -40,16 +42,13 @@ export class ComponentEditorComponent implements OnInit {
       xOrigin: 0.5
     });
 
-    this.viewport.init();
-
-    this.editorScene = new ComponentEditorScene(this.editorService, this.viewport);
+    this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport);
     this.editorService.editorComponent = this;
 
     let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
       width: this.viewport.width.value,
       height: this.viewport.height.value,
-      //pixelArt: true,
       resolution: window.devicePixelRatio,
       scale: {
         mode: Phaser.Scale.NONE
@@ -96,6 +95,13 @@ export class ComponentEditorComponent implements OnInit {
       name: "rect 1",
       description: "desc rect 1"
     });
+
+    item.initWithScene(this.editorScene, {
+      x: 40,
+      y: 40,
+      width: 100,
+      height: 80
+    }, this.viewport);
   }
 
   resize(width: number, height: number) {

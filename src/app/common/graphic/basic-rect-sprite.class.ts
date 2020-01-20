@@ -15,16 +15,19 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
     private children: Phaser.GameObjects.Shape[] = [];
 
-    constructor(
-        private scene?: ComponentEditorScene,
+    scene: ComponentEditorScene;
+
+    constructor() {
+        super();
+    }
+
+    initWithScene(
+        scene: ComponentEditorScene,
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
-        super(rect, parent);
-    }
-
-    init() {
-        super.init();
+        // this.scene = scene;
+        super.initWithScene(scene, rect, parent);
         
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
@@ -48,6 +51,8 @@ export class BasicRectSprite extends GraphicObjectContainer {
         ///////
 
         this.children.push(this.sprite);
+
+        super.init(rect, parent);
     }
 
     select() {

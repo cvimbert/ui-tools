@@ -2,9 +2,8 @@ import { BasicRectSprite } from '../common/graphic/basic-rect-sprite.class';
 import { ComponentEditorService } from './component-editor.service';
 import { FlexibleRectangle } from '../common/geometry/flexible-rectangle.class';
 import { CoordinatesMode } from '../common/geometry/coordinates-modes.enum';
-import { NineSliceImage } from '../common/graphic/nine-slice-image.class';
-import { load } from '@angular/core/src/render3';
-import { Image } from '../common/graphic/image.class';
+import { DataProviderService } from './services/data-provider.service';
+import { DataBank } from '../common/data/data-bank.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -13,6 +12,7 @@ export class ComponentEditorScene extends Phaser.Scene {
 
     constructor(
         public editorService: ComponentEditorService,
+        public dataProvider: DataProviderService,
         public viewport: FlexibleRectangle
     ) {
         super({
@@ -34,70 +34,10 @@ export class ComponentEditorScene extends Phaser.Scene {
         this.viewport.init();
 
         this.drawBackground();
+        
+        let bank: DataBank<BasicRectSprite> = this.dataProvider.getBank("base");
 
-        // return;
-
-        let rect = new BasicRectSprite(this, {
-            x: 0,
-            y: 0,
-            height: 40,
-            width: 40,
-            xOrigin: 0.5,
-            yOrigin: 0.5
-        }, this.viewport);
-
-        rect.init();
-
-
-        rect.mode = CoordinatesMode.TRBL;
-        rect.name = "Basic rect 1";
-
-        return;
-
-        let rect2 = new BasicRectSprite(this, {
-            x: 120,
-            y: 100,
-            height: 40,
-            width: 40
-        }, this.viewport);
-
-        rect2.mode = CoordinatesMode.TRBL;
-        rect2.name = "Basic rect 2";
-
-        rect2.top.value = 5;
-        rect2.bottom.value = 5;
-        rect2.left.value = 40;
-        rect2.right.value = 30;
-
-        this.tempRects.push(rect, rect2);
-
-        let nslc = new NineSliceImage(this, "t1", 10, {
-            x: 20,
-            y: 20,
-            width: 160,
-            height: 100
-        }, this.viewport);
-
-        nslc.mode = CoordinatesMode.TRBL;
-        nslc.right.value = 15;
-        nslc.left.value = 15;
-        nslc.top.value = 15;
-        nslc.bottom.value = 15;
-
-        this.tempRects.push(nslc);
-
-        let img = new Image(this, "arrow", {
-            x: 20,
-            y: 100
-        }, this.viewport);
-
-        img.mode = CoordinatesMode.TRBL;
-        img.rotation.value = Math.PI;
-        img.right.value = 5;
-
-        this.tempRects.push(img);
-
-        this.render();
+        bank.items.forEach(item => item.initWithScene(this, null, this.viewport));
     }
 
     drawBackground() {

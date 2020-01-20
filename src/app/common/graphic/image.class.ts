@@ -13,8 +13,15 @@ export class Image extends GraphicObjectContainer {
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
-        super(rect, parent);
-        this.image = scene.add.image(this.x.value, this.y.value, textureId).setOrigin(this.xOrigin.value, this.yOrigin.value);
+        super();
+    }
+
+    initWithScene(
+        scene: ComponentEditorScene,
+        rect?: Rectangle,
+        parent?: FlexibleRectangle
+    ) {
+        this.image = scene.add.image(this.x.value, this.y.value, "").setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.width.value = this.image.width;
         this.height.value = this.image.height;
     }

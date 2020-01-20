@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
 import { ComponentEditorService } from '../../component-editor.service';
+import { PropertyLineData } from '../../interfaces/property-line-data.interface';
+import { Unity } from 'src/app/common/geometry/unity.enum';
 
 @Component({
   selector: 'properties-editor',
@@ -11,11 +13,12 @@ export class PropertiesEditorComponent implements OnInit {
 
   @Input() inspected: FlexibleRectangle;
 
-  XYWH_PROPERTIES: {
-    id: string;
-    name: string;
-    step?: number;
-  }[] = [
+  private pixelAndPercent: Unity[] = [
+    Unity.PERCENT,
+    Unity.PIXEL
+  ];
+
+  XYWH_PROPERTIES: PropertyLineData[] = [
     { id: "x", name: "X" },
     { id: "y", name: "Y" },
     { id: "width", name: "Width" },
@@ -27,15 +30,11 @@ export class PropertiesEditorComponent implements OnInit {
     { id: "alpha", name: "Alpha" }
   ];
 
-  TRBL_PROPERTIES: {
-    id: string;
-    name: string;
-    step?: number;
-  }[] = [
-    { id: "top", name: "Top" },
-    { id: "right", name: "Right" },
-    { id: "bottom", name: "Bottom" },
-    { id: "left", name: "Left" }
+  TRBL_PROPERTIES: PropertyLineData[] = [
+    { id: "top", name: "Top", availableUnities: this.pixelAndPercent },
+    { id: "right", name: "Right", availableUnities: this.pixelAndPercent },
+    { id: "bottom", name: "Bottom", availableUnities: this.pixelAndPercent },
+    { id: "left", name: "Left", availableUnities: this.pixelAndPercent }
   ];
 
   constructor(

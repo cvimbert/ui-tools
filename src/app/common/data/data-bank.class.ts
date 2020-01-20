@@ -1,6 +1,6 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from 'json2typescript';
 import { DataConfiguration } from './data-configuration.class';
-// import { DetailsData } from './interfaces/details-data.interface';
+import { BaseData } from './interfaces/base-data.interface';
 
 export class DataBank<T> {
 
@@ -21,16 +21,16 @@ export class DataBank<T> {
     this.load();
   }
 
-  createItem(data: any): T {
+  createItem(data: BaseData): T {
     let item: T = new this.itemClass();
 
     // ces assignations ne sont pas hyper clean, mais bon...
     item["id"] = this.storageKey + "_" + this.tempId++;
 
-    /*if (data) {
-      item["name"] = data.name;
+    if (data) {
+      item["name"] = data.name || "";
       item["description"] = data.description || "";
-    }*/
+    }
 
     this.push(item);
     return item;

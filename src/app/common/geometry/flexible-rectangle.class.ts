@@ -3,9 +3,10 @@ import { Rectangle } from './interfaces/rectangle.interface';
 import { ValueUnitPair } from './value-unit-pair.class';
 import { Unity } from './unity.enum';
 import { JsonObject, JsonProperty, Any } from 'json2typescript';
+import { BaseDataItem } from '../data/base-data-item.class';
 
 @JsonObject("FlexibleRectangle")
-export class FlexibleRectangle {
+export class FlexibleRectangle extends BaseDataItem {
 
   @JsonProperty("mode", Any)
   mode = CoordinatesMode.XYWH;
@@ -58,7 +59,8 @@ export class FlexibleRectangle {
     rectangle?: Rectangle,
     public parent?: FlexibleRectangle
   ) {    
-
+    super();
+    
     if (rectangle) {
       this._x.value = rectangle.x || 0;
       this._y.value = rectangle.y || 0;

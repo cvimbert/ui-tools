@@ -5,7 +5,7 @@ import { JsonProperty, JsonObject, Any } from 'json2typescript';
 export class ValueUnitPair {
 
     @JsonProperty("value", Number)
-    value: number;
+    value: number = undefined;
 
     @JsonProperty("unity", Any)
     unity = Unity.PIXEL;

@@ -19,15 +19,16 @@ export class PropertiesEditorComponent implements OnInit {
   ];
 
   XYWH_PROPERTIES: PropertyLineData[] = [
-    { id: "x", name: "X" },
+    { id: "x", name: "X"},
     { id: "y", name: "Y" },
     { id: "width", name: "Width" },
     { id: "height", name: "Height" },
-    { id: "xOrigin", name: "X origin" },
-    { id: "yOrigin", name: "Y origin" },
-    { id: "scaleX", name: "Scale X" },
-    { id: "scaleY", name: "Scale Y" },
-    { id: "alpha", name: "Alpha" }
+    { id: "rotation", name: "Rotation", step: 0.05 },
+    { id: "xOrigin", name: "X origin", step: 0.1 },
+    { id: "yOrigin", name: "Y origin", step: 0.1 },
+    { id: "scaleX", name: "Scale X", step: 0.1 },
+    { id: "scaleY", name: "Scale Y", step: 0.1 },
+    { id: "alpha", name: "Alpha", step: 0.1 }
   ];
 
   TRBL_PROPERTIES: PropertyLineData[] = [

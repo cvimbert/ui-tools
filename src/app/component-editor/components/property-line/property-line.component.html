@@ -1,7 +1,8 @@
 <div>
     <div class="name">{{ name }}:</div>
-    <input type="number" [(ngModel)]="value" [step]="data.step || 1">
-    <select [disabled]="!this.data.availableUnities || this.data.availableUnities.length === 1" *ngIf="useUnities" [(ngModel)]="unity">
+    <input type="number" [disabled]="editable === false" [(ngModel)]="value" [step]="data.step || 1" *ngIf="type === 'number'">
+    <input type="text" [disabled]="editable === false" [(ngModel)]="value" *ngIf="type === 'string'">
+    <select *ngIf="type === 'number' && useUnities" [disabled]="!this.data.availableUnities || this.data.availableUnities.length === 1" [(ngModel)]="unity">
         <option *ngIf="usePixelUnity" value="px">px</option>
         <option *ngIf="usePercentUnity" value="percent">%</option>
     </select>

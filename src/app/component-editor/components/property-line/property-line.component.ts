@@ -21,6 +21,8 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   usePixelUnity: boolean;
   usePercentUnity: boolean;
 
+  editable: boolean;
+
   constructor(
     public editorService: ComponentEditorService
   ) { }
@@ -29,6 +31,7 @@ export class PropertyLineComponent implements OnInit, OnChanges {
     // this.useUnities == (this.data.availableUnities !== undefined) && this.data.availableUnities.length > 0;
     this.usePercentUnity = this.useUnity(Unity.PERCENT);
     this.usePixelUnity = true;
+    this.editable = this.data.editable === undefined || this.data.editable === true;    
   }
 
   useUnity(type: any): boolean {
@@ -45,7 +48,7 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   }
 
   get unity(): Unity {
-    return this.object[this.property].unity;
+    return this.object[this.property].unity || Unity.PIXEL;
   }
 
   set unity(value: Unity) {    
@@ -54,7 +57,7 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.type = typeof this.value;
+    this.type = this.data.type || "number";
   }
 
 }

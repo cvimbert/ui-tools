@@ -15,7 +15,7 @@ export class DataBank<T> {
     this.jsonConverter = new JsonConvert(
       OperationMode.ENABLE,
       ValueCheckingMode.ALLOW_NULL,
-      false
+      true
     );
 
     this.load();

@@ -9,10 +9,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PropertiesEditorComponent } from './components/properties-editor/properties-editor.component';
 import { PropertyLineComponent } from './components/property-line/property-line.component';
 import { OutlineCrossComponent } from './components/outline-cross/outline-cross.component';
+import { DataProviderService } from './services/data-provider.service';
 
 @NgModule({
   providers: [
-    ComponentEditorService
+    ComponentEditorService,
+    DataProviderService
   ],
   declarations: [
     ComponentEditorComponent,

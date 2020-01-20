@@ -2,10 +2,11 @@ import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { ResizingOverlay } from './resizing-overlay.class';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
+import { GraphicObjectContainer } from './graphic-object-container.class';
 
-export class BasicRectSprite extends FlexibleRectangle {
+export class BasicRectSprite extends GraphicObjectContainer {
 
-    name: string;
+    // name: string;
 
     private sprite: Phaser.GameObjects.Rectangle;
     private selectionRect: Phaser.GameObjects.Rectangle;
@@ -15,12 +16,16 @@ export class BasicRectSprite extends FlexibleRectangle {
     private children: Phaser.GameObjects.Shape[] = [];
 
     constructor(
-        private scene: ComponentEditorScene,
+        private scene?: ComponentEditorScene,
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
         super(rect, parent);
-            
+    }
+
+    init() {
+        super.init();
+        
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
         // Only for editor mode
@@ -30,10 +35,10 @@ export class BasicRectSprite extends FlexibleRectangle {
         });
 
         this.sprite.on("pointerdown", () => {
-            scene.editorService.selectObject(this);
+            this.scene.editorService.selectObject(this);
         });
 
-        scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
+        this.scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
             if (gameObject === this.sprite) {
                 this.x.value = dragX;
                 this.y.value = dragY;

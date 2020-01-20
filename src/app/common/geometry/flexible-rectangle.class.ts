@@ -11,64 +11,71 @@ export class FlexibleRectangle extends BaseDataItem {
   @JsonProperty("mode", Any)
   mode = CoordinatesMode.XYWH;
 
-  @JsonProperty("x", Number)
+  @JsonProperty("x", ValueUnitPair)
   private _x: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("y", Number)
+  @JsonProperty("y", ValueUnitPair)
   private _y: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("xOrigin", Number)
+  @JsonProperty("xOrigin", ValueUnitPair)
   private _xOrigin: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("yOrigin", Number)
+  @JsonProperty("yOrigin", ValueUnitPair)
   private _yOrigin: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("width", Number)
+  @JsonProperty("width", ValueUnitPair)
   private _width: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("height", Number)
+  @JsonProperty("height", ValueUnitPair)
   private _height: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("rotation", Number)
+  @JsonProperty("rotation", ValueUnitPair)
   private _rotation: ValueUnitPair = new ValueUnitPair(0);
 
-  @JsonProperty("scaleX", Number)
+  @JsonProperty("scaleX", ValueUnitPair)
   private _scaleX: ValueUnitPair = new ValueUnitPair(1);
 
-  @JsonProperty("scaleY", Number)
+  @JsonProperty("scaleY", ValueUnitPair)
   private _scaleY: ValueUnitPair = new ValueUnitPair(1);
 
-  @JsonProperty("alpha", Number)
+  @JsonProperty("alpha", ValueUnitPair)
   private _alpha = new ValueUnitPair(1);
 
 
   // TRBL
-  @JsonProperty("top", Number)
+  @JsonProperty("top", ValueUnitPair)
   private _top: ValueUnitPair = new ValueUnitPair();
 
-  @JsonProperty("right", Number)
+  @JsonProperty("right", ValueUnitPair)
   private _right: ValueUnitPair = new ValueUnitPair();
 
-  @JsonProperty("bottom", Number)
+  @JsonProperty("bottom", ValueUnitPair)
   private _bottom: ValueUnitPair = new ValueUnitPair();
 
-  @JsonProperty("left", Number)
+  @JsonProperty("left", ValueUnitPair)
   private _left: ValueUnitPair = new ValueUnitPair();
 
   constructor(
-    rectangle?: Rectangle,
+    private rectangle?: Rectangle,
     public parent?: FlexibleRectangle
   ) {    
     super();
-    
-    if (rectangle) {
-      this._x.value = rectangle.x || 0;
-      this._y.value = rectangle.y || 0;
-      this._width.value = rectangle.width || 0;
-      this._height.value = rectangle.height || 0;
-      this._xOrigin.value = rectangle.xOrigin || 0;
-      this._yOrigin.value = rectangle.yOrigin || 0;
+  }
+
+  // à faire après la création de l'objet
+  init() {
+    if (this.rectangle) {
+      this._x.value = this.rectangle.x || 0;
+      this._y.value = this.rectangle.y || 0;
+      this._width.value = this.rectangle.width || 0;
+      this._height.value = this.rectangle.height || 0;
+      this._xOrigin.value = this.rectangle.xOrigin || 0;
+      this._yOrigin.value = this.rectangle.yOrigin || 0;
     }
+  }
+
+  fillDefaultData() {
+
   }
 
   get x(): ValueUnitPair {
@@ -206,27 +213,27 @@ export class FlexibleRectangle extends BaseDataItem {
       let bottomPxVal = this.getCalculatedValue(this._bottom, () => this.parent.height.value * (1 - this._bottom.value / 100));
       let leftPxVal = this.getCalculatedValue(this._left, () => this.parent.width.value * this._left.value / 100);
 
-      if (topPxVal != undefined) {
+      if (topPxVal != null) {
         this._y.value = topPxVal;
       }
 
-      if (bottomPxVal != undefined && topPxVal == undefined && this.parent) {
-        this._y.value = this.parent.height.value - bottomPxVal;
+      if (bottomPxVal != null && topPxVal == null && this.parent) {
+        this._y.value = this.parent.height.value - bottomPxVal - this._height.value;
       }
 
-      if (topPxVal != undefined && bottomPxVal != undefined && this.parent) {
+      if (topPxVal != null && bottomPxVal != null && this.parent) {
         this._height.value = this.parent.height.value - (topPxVal + bottomPxVal);
       }
 
-      if (leftPxVal != undefined) {
+      if (leftPxVal != null) {
         this._x.value = leftPxVal;
       }
   
-      if (rightPxVal != undefined && leftPxVal == undefined && this.parent) {
-        this._x.value = this.parent.width.value - rightPxVal;
+      if (rightPxVal != null && leftPxVal == null && this.parent) {
+        this._x.value = this.parent.width.value - rightPxVal - this._width.value;
       }
   
-      if (leftPxVal != undefined && rightPxVal != undefined && this.parent) {
+      if (leftPxVal != null && rightPxVal != null && this.parent) {
         this._width.value = this.parent.width.value - (leftPxVal + rightPxVal);
       }
     }

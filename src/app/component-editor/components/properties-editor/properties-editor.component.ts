@@ -19,6 +19,9 @@ export class PropertiesEditorComponent implements OnInit {
   ];
 
   XYWH_PROPERTIES: PropertyLineData[] = [
+    { id: "id", name: "Id", type: "string", editable: false},
+    { id: "name", name: "Name", type: "string"},
+    { id: "description", name: "Description", type: "string"},
     { id: "x", name: "X"},
     { id: "y", name: "Y" },
     { id: "width", name: "Width" },

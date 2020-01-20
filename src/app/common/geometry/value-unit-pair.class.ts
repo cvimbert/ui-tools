@@ -5,14 +5,16 @@ import { JsonProperty, JsonObject, Any } from 'json2typescript';
 export class ValueUnitPair {
 
     @JsonProperty("value", Number)
-    value: number = undefined;
+    value: number = null;
 
     @JsonProperty("unity", Any)
-    unity = Unity.PIXEL;
+    unity: Unity = null;
 
     constructor(
-        value?: number
+        value: number = null,
+        unity: Unity = null
     ) {
         this.value = value;
+        this.unity = unity;
     }
 }

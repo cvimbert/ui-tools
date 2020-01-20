@@ -1,8 +1,9 @@
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
+import { GraphicObjectContainer } from './graphic-object-container.class';
 
-export class Image extends FlexibleRectangle {
+export class Image extends GraphicObjectContainer {
 
     image: Phaser.GameObjects.Image;
 

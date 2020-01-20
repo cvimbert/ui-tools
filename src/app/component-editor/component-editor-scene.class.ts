@@ -31,6 +31,8 @@ export class ComponentEditorScene extends Phaser.Scene {
     create() {
         console.log("Creating...");
 
+        this.viewport.init();
+
         this.drawBackground();
 
         // return;
@@ -43,6 +45,9 @@ export class ComponentEditorScene extends Phaser.Scene {
             xOrigin: 0.5,
             yOrigin: 0.5
         }, this.viewport);
+
+        rect.init();
+
 
         rect.mode = CoordinatesMode.TRBL;
         rect.name = "Basic rect 1";

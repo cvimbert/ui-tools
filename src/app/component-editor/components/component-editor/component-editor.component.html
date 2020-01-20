@@ -9,12 +9,13 @@
           <outline-cross class="cross-rb"></outline-cross>
         </div>
       </div>
-      
     </div>
   </div>
   <div class="right">
     <div class="buttons">
       <input type="button" value="Scene size" (click)="editSceneSize()">
+      <input type="button" value="Save all" (click)="saveAll()">
+      <input type="button" value="Create base rect" (click)="createBaseRect()">
     </div>
     <properties-editor [inspected]="editorService.selectedObject" *ngIf="editorService.selectedObject"></properties-editor>
   </div>

@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SceneSizeModalComponent } from '../scene-size-modal/scene-size-modal/scene-size-modal.component';
 import { SceneSize } from '../scene-size-modal/scene-size.interface';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
+import { DataProviderService } from '../../services/data-provider.service';
+import { BasicRectSprite } from 'src/app/common/graphic/basic-rect-sprite.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -24,7 +26,8 @@ export class ComponentEditorComponent implements OnInit {
   constructor(
     private editorService: ComponentEditorService,
     private dialog: MatDialog,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private dataProvider: DataProviderService
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,8 @@ export class ComponentEditorComponent implements OnInit {
       height: 200,
       xOrigin: 0.5
     });
+
+    this.viewport.init();
 
     this.editorScene = new ComponentEditorScene(this.editorService, this.viewport);
     this.editorService.editorComponent = this;
@@ -79,6 +84,17 @@ export class ComponentEditorComponent implements OnInit {
       if (size) {
         this.resize(size.width, size.height);
       }      
+    });
+  }
+
+  saveAll() {
+    this.dataProvider.saveAll();
+  }
+
+  createBaseRect() {
+    let item: BasicRectSprite = this.dataProvider.getBank("base").createItem({
+      name: "rect 1",
+      description: "desc rect 1"
     });
   }
 

@@ -2,26 +2,56 @@ import { CoordinatesMode } from './coordinates-modes.enum';
 import { Rectangle } from './interfaces/rectangle.interface';
 import { ValueUnitPair } from './value-unit-pair.class';
 import { Unity } from './unity.enum';
+import { JsonObject, JsonProperty, Any } from 'json2typescript';
 
+@JsonObject("FlexibleRectangle")
 export class FlexibleRectangle {
 
+  @JsonProperty("mode", Any)
   mode = CoordinatesMode.XYWH;
 
+  @JsonProperty("x", Number)
   private _x: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("y", Number)
   private _y: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("xOrigin", Number)
   private _xOrigin: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("yOrigin", Number)
   private _yOrigin: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("width", Number)
   private _width: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("height", Number)
   private _height: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("rotation", Number)
   private _rotation: ValueUnitPair = new ValueUnitPair(0);
+
+  @JsonProperty("scaleX", Number)
   private _scaleX: ValueUnitPair = new ValueUnitPair(1);
+
+  @JsonProperty("scaleY", Number)
   private _scaleY: ValueUnitPair = new ValueUnitPair(1);
 
+  @JsonProperty("alpha", Number)
   private _alpha = new ValueUnitPair(1);
 
+
+  // TRBL
+  @JsonProperty("top", Number)
   private _top: ValueUnitPair = new ValueUnitPair();
+
+  @JsonProperty("right", Number)
   private _right: ValueUnitPair = new ValueUnitPair();
+
+  @JsonProperty("bottom", Number)
   private _bottom: ValueUnitPair = new ValueUnitPair();
+
+  @JsonProperty("left", Number)
   private _left: ValueUnitPair = new ValueUnitPair();
 
   constructor(

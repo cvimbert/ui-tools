@@ -55,7 +55,7 @@ export class BasicRectSprite extends FlexibleRectangle {
             this.selectionRect.destroy();
         }
 
-        this.selectionRect = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value).setOrigin(0, 0);
+        this.selectionRect = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value).setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.selectionRect.setStrokeStyle(1, 0x000000);
     }
 
@@ -118,7 +118,7 @@ export class BasicRectSprite extends FlexibleRectangle {
         });
 
         this.sprite.alpha = this.alpha.value;
-
-        // this.drawSelectionRect();
+        this.sprite.setSize(this.width.value, this.height.value);
+        this.selectionRect.setSize(this.width.value, this.height.value);
     }
 }

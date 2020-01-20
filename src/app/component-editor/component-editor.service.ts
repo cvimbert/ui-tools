@@ -14,11 +14,11 @@ export class ComponentEditorService {
 
   selectObject(object: BasicRectSprite) {
 
-    if (this.selectedObject) {
+    /* if (this.selectedObject) {
       this.selectedObject.unselect();
-    }
+    } */
 
-    object.select();
+    // object.select();
     this.selectedObject = object;   
     
     // this.editorComponent.update();

@@ -1,2 +1,18 @@
+<div>
+    Id:<input disabled type="text" [(ngModel)]="inspected['id']">
+</div>
+<div>
+    Name:<input type="text" [(ngModel)]="inspected['name']">
+</div>
+<div>
+    Description:<textarea [(ngModel)]="inspected['description']"></textarea>
+</div>
+<div>Mode:
+    <select [(ngModel)]="inspected['mode']">
+        <option value="xywh">XYWH</option>
+        <option value="trbl">TRBL</option>
+        <option value="both">BOTH</option>
+    </select>
+</div>
 <property-line *ngFor="let item of XYWH_PROPERTIES" [data]="item" [object]="inspected" [name]="item['name']" [property]="item['id']"></property-line>
 <property-line *ngFor="let item of TRBL_PROPERTIES" [data]="item" [object]="inspected" [name]="item['name']" [property]="item['id']"></property-line>

@@ -1,20 +1,13 @@
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
-import { ResizingOverlay } from './resizing-overlay.class';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { GraphicObjectContainer } from './graphic-object-container.class';
+import { JsonObject } from 'json2typescript';
 
+@JsonObject("BasicRectSprite")
 export class BasicRectSprite extends GraphicObjectContainer {
 
-    // name: string;
-
     private sprite: Phaser.GameObjects.Rectangle;
-    private selectionRect: Phaser.GameObjects.Rectangle;
-    private pivotDisplay: Phaser.GameObjects.Graphics;
-    private resizeOverlay: ResizingOverlay;
-
-    private children: Phaser.GameObjects.Shape[] = [];
-
     scene: ComponentEditorScene;
 
     constructor() {
@@ -26,7 +19,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
-        // this.scene = scene;
         super.initWithScene(scene, rect, parent);
         
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
@@ -41,42 +33,44 @@ export class BasicRectSprite extends GraphicObjectContainer {
             this.scene.editorService.selectObject(this);
         });
 
-        this.scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
+        /*this.scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
             if (gameObject === this.sprite) {
                 this.x.value = dragX;
                 this.y.value = dragY;
                 this.render();
             }
-        });
+        });*/
         ///////
 
-        this.children.push(this.sprite);
+        // this.children.push(this.sprite);
 
-        super.init(rect, parent);
+        // super.init(rect, parent);
+
+        this.render();
     }
 
-    select() {
+    /*select() {
         this.drawSelectionRect();
         this.children.push(this.selectionRect);
-    }
+    }*/
 
-    drawSelectionRect() {
+    /*drawSelectionRect() {
         if (this.selectionRect) {
             this.selectionRect.destroy();
         }
 
         this.selectionRect = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value).setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.selectionRect.setStrokeStyle(1, 0x000000);
-    }
+    }*/
 
-    unselect() {
+    /*unselect() {
         if (this.selectionRect) {
             this.selectionRect.destroy();
             this.selectionRect = undefined;
         }
-    }
+    }*/
 
-    set resizable(value: boolean) {
+    /*set resizable(value: boolean) {
         if (value) {
             if (!this.resizeOverlay) {
                 this.resizeOverlay = new ResizingOverlay(this, this.scene);
@@ -87,9 +81,9 @@ export class BasicRectSprite extends GraphicObjectContainer {
                 this.resizeOverlay = undefined;
             }
         }
-    }
+    }*/
 
-    set viewPivot(value: boolean) {
+    /*set viewPivot(value: boolean) {
         if (value) {
             if (!this.pivotDisplay) {
                 this.pivotDisplay = this.scene.add.graphics({
@@ -105,7 +99,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
                     draggable: true,
                     hitArea: new Phaser.Geom.Circle(0, 0, 5),
                     hitAreaCallback: () => {
-                        // console.log("hit");
                     }
                 });
             }
@@ -115,20 +108,19 @@ export class BasicRectSprite extends GraphicObjectContainer {
                 this.pivotDisplay = undefined;
             }
         }
-    }
+    }*/
 
     render() {  
-        this.calculate();
+        this.calculate();        
 
-        this.children.forEach(child => {            
-            child.x = this.x.value;
-            child.y = this.y.value;
-            child.width = this.width.value;
-            child.height = this.height.value;           
-        });
+        this.sprite.x = this.x.value;
+        this.sprite.y = this.y.value;
+        this.sprite.width = this.width.value;
+        this.sprite.height = this.height.value;
+        this.sprite.rotation = this.rotation.value;
+        this.sprite.setOrigin(this.xOrigin.value, this.yOrigin.value);
 
         this.sprite.alpha = this.alpha.value;
         this.sprite.setSize(this.width.value, this.height.value);
-        this.selectionRect.setSize(this.width.value, this.height.value);
     }
 }

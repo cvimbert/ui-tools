@@ -1,5 +1,5 @@
 export enum CoordinatesMode {
-  XYWH,
-  TRBL,
-  ALL
+  XYWH = "xywh",
+  TRBL = "trbl",
+  BOTH = "both"
 }

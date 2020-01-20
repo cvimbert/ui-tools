@@ -1,14 +1,13 @@
 import { BasicRectSprite } from '../common/graphic/basic-rect-sprite.class';
 import { ComponentEditorService } from './component-editor.service';
 import { FlexibleRectangle } from '../common/geometry/flexible-rectangle.class';
-import { CoordinatesMode } from '../common/geometry/coordinates-modes.enum';
 import { DataProviderService } from './services/data-provider.service';
 import { DataBank } from '../common/data/data-bank.class';
+import { Image } from '../common/graphic/image.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
     private background: Phaser.GameObjects.Graphics;
-    private tempRects: FlexibleRectangle[] = [];
 
     constructor(
         public editorService: ComponentEditorService,
@@ -35,9 +34,23 @@ export class ComponentEditorScene extends Phaser.Scene {
 
         this.drawBackground();
         
-        let bank: DataBank<BasicRectSprite> = this.dataProvider.getBank("base");
+        let bank: DataBank<any> = this.dataProvider.getBank("scene-objects");
 
-        bank.items.forEach(item => item.initWithScene(this, null, this.viewport));
+        bank.items.forEach(item => {
+            switch(item.objectType) {
+                case "baseRect":
+                    (<BasicRectSprite>item).initWithScene(this, null, this.viewport);
+                    break;
+                
+                case "image":
+                    console.log("ici");
+                    
+                    let im: Image = <Image>item;
+                    im.initObject(im.textureId, this, null, this.viewport);
+                    break;
+            }
+           
+        });
     }
 
     drawBackground() {
@@ -80,6 +93,8 @@ export class ComponentEditorScene extends Phaser.Scene {
     render() {
         this.drawBackground();
         this.editorService.editorComponent.onResize();
-        this.tempRects.forEach(rect => rect.render());
+
+        let bank: DataBank<BasicRectSprite> = this.dataProvider.getBank("scene-objects");
+        bank.items.forEach(item => item.render());
     }
 }

@@ -8,6 +8,8 @@ import { SceneSize } from '../scene-size-modal/scene-size.interface';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
 import { DataProviderService } from '../../services/data-provider.service';
 import { BasicRectSprite } from 'src/app/common/graphic/basic-rect-sprite.class';
+import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
+import { Image } from 'src/app/common/graphic/image.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -91,17 +93,43 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createBaseRect() {
-    let item: BasicRectSprite = this.dataProvider.getBank("base").createItem({
-      name: "rect 1",
-      description: "desc rect 1"
+    this.createSceneObject("baseRect");
+  }
+
+  createImage() {
+    this.createSceneObject("image");
+  }
+
+  createSceneObject(type: string) {
+    let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
+      baseRect: BasicRectSprite,
+      image: Image
+    };
+
+    let item = new constructors[type]();
+    
+    this.dataProvider.getBank("scene-objects").pushAfterCreation(item, {
+      name: "TMP name",
+      description: "TMP description",
+      type: type
     });
 
-    item.initWithScene(this.editorScene, {
-      x: 40,
-      y: 40,
-      width: 100,
-      height: 80
-    }, this.viewport);
+
+    switch (type) {
+      case "baseRect":
+        item.initWithScene(this.editorScene, {
+          x: 40,
+          y: 40,
+          width: 100,
+          height: 80
+        }, this.viewport);
+
+        break;
+
+      case "image":
+        (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
+        break;
+    }
   }
 
   resize(width: number, height: number) {

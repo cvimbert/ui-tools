@@ -6,6 +6,6 @@ export class DataConfiguration {
   static ITEMS_SUFFIX = "-items";
 
   static BANK_CONFIGURATION: BankConfigurationItem[] = [
-    { name: "base", objectContructor: BasicRectSprite }
+    { name: "scene-objects", objectContructor: BasicRectSprite }
   ]
 }

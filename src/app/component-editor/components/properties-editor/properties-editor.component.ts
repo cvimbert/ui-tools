@@ -19,9 +19,6 @@ export class PropertiesEditorComponent implements OnInit {
   ];
 
   XYWH_PROPERTIES: PropertyLineData[] = [
-    { id: "id", name: "Id", type: "string", editable: false},
-    { id: "name", name: "Name", type: "string"},
-    { id: "description", name: "Description", type: "string"},
     { id: "x", name: "X"},
     { id: "y", name: "Y" },
     { id: "width", name: "Width" },
@@ -31,7 +28,7 @@ export class PropertiesEditorComponent implements OnInit {
     { id: "yOrigin", name: "Y origin", step: 0.1 },
     { id: "scaleX", name: "Scale X", step: 0.1 },
     { id: "scaleY", name: "Scale Y", step: 0.1 },
-    { id: "alpha", name: "Alpha", step: 0.1 }
+    { id: "alpha", name: "Alpha", step: 0.1, availableUnities: [] }
   ];
 
   TRBL_PROPERTIES: PropertyLineData[] = [

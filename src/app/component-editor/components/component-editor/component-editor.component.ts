@@ -10,6 +10,7 @@ import { DataProviderService } from '../../services/data-provider.service';
 import { BasicRectSprite } from 'src/app/common/graphic/basic-rect-sprite.class';
 import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
 import { Image } from 'src/app/common/graphic/image.class';
+import { NineSliceImage } from 'src/app/common/graphic/nine-slice-image.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -100,10 +101,15 @@ export class ComponentEditorComponent implements OnInit {
     this.createSceneObject("image");
   }
 
+  createNineSliceImage() {
+    this.createSceneObject("nineSliceImage");
+  }
+
   createSceneObject(type: string) {
     let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
       baseRect: BasicRectSprite,
-      image: Image
+      image: Image,
+      nineSliceImage: NineSliceImage
     };
 
     let item = new constructors[type]();
@@ -128,6 +134,18 @@ export class ComponentEditorComponent implements OnInit {
 
       case "image":
         (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
+        break;
+
+      case "nineSliceImage":
+        console.log(item);
+        
+        (<NineSliceImage>item).initObject(this.editorScene, "t1", 10, {
+          x: 100,
+          y: 100,
+          width: 150,
+          height: 80
+        }, this.viewport);
+
         break;
     }
   }

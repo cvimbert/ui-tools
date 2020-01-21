@@ -3,6 +3,7 @@ import { DataConfiguration } from './data-configuration.class';
 import { BaseData } from './interfaces/base-data.interface';
 import { BasicRectSprite } from '../graphic/basic-rect-sprite.class';
 import { Image } from '../graphic/image.class';
+import { NineSliceImage } from '../graphic/nine-slice-image.class';
 
 export class DataBank<T> {
 
@@ -13,7 +14,8 @@ export class DataBank<T> {
   // à déplacer dans la configuration
   objectConstructor: { [key: string]: { new (): any }} = {
     "image": Image,
-    "baseRect": BasicRectSprite
+    "baseRect": BasicRectSprite,
+    "nineSliceImage": NineSliceImage
   };
 
   constructor(
@@ -85,9 +87,7 @@ export class DataBank<T> {
     localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX] = JSON.stringify(obj);
   }
 
-  load() {
-    console.log("load");
-    
+  load() {    
     let index = localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX];
 
     if (index != undefined) {
@@ -98,18 +98,13 @@ export class DataBank<T> {
 
     if (itemsStr != undefined) {
       let obj = JSON.parse(itemsStr);
-
-      // console.log(obj);
       
       this.items = [];
 
       (<Array<any>>obj).forEach(item => {
         let objectClass = this.objectConstructor[item.objectType];
-        console.log(item["objectType"]);
         this.items.push(this.jsonConverter.deserialize(item, objectClass));
       });
-
-      // this.items = this.jsonConverter.deserializeArray(obj, this.itemClass);      
     }
   }
 }

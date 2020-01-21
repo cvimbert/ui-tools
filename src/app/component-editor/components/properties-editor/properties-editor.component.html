@@ -1,3 +1,5 @@
+<div class="object-name">{{ inspected["name"] }} ({{ inspected["objectType"] }})</div>
+<div class="separator">Object metas</div>
 <div>
     <div class="name-display">Id:</div><input disabled type="text" [(ngModel)]="inspected['id']">
 </div>
@@ -7,12 +9,22 @@
 <div>
     <div class="name-display">Description:</div><textarea [(ngModel)]="inspected['description']"></textarea>
 </div>
+<div class="separator">Global properties</div>
+<property-line
+    *ngFor="let item of GLOBAL_PROPERTIES"
+    [data]="item"
+    [object]="inspected"
+    [name]="item['name']"
+    [property]="item['id']"
+></property-line>
+<div class="separator">Position mode</div>
 <div><div class="name-display">Mode:</div>
     <select [(ngModel)]="inspected['mode']">
         <option value="xywh">XYWH</option>
         <option value="trbl">TRBL</option>
     </select>
 </div>
+<div class="separator">XY position</div>
 <property-line
     [enabled]="inspected['mode'] === 'xywh'"
     *ngFor="let item of XYWH_PROPERTIES"
@@ -21,7 +33,7 @@
     [name]="item['name']"
     [property]="item['id']"
 ></property-line>
-<div class="separator"></div>
+<div class="separator">TRBL position</div>
 <property-line
     [enabled]="inspected['mode'] === 'trbl'"
     *ngFor="let item of TRBL_PROPERTIES"

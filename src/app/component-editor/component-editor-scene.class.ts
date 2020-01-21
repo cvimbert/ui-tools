@@ -57,6 +57,8 @@ export class ComponentEditorScene extends Phaser.Scene {
             }
            
         });
+
+        this.editorService.graphicObjects = bank.items;
     }
 
     drawBackground() {

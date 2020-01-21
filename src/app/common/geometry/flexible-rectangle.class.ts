@@ -114,6 +114,7 @@ export class FlexibleRectangle extends BaseDataItem {
 
   set xOrigin(value: ValueUnitPair) {
     this._xOrigin = value;
+    this.calculate();
   }
 
   get yOrigin(): ValueUnitPair {
@@ -122,6 +123,7 @@ export class FlexibleRectangle extends BaseDataItem {
 
   set yOrigin(value: ValueUnitPair) {
     this._yOrigin = value;
+    this.calculate();
   }
 
   get width(): ValueUnitPair {

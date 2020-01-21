@@ -21,6 +21,7 @@
         padding: 10px;
         width: 315px;
         background-color: lightgrey;
+        border-left: 1px solid gray;
     }
 
     .left {
@@ -54,4 +55,13 @@
     position: absolute;
     bottom: 0px;
     left: -2px;
+}
+
+input {
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.object-selector {
+    margin-top: 10px;
 }

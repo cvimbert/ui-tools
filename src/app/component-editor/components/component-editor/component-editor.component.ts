@@ -36,7 +36,7 @@ export class ComponentEditorComponent implements OnInit {
     true);
 
   constructor(
-    private editorService: ComponentEditorService,
+    public editorService: ComponentEditorService,
     private dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     private dataProvider: DataProviderService
@@ -116,6 +116,16 @@ export class ComponentEditorComponent implements OnInit {
     });
   }
 
+  get selectedObjectId(): string {
+    if (this.editorService.selectedObject) {
+      return this.editorService.selectedObject.id;
+    }
+  }
+
+  set selectedObjectId(value: string) {
+    this.editorService.selectedObject = this.editorService.graphicObjects.find(object => object.id === value);
+  }
+
   saveAll() {
     this.dataProvider.saveAll();
     this.saveComponentSettings();
@@ -164,9 +174,7 @@ export class ComponentEditorComponent implements OnInit {
         (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
         break;
 
-      case "nineSliceImage":
-        console.log(item);
-        
+      case "nineSliceImage":        
         (<NineSliceImage>item).initObject(this.editorScene, "t1", 10, {
           x: 100,
           y: 100,

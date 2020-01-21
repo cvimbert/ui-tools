@@ -35,8 +35,16 @@ export class Image extends GraphicObjectContainer {
 
     render() {
         this.calculate();
+        
         this.image.x = this.x.value;
         this.image.y = this.y.value;
         this.image.rotation = this.rotation.value;
+        this.image.alpha = this.alpha.value;
+        this.image.width = this.width.value;
+        this.image.height = this.height.value;
+        this.image.rotation = this.rotation.value;
+
+        this.image.setOrigin(this.xOrigin.value, this.yOrigin.value);
+        this.image.setScale(this.scaleX.value, this.scaleY.value);
     }
 }

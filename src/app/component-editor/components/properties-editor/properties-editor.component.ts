@@ -18,17 +18,20 @@ export class PropertiesEditorComponent implements OnInit {
     Unity.PIXEL
   ];
 
-  XYWH_PROPERTIES: PropertyLineData[] = [
-    { id: "x", name: "X"},
-    { id: "y", name: "Y" },
+  GLOBAL_PROPERTIES: PropertyLineData[] = [
     { id: "width", name: "Width" },
     { id: "height", name: "Height" },
-    { id: "rotation", name: "Rotation", step: 0.05 },
     { id: "xOrigin", name: "X origin", step: 0.1 },
     { id: "yOrigin", name: "Y origin", step: 0.1 },
+    { id: "alpha", name: "Alpha", step: 0.1, availableUnities: [] },
     { id: "scaleX", name: "Scale X", step: 0.1 },
     { id: "scaleY", name: "Scale Y", step: 0.1 },
-    { id: "alpha", name: "Alpha", step: 0.1, availableUnities: [] }
+    { id: "rotation", name: "Rotation", step: 0.05 }
+  ];
+
+  XYWH_PROPERTIES: PropertyLineData[] = [
+    { id: "x", name: "X"},
+    { id: "y", name: "Y" }
   ];
 
   TRBL_PROPERTIES: PropertyLineData[] = [

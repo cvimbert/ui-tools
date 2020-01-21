@@ -19,6 +19,9 @@
       <input type="button" value="Create image" (click)="createImage()">
       <input type="button" value="Create nine slice image" (click)="createNineSliceImage()">
     </div>
+    <select *ngIf="editorService.graphicObjects && editorService.graphicObjects.length > 0" class="object-selector" [(ngModel)]="selectedObjectId">
+      <option *ngFor="let object of editorService.graphicObjects" value="{{ object.id }}">{{ object.id }} ({{ object.objectType }})</option>
+    </select>
     <properties-editor [inspected]="editorService.selectedObject" *ngIf="editorService.selectedObject"></properties-editor>
   </div>
 </div>

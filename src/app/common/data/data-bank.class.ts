@@ -1,13 +1,12 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from 'json2typescript';
 import { DataConfiguration } from './data-configuration.class';
 import { BaseData } from './interfaces/base-data.interface';
-import { GraphicObjectContainer } from '../graphic/graphic-object-container.class';
 import { BasicRectSprite } from '../graphic/basic-rect-sprite.class';
 import { Image } from '../graphic/image.class';
 
 export class DataBank<T> {
 
-  items: T[] = [];
+  items: any[] = [];
   tempId = 0;
   private jsonConverter: JsonConvert;
 
@@ -87,6 +86,8 @@ export class DataBank<T> {
   }
 
   load() {
+    console.log("load");
+    
     let index = localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX];
 
     if (index != undefined) {
@@ -103,7 +104,9 @@ export class DataBank<T> {
       this.items = [];
 
       (<Array<any>>obj).forEach(item => {
-        this.items.push(this.jsonConverter.deserialize(item, this.objectConstructor[item["objectType"]]))
+        let objectClass = this.objectConstructor[item.objectType];
+        console.log(item["objectType"]);
+        this.items.push(this.jsonConverter.deserialize(item, objectClass));
       });
 
       // this.items = this.jsonConverter.deserializeArray(obj, this.itemClass);      

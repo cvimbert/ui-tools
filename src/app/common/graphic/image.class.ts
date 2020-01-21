@@ -10,7 +10,7 @@ export class Image extends GraphicObjectContainer {
     image: Phaser.GameObjects.Image;
 
     @JsonProperty("textureId", String)
-    textureId: string;
+    textureId = "";
 
     constructor() {
         super();

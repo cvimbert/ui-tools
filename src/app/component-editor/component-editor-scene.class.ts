@@ -43,9 +43,10 @@ export class ComponentEditorScene extends Phaser.Scene {
                     break;
                 
                 case "image":
-                    console.log("ici");
                     
                     let im: Image = <Image>item;
+                    console.log("ici", item);
+
                     im.initObject(im.textureId, this, null, this.viewport);
                     break;
             }

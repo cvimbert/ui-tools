@@ -9,7 +9,7 @@ import { BaseDataItem } from '../data/base-data-item.class';
 export class FlexibleRectangle extends BaseDataItem {
 
   @JsonProperty("mode", Any)
-  mode = CoordinatesMode.XYWH;
+  _mode = CoordinatesMode.XYWH;
 
   @JsonProperty("x", ValueUnitPair)
   private _x: ValueUnitPair = new ValueUnitPair(0);
@@ -81,6 +81,15 @@ export class FlexibleRectangle extends BaseDataItem {
 
   fillDefaultData() {
 
+  }
+
+  get mode(): CoordinatesMode {
+    return this._mode;
+  }
+
+  set mode(value: CoordinatesMode) {
+    this._mode = value;
+    this.calculate();
   }
 
   get x(): ValueUnitPair {
@@ -223,7 +232,7 @@ export class FlexibleRectangle extends BaseDataItem {
       }
 
       if (bottomPxVal != null && topPxVal == null && this.parent) {
-        this._y.value = this.parent.height.value - bottomPxVal - this._height.value;
+        this._y.value = this.parent.height.value - bottomPxVal;
       }
 
       if (topPxVal != null && bottomPxVal != null && this.parent) {
@@ -235,7 +244,7 @@ export class FlexibleRectangle extends BaseDataItem {
       }
   
       if (rightPxVal != null && leftPxVal == null && this.parent) {
-        this._x.value = this.parent.width.value - rightPxVal - this._width.value;
+        this._x.value = this.parent.width.value - rightPxVal;
       }
   
       if (leftPxVal != null && rightPxVal != null && this.parent) {

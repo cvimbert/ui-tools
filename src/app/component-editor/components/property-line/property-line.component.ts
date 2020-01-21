@@ -15,6 +15,7 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   @Input() property: string;
   @Input() object: FlexibleRectangle;
   @Input() data: PropertyLineData;
+  @Input() enabled = true;
 
   useUnities = true;
   type: string;
@@ -28,7 +29,6 @@ export class PropertyLineComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    // this.useUnities == (this.data.availableUnities !== undefined) && this.data.availableUnities.length > 0;
     this.usePercentUnity = this.useUnity(Unity.PERCENT);
     this.usePixelUnity = true;
     this.editable = this.data.editable === undefined || this.data.editable === true;    

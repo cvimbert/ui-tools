@@ -11,6 +11,8 @@ import { BasicRectSprite } from 'src/app/common/graphic/basic-rect-sprite.class'
 import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
 import { Image } from 'src/app/common/graphic/image.class';
 import { NineSliceImage } from 'src/app/common/graphic/nine-slice-image.class';
+import { OperationMode, ValueCheckingMode, JsonConvert } from 'json2typescript';
+import { ComponentSettings } from '../../component-settings.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -26,6 +28,13 @@ export class ComponentEditorComponent implements OnInit {
   viewport: FlexibleRectangle;
   containerHeight: number;
 
+
+  settings: ComponentSettings;
+
+  private mainSerializer = new JsonConvert(OperationMode.ENABLE,
+    ValueCheckingMode.ALLOW_NULL,
+    true);
+
   constructor(
     private editorService: ComponentEditorService,
     private dialog: MatDialog,
@@ -34,14 +43,16 @@ export class ComponentEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.loadComponentSettings();
     
     this.viewport = new FlexibleRectangle();
 
     this.viewport.init({
       x: 0,
       y: 0,
-      width: 400,
-      height: 200,
+      width: this.settings.sceneWidth,
+      height: this.settings.sceneHeight,
       xOrigin: 0.5
     });
 
@@ -71,6 +82,22 @@ export class ComponentEditorComponent implements OnInit {
     this.onResize();
   }
 
+  loadComponentSettings() {
+    let settingsStr = localStorage["settings"];
+
+    if (settingsStr) {
+      let obj = JSON.parse(settingsStr);
+      this.settings = this.mainSerializer.deserializeObject(obj, ComponentSettings);
+    } else {
+      this.settings = new ComponentSettings();
+    }
+  }
+
+  saveComponentSettings() {
+    let obj = this.mainSerializer.serializeObject(this.settings);
+    localStorage["settings"] = JSON.stringify(obj);
+  }
+
   @HostListener('window:resize')
   onResize() {    
     this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
@@ -91,6 +118,7 @@ export class ComponentEditorComponent implements OnInit {
 
   saveAll() {
     this.dataProvider.saveAll();
+    this.saveComponentSettings();
   }
 
   createBaseRect() {
@@ -153,6 +181,8 @@ export class ComponentEditorComponent implements OnInit {
   resize(width: number, height: number) {
     this.viewport.width.value = width;
     this.viewport.height.value = height;
+    this.settings.sceneWidth = width;
+    this.settings.sceneHeight = height;
     this.editorGame.scale.resize(width, height);
     this.editorScene.render();
   }

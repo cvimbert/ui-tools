@@ -1,0 +1,22 @@
+.name-display {
+    display: inline-block;
+    width: 85px;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+input, textarea {
+    width: 209px;
+}
+
+input {
+    padding: 1px;
+}
+
+textarea {
+    resize: none;
+}
+
+.separator {
+    margin-bottom: 25px;
+}

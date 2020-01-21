@@ -1,4 +1,10 @@
 .name {
   display: inline-block;
-  width: 86px;
+  width: 85px;
+  font-size: 14px;
+}
+
+.disabled {
+  opacity: 0.6;
+  // visibility: hidden;
 }

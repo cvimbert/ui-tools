@@ -1,9 +1,12 @@
-<div>
-  Width: <input type="number" [(ngModel)]="width">
+<div class="title">Scene size</div>
+<div class="value-container">
+  <div class="name">Width: </div>
+  <input type="number" [(ngModel)]="width">
 </div>
-<div>
-  Height: <input type="number" [(ngModel)]="height">
+<div class="value-container">
+  <div class="name">Height: </div>
+  <input type="number" [(ngModel)]="height">
 </div>
-<div>
+<div class="buttons">
   <input type="button" value="Validate" (click)="validate()">
 </div>

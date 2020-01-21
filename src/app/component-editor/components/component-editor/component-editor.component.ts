@@ -123,7 +123,7 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   set selectedObjectId(value: string) {
-    this.editorService.selectedObject = this.editorService.graphicObjects.find(object => object.id === value);
+    this.editorService.selectObject(this.editorService.graphicObjects.find(object => object.id === value));
   }
 
   saveAll() {

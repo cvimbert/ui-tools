@@ -46,5 +46,7 @@ export class Image extends GraphicObjectContainer {
 
         this.image.setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.image.setScale(this.scaleX.value, this.scaleY.value);
+
+        super.render();
     }
 }

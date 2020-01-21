@@ -122,5 +122,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
         this.sprite.alpha = this.alpha.value;
         this.sprite.setSize(this.width.value, this.height.value);
+        this.sprite.setScale(this.scaleX.value, this.scaleY.value);
     }
 }

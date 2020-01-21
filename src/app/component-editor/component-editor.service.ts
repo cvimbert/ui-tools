@@ -15,15 +15,16 @@ export class ComponentEditorService {
 
   constructor() { }
 
-  selectObject(object: BasicRectSprite) {
+  selectObject(object: GraphicObjectContainer) {
 
-    /* if (this.selectedObject) {
-      this.selectedObject.unselect();
-    } */
-
-    // object.select();
-    this.selectedObject = object;   
+    console.log(object);
     
-    // this.editorComponent.update();
+
+    if (this.selectedObject && object !== this.selectedObject) {
+      this.selectedObject.selected = false;
+      object.selected = true;
+    }
+
+    this.selectedObject = object;   
   }
 }

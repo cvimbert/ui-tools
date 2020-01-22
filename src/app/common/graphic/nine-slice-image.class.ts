@@ -53,5 +53,7 @@ export class NineSliceImage extends GraphicObjectContainer {
         this.image.resize(this.width.value, this.height.value);
         this.image.setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.image.setScale(this.scaleX.value, this.scaleY.value);
+
+        super.render();
     }
 }

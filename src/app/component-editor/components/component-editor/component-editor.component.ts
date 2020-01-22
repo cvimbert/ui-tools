@@ -184,6 +184,8 @@ export class ComponentEditorComponent implements OnInit {
 
         break;
     }
+
+    this.editorService.selectObject(item);
   }
 
   resize(width: number, height: number) {

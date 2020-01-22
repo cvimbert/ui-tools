@@ -16,15 +16,12 @@ export class ComponentEditorService {
   constructor() { }
 
   selectObject(object: GraphicObjectContainer) {
-
-    console.log(object);
-    
-
+        
     if (this.selectedObject && object !== this.selectedObject) {
       this.selectedObject.selected = false;
-      object.selected = true;
     }
 
+    object.selected = true;
     this.selectedObject = object;   
   }
 }

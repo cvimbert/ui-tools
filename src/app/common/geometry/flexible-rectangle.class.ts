@@ -132,6 +132,7 @@ export class FlexibleRectangle extends BaseDataItem {
 
   set width(value: ValueUnitPair) {
     this._width = value;
+    this.calculate();
   }
 
   get height(): ValueUnitPair {
@@ -140,6 +141,7 @@ export class FlexibleRectangle extends BaseDataItem {
 
   set height(value: ValueUnitPair) {
     this._height = value;
+    this.calculate();
   }
 
   get rotation(): ValueUnitPair {

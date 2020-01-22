@@ -5,6 +5,7 @@ import { DataProviderService } from './services/data-provider.service';
 import { DataBank } from '../common/data/data-bank.class';
 import { Image } from '../common/graphic/image.class';
 import { NineSliceImage } from '../common/graphic/nine-slice-image.class';
+import { Textfield } from '../common/graphic/textfield.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -54,6 +55,10 @@ export class ComponentEditorScene extends Phaser.Scene {
                     // comme pour image, le cas est un peu bizarre. A étudier.
                     nim.initObject(this, nim.textureName, nim.sliceSize, null, this.viewport);
                     break;
+
+                case "textfield":
+                    let tim = <Textfield>item;
+                    tim.initObject(this, tim.text, null, this.viewport);
             }
            
         });

@@ -8,12 +8,23 @@ export class OriginDisplayer extends Phaser.GameObjects.Graphics {
         color: 0xffffff
       },
       lineStyle: {
-        width: 1,
+        width: 2,
         color: 0x000000
       }
     });
+    
+    this.x = 40;
+    this.y = 40;
 
-    let circle = scene.add.circle(0, 0, 8, 0xffffff);
-    circle.setStrokeStyle(1, 0x000000);
+    let elem = this.strokeCircle(0, 0, 3);
+    elem.fill();
+
+    this.lineStyle(1, 0x000000);
+    this.lineBetween(-8, 0, 8, 0);
+
+    // this.lineStyle(2, 0x00ff00);
+    this.lineBetween(0, -8, 0, 8);
+
+    scene.add.existing(this);
   }
 }

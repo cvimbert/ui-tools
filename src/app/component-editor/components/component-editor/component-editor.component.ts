@@ -13,6 +13,7 @@ import { Image } from 'src/app/common/graphic/image.class';
 import { NineSliceImage } from 'src/app/common/graphic/nine-slice-image.class';
 import { OperationMode, ValueCheckingMode, JsonConvert } from 'json2typescript';
 import { ComponentSettings } from '../../component-settings.class';
+import { Textfield } from 'src/app/common/graphic/textfield.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -143,11 +144,16 @@ export class ComponentEditorComponent implements OnInit {
     this.createSceneObject("nineSliceImage");
   }
 
+  createText() {
+    this.createSceneObject("textfield")
+  }
+
   createSceneObject(type: string) {
     let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
       baseRect: BasicRectSprite,
       image: Image,
-      nineSliceImage: NineSliceImage
+      nineSliceImage: NineSliceImage,
+      textfield: Textfield
     };
 
     let item = new constructors[type]();
@@ -183,6 +189,12 @@ export class ComponentEditorComponent implements OnInit {
         }, this.viewport);
 
         break;
+
+      case "textfield":
+        (<Textfield>item).initObject(this.editorScene, "Placeholder\nsdsqdsq", {
+          x: 50,
+          y: 50
+        }, this.viewport);
     }
 
     this.editorService.selectObject(item);

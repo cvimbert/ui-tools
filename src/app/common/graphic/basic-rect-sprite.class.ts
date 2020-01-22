@@ -115,13 +115,13 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
         this.sprite.x = this.x.value;
         this.sprite.y = this.y.value;
-        this.sprite.width = this.width.value;
-        this.sprite.height = this.height.value;
         this.sprite.rotation = this.rotation.value;
         this.sprite.setOrigin(this.xOrigin.value, this.yOrigin.value);
 
         this.sprite.alpha = this.alpha.value;
-        this.sprite.setSize(this.width.value, this.height.value);
-        this.sprite.setScale(this.scaleX.value, this.scaleY.value);
+        this.sprite.setDisplaySize(this.width.value, this.height.value);
+        // this.sprite.setScale(this.scaleX.value, this.scaleY.value);
+
+        super.render();
     }
 }

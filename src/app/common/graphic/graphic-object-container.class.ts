@@ -34,7 +34,7 @@ export class GraphicObjectContainer extends FlexibleRectangle {
         return this._selected;
     }
 
-    set selected(value: boolean) {
+    set selected(value: boolean) {        
         if (value && !this._selected) {
             this.createSelectionRect();
             this.createOriginDisplayer();
@@ -44,6 +44,10 @@ export class GraphicObjectContainer extends FlexibleRectangle {
         }
 
         this._selected = value;
+
+        if (value) {
+            this.render();
+        }
     }
 
     createSelectionRect() {
@@ -67,7 +71,7 @@ export class GraphicObjectContainer extends FlexibleRectangle {
         }
     }
 
-    destroyOriginDisplayer() {
+    destroyOriginDisplayer() {        
         if (this.originDisplayer) {
             this.originDisplayer.destroy();
             this.originDisplayer = null;
@@ -84,38 +88,18 @@ export class GraphicObjectContainer extends FlexibleRectangle {
     }
 
     drawSelection() {
-        if (this.selectionRect) {
-            // console.log("draw selection");
-                        
+        if (this.selectionRect) {                           
             this.selectionRect.setPosition(this.x.value, this.y.value);
-            this.selectionRect.setSize(this.width.value, this.height.value);
-
-            // console.log(this.width.value);
-
-            this.selectionRect.width = this.width.value;
-            this.selectionRect.height = this.height.value;
-            
-
+            this.selectionRect.setDisplaySize(this.width.value, this.height.value);
             this.selectionRect.setOrigin(this.xOrigin.value, this.yOrigin.value);
             this.selectionRect.rotation = this.rotation.value;
-            this.selectionRect.setScale(this.scaleX.value, this.scaleY.value);
-
-            this.selectionRect.update();
         }
     }
 
     placeOriginDisplayer() {
-        if (this.originDisplayer) {
-            // console.log("yep");
-            let x = this.x.value + this.width.value * this.xOrigin.value;
-            let y = this.y.value + this.height.value + this.yOrigin.value;
-
-            // console.log(x);
-            
-            this.originDisplayer.setPosition(x, y);
-            
-            this.originDisplayer.x = x;
-            this.originDisplayer.y = y;
+        if (this.originDisplayer) {            
+            this.originDisplayer.setPosition(this.x.value, this.y.value);
+            this.originDisplayer.rotation = this.rotation.value;
         }
     }
 }

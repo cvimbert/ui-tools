@@ -124,4 +124,9 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
         super.render();
     }
+
+    destroy() {
+        this.sprite.destroy();
+        super.destroy();
+    }
 }

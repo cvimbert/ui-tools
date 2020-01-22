@@ -51,4 +51,9 @@ export class Image extends GraphicObjectContainer {
 
         super.render();
     }
+
+    destroy() {
+        this.image.destroy();
+        super.destroy();
+    }
 }

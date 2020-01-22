@@ -56,4 +56,9 @@ export class NineSliceImage extends GraphicObjectContainer {
 
         super.render();
     }
+
+    destroy() {
+        this.image.destroy();
+        super.destroy();
+    }
 }

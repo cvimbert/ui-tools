@@ -51,4 +51,9 @@ export class Textfield extends GraphicObjectContainer {
 
         super.render();
     }
+
+    destroy() {
+        this.textObject.destroy();
+        super.destroy();
+    }
 }

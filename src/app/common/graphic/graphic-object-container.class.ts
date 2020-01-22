@@ -102,4 +102,9 @@ export class GraphicObjectContainer extends FlexibleRectangle {
             this.originDisplayer.rotation = this.rotation.value;
         }
     }
+
+    destroy() {
+        this.selectionRect.destroy();
+        this.originDisplayer.destroy();
+    }
 }

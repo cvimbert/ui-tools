@@ -10,6 +10,7 @@ import { PropertiesEditorComponent } from './components/properties-editor/proper
 import { PropertyLineComponent } from './components/property-line/property-line.component';
 import { OutlineCrossComponent } from './components/outline-cross/outline-cross.component';
 import { DataProviderService } from './services/data-provider.service';
+import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 
 @NgModule({
   providers: [
@@ -21,7 +22,8 @@ import { DataProviderService } from './services/data-provider.service';
     SceneSizeModalComponent,
     PropertiesEditorComponent,
     PropertyLineComponent,
-    OutlineCrossComponent
+    OutlineCrossComponent,
+    DeletionModalComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { DataProviderService } from './services/data-provider.service';
     FormsModule
   ],
   entryComponents: [
-    SceneSizeModalComponent
+    SceneSizeModalComponent,
+    DeletionModalComponent
   ]
 })
 export class ComponentEditorModule { }

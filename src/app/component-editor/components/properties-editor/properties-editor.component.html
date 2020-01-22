@@ -9,6 +9,15 @@
 <div>
     <div class="name-display">Description:</div><textarea [(ngModel)]="inspected['description']"></textarea>
 </div>
+
+<ng-container *ngFor="let panel of additionalPanels">
+    <div class="separator">{{ panel.name }}</div>
+    <div *ngFor="let entry of panel.entries">
+        <div class="name-display">{{ entry.name }}:</div>
+        <textarea *ngIf="entry.type === 'long_string'">yes yes yes</textarea>
+    </div>
+</ng-container>
+
 <div class="separator">Global properties</div>
 <property-line
     *ngFor="let item of GLOBAL_PROPERTIES"

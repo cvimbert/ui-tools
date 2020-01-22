@@ -3,9 +3,12 @@ import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { JsonObject, JsonProperty } from 'json2typescript';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { OriginDisplayer } from './origin-displayer.class';
+import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
 
 @JsonObject("GraphicObjectContainer")
 export class GraphicObjectContainer extends FlexibleRectangle {
+
+    additionnalPanels: AdditionnalPanel[];
 
     @JsonProperty("objectType", String)
     objectType = "";

@@ -1,17 +1,20 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { FlexibleRectangle } from 'src/app/common/geometry/flexible-rectangle.class';
 import { ComponentEditorService } from '../../component-editor.service';
 import { PropertyLineData } from '../../interfaces/property-line-data.interface';
 import { Unity } from 'src/app/common/geometry/unity.enum';
+import { AdditionnalPanel } from 'src/app/common/data/interfaces/aditionnal-panels/additionnal-panel.interface';
+import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
+import { Textfield } from 'src/app/common/graphic/textfield.class';
 
 @Component({
   selector: 'properties-editor',
   templateUrl: './properties-editor.component.html',
   styleUrls: ['./properties-editor.component.scss']
 })
-export class PropertiesEditorComponent implements OnInit {
+export class PropertiesEditorComponent implements OnInit, OnChanges {
 
-  @Input() inspected: FlexibleRectangle;
+  @Input() inspected: GraphicObjectContainer;
 
   private pixelAndPercent: Unity[] = [
     Unity.PERCENT,
@@ -41,11 +44,27 @@ export class PropertiesEditorComponent implements OnInit {
     { id: "left", name: "Left", availableUnities: this.pixelAndPercent }
   ];
 
+  additionalPanels: AdditionnalPanel[] = [];
+
   constructor(
     public editorService: ComponentEditorService
-  ) { }
+  ) {
+    
+  }
 
-  ngOnInit() {
+  ngOnInit() {    
+    
+  }
+
+  ngOnChanges() {
+    switch (this.inspected.objectType) {
+      case "textfield":
+        this.additionalPanels = this.inspected.additionnalPanels;
+        break;
+
+      default:
+        this.additionalPanels = [];
+    }
   }
 
   update() {

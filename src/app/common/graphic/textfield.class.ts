@@ -3,13 +3,32 @@ import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { JsonObject, JsonProperty } from 'json2typescript';
+import { TextfieldStyle } from './textfield-style.class';
+import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
+import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
 
 @JsonObject("Textfield")
 export class Textfield extends GraphicObjectContainer {
 
+    additionnalPanels: AdditionnalPanel[] = [
+        {
+            name: "Text settings",
+            entries: [
+                {
+                    id: "text",
+                    name: "Text",
+                    type: PanelEntryType.LONG_STRING
+                }
+            ]
+        }
+    ];
+
     textObject: Phaser.GameObjects.Text;
 
-    @JsonProperty("text")
+    @JsonProperty("style", TextfieldStyle)
+    style = new TextfieldStyle();
+
+    @JsonProperty("text", String)
     text = "";
 
     constructor() {
@@ -27,10 +46,10 @@ export class Textfield extends GraphicObjectContainer {
         this.text = text;
 
         this.textObject = this.scene.add.text(this.x.value, this.y.value, text, {
-            color: "#000000",
-            fontFamily: "Arial",
-            fontSize: "20px",
-            align: "center"
+            color: this.style.color,
+            fontFamily: this.style.fontFamily,
+            fontSize: this.style.fontSize + "px",
+            align: this.style.align
         });
 
         this.width.value = this.textObject.width;

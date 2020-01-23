@@ -105,7 +105,12 @@ export class DataBank<T> {
 
       (<Array<any>>obj).forEach(item => {
         let objectClass = this.objectConstructor[item.objectType];
-        this.items.push(this.jsonConverter.deserialize(item, objectClass));
+
+        if (objectClass) {
+          this.items.push(this.jsonConverter.deserialize(item, objectClass));
+        } else {
+          this.items.push(this.jsonConverter.deserialize(item, this.itemClass));
+        }
       });
     }
   }

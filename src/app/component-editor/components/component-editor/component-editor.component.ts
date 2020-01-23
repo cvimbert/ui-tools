@@ -128,7 +128,7 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   saveAll() {
-    this.dataProvider.saveAll();
+    this.dataProvider.saveAll(); 
     this.saveComponentSettings();
   }
 
@@ -146,6 +146,10 @@ export class ComponentEditorComponent implements OnInit {
 
   createText() {
     this.createSceneObject("textfield")
+  }
+
+  createState() {
+    this.editorService.createState();
   }
 
   createSceneObject(type: string) {

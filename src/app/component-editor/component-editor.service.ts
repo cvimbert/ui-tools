@@ -4,6 +4,7 @@ import { GraphicObjectContainer } from '../common/graphic/graphic-object-contain
 import { MatDialog } from '@angular/material/dialog';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 import { DataProviderService } from './services/data-provider.service';
+import { SceneState } from '../common/graphic/states/scene-state.class';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,14 @@ export class ComponentEditorService {
     object.destroy();
     this.selectedObject = null;
     this.dataProvider.getBank("scene-objects").delete(object);
+  }
+
+  createState() {
+    let sceneState = SceneState.fromObjectsArray(this.dataProvider.getBank("scene-objects").items);
+
+    this.dataProvider.getBank("scene-states").pushAfterCreation(sceneState, {
+      name: "State name",
+      description: "State description"
+    });
   }
 }

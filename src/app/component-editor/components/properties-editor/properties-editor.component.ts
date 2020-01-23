@@ -67,6 +67,11 @@ export class PropertiesEditorComponent implements OnInit, OnChanges {
     }
   }
 
+  createState() {
+    
+  }
+
+
   update() {
     
   }

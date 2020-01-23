@@ -17,4 +17,8 @@ export class ValueUnitPair {
         this.value = value;
         this.unity = unity;
     }
+
+    clone() {
+        return new ValueUnitPair(this.value, this.unity);
+    }
 }

@@ -5,6 +5,9 @@ export interface PropertyLineData {
     name: string;
     step?: number;
     availableUnities?: Unity[];
+    placeholder?: string;
+    min?: number;
+    max?: number;
     type?: string;
     editable?: boolean;
 }

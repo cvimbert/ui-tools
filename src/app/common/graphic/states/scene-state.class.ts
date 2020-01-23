@@ -2,14 +2,17 @@ import { GraphicObjectState } from './graphic-object-state.class';
 import { JsonObject, JsonProperty } from 'json2typescript';
 import { GraphicObjectContainer } from '../graphic-object-container.class';
 import { ValueUnitPair } from '../../geometry/value-unit-pair.class';
+import { BaseDataItem } from '../../data/base-data-item.class';
 
 @JsonObject("SceneState")
-export class SceneState {
+export class SceneState extends BaseDataItem {
 
     @JsonProperty("states", [GraphicObjectState])
     states: GraphicObjectState[] = [];
 
-    constructor() { }
+    constructor() {
+        super();
+    }
 
     static fromObjectsArray(objects: GraphicObjectContainer[]): SceneState {
         let sceneState = new SceneState();

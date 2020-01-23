@@ -1,6 +1,14 @@
 <div [class.disabled]="enabled === false">
     <div class="name">{{ name }}:</div>
-    <input type="number" [disabled]="editable === false || enabled === false" [(ngModel)]="value" [step]="data.step || 1" *ngIf="type === 'number'">
+    <input type="number"
+        *ngIf="type === 'number'"
+        [(ngModel)]="value"
+        [step]="data.step || 1"
+        [min]="(data.min != undefined) ? data.min : ''"
+        [max]="data.max || ''"
+        [placeholder]="data.placeholder || ''"
+        [disabled]="editable === false || enabled === false"
+    >
     <input type="text" [disabled]="editable === false || enabled === false" [(ngModel)]="value" *ngIf="type === 'string'">
     <select *ngIf="type === 'number' && useUnities" [disabled]="!this.data.availableUnities || this.data.availableUnities.length === 1 || enabled === false" [(ngModel)]="unity">
         <option *ngIf="usePixelUnity" value="px">px</option>

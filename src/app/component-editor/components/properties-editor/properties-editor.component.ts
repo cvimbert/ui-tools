@@ -26,7 +26,7 @@ export class PropertiesEditorComponent implements OnInit, OnChanges {
     { id: "height", name: "Height" },
     { id: "xOrigin", name: "X origin", step: 0.1 },
     { id: "yOrigin", name: "Y origin", step: 0.1 },
-    { id: "alpha", name: "Alpha", step: 0.1, availableUnities: [] },
+    { id: "alpha", name: "Alpha", step: 0.1, availableUnities: [], min: 0, max: 1 },
     { id: "scaleX", name: "Scale X", step: 0.1 },
     { id: "scaleY", name: "Scale Y", step: 0.1 },
     { id: "rotation", name: "Rotation", step: 0.05 }
@@ -38,10 +38,10 @@ export class PropertiesEditorComponent implements OnInit, OnChanges {
   ];
 
   TRBL_PROPERTIES: PropertyLineData[] = [
-    { id: "top", name: "Top", availableUnities: this.pixelAndPercent },
-    { id: "right", name: "Right", availableUnities: this.pixelAndPercent },
-    { id: "bottom", name: "Bottom", availableUnities: this.pixelAndPercent },
-    { id: "left", name: "Left", availableUnities: this.pixelAndPercent }
+    { id: "top", name: "Top", availableUnities: this.pixelAndPercent, placeholder: "----" },
+    { id: "right", name: "Right", availableUnities: this.pixelAndPercent, placeholder: "----" },
+    { id: "bottom", name: "Bottom", availableUnities: this.pixelAndPercent, placeholder: "----" },
+    { id: "left", name: "Left", availableUnities: this.pixelAndPercent, placeholder: "----" }
   ];
 
   additionalPanels: AdditionnalPanel[] = [];

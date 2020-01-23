@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 import { DataProviderService } from './services/data-provider.service';
 import { SceneState } from '../common/graphic/states/scene-state.class';
+import { GraphicObjectState } from '../common/graphic/states/graphic-object-state.class';
+import { ValueUnitPair } from '../common/geometry/value-unit-pair.class';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +48,44 @@ export class ComponentEditorService {
   }
 
   createState() {
-    let sceneState = SceneState.fromObjectsArray(this.dataProvider.getBank("scene-objects").items);
+    let sceneState = SceneState.fromObjectsArray(this.sceneObjects);
 
     this.dataProvider.getBank("scene-states").pushAfterCreation(sceneState, {
       name: "State name",
       description: "State description"
     });
+  }
+
+  applySceneState(state: SceneState) {
+    state.states.forEach(state => this.applyObjectState(state));
+  }
+
+  applyObjectState(state: GraphicObjectState) {
+
+    let object = this.sceneObjects.find(object => object.id === state.targetObjectId);
+    let updatedProperties: string[] = [];
+
+    GraphicObjectState.animatedProperties.forEach(prop => {
+      if (object[prop] instanceof ValueUnitPair) {
+        if (!object[prop].equals(state[prop])) {
+          object[prop].setTo(state[prop]);
+          updatedProperties.push(prop);
+        }
+      } else {
+        // ne devrait pas se produire pour le moment
+      }
+    });
+
+    if (updatedProperties.length > 0) {
+      object.render();
+    }
+  }
+
+  get sceneStates(): SceneState[] {
+    return this.dataProvider.getBank("scene-states").items;
+  }
+
+  get sceneObjects(): GraphicObjectContainer[] {
+    return this.dataProvider.getBank("scene-objects").items;
   }
 }

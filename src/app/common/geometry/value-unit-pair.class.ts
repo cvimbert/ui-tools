@@ -21,4 +21,18 @@ export class ValueUnitPair {
     clone() {
         return new ValueUnitPair(this.value, this.unity);
     }
+
+    // TODO: à compléter, si besoin (pas besoin sur l'unité par défaut peut être mise à px)
+    unityEquals(valueForComparison: ValueUnitPair): boolean {
+        return;
+    }
+
+    equals(valueForComparison: ValueUnitPair): boolean {
+        return this.value == valueForComparison.value && this.unity == valueForComparison.unity;
+    }
+
+    setTo(valuePair: ValueUnitPair) {
+        this.value = valuePair.value;
+        this.unity = valuePair.unity;
+    }
 }

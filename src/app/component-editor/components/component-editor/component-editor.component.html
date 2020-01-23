@@ -10,6 +10,17 @@
         </div>
       </div>
     </div>
+    <div class="bottom-panel">
+      <div>
+        <select>
+          <option value="scene-states">Scene states</option>
+          <option value="transitions">Transitions</option>
+        </select>
+      </div>
+      <div>
+        <scene-state-displayer *ngFor="let state of editorService.sceneStates" [state]="state"></scene-state-displayer>
+      </div>
+    </div>
   </div>
   <div class="right">
     <div class="buttons">

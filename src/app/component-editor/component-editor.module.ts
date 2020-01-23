@@ -12,6 +12,7 @@ import { OutlineCrossComponent } from './components/outline-cross/outline-cross.
 import { DataProviderService } from './services/data-provider.service';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 import { AdditionalEntryComponent } from './components/additional-entry/additional-entry.component';
+import { SceneStateDisplayerComponent } from './components/scene-state-displayer/scene-state-displayer.component';
 
 @NgModule({
   providers: [
@@ -25,7 +26,8 @@ import { AdditionalEntryComponent } from './components/additional-entry/addition
     PropertyLineComponent,
     OutlineCrossComponent,
     DeletionModalComponent,
-    AdditionalEntryComponent
+    AdditionalEntryComponent,
+    SceneStateDisplayerComponent
   ],
   imports: [
     CommonModule,

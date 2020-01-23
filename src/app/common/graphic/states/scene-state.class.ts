@@ -9,9 +9,7 @@ export class SceneState {
     @JsonProperty("states", [GraphicObjectState])
     states: GraphicObjectState[] = [];
 
-    constructor() {
-
-    }
+    constructor() { }
 
     static fromObjectsArray(objects: GraphicObjectContainer[]): SceneState {
         let sceneState = new SceneState();
@@ -23,23 +21,7 @@ export class SceneState {
 
         let state = new GraphicObjectState();
 
-        let propertiesToClone = [
-            "mode",
-            "x",
-            "y",
-            "width",
-            "height",
-            "rotation",
-            "scaleX",
-            "scaleY",
-            "alpha",
-            "top",
-            "right",
-            "bottom",
-            "left"
-        ];
-
-        propertiesToClone.forEach(prop => {
+        GraphicObjectState.stateCloneProperties.forEach(prop => {
             let item = object[prop];
 
             if (item instanceof ValueUnitPair) {

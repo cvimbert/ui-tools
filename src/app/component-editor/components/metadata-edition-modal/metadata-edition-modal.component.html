@@ -1,0 +1,13 @@
+<div class="title">Description</div>
+<div class="value-container">
+  <div class="name">Name</div>
+  <input type="text" [(ngModel)]="name">
+</div>
+<div class="value-container">
+  <div class="name">Description</div>
+  <input type="text" [(ngModel)]="description">
+</div>
+<div class="buttons">
+  <input type="button" value="Validate" (click)="validate()">
+  <input type="button" value="Cancel" (click)="cancel()">
+</div>

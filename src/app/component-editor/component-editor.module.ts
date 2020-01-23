@@ -13,6 +13,7 @@ import { DataProviderService } from './services/data-provider.service';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 import { AdditionalEntryComponent } from './components/additional-entry/additional-entry.component';
 import { SceneStateDisplayerComponent } from './components/scene-state-displayer/scene-state-displayer.component';
+import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
 
 @NgModule({
   providers: [
@@ -27,7 +28,8 @@ import { SceneStateDisplayerComponent } from './components/scene-state-displayer
     OutlineCrossComponent,
     DeletionModalComponent,
     AdditionalEntryComponent,
-    SceneStateDisplayerComponent
+    SceneStateDisplayerComponent,
+    MetadataEditionModalComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { SceneStateDisplayerComponent } from './components/scene-state-displayer
   ],
   entryComponents: [
     SceneSizeModalComponent,
-    DeletionModalComponent
+    DeletionModalComponent,
+    MetadataEditionModalComponent
   ]
 })
 export class ComponentEditorModule { }

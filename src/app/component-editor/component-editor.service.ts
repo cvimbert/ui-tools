@@ -7,6 +7,8 @@ import { DataProviderService } from './services/data-provider.service';
 import { SceneState } from '../common/graphic/states/scene-state.class';
 import { GraphicObjectState } from '../common/graphic/states/graphic-object-state.class';
 import { ValueUnitPair } from '../common/geometry/value-unit-pair.class';
+import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
+import { BaseData } from '../common/data/interfaces/base-data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -48,11 +50,13 @@ export class ComponentEditorService {
   }
 
   createState() {
-    let sceneState = SceneState.fromObjectsArray(this.sceneObjects);
 
-    this.dataProvider.getBank("scene-states").pushAfterCreation(sceneState, {
-      name: "State name",
-      description: "State description"
+    this.dialog.open(MetadataEditionModalComponent).afterClosed().subscribe((data: BaseData) => {
+      if (data) {
+        let sceneState = SceneState.fromObjectsArray(this.sceneObjects);
+
+        this.dataProvider.getBank("scene-states").pushAfterCreation(sceneState, data);
+      }
     });
   }
 

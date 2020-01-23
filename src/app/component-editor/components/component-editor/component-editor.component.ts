@@ -14,6 +14,8 @@ import { NineSliceImage } from 'src/app/common/graphic/nine-slice-image.class';
 import { OperationMode, ValueCheckingMode, JsonConvert } from 'json2typescript';
 import { ComponentSettings } from '../../component-settings.class';
 import { Textfield } from 'src/app/common/graphic/textfield.class';
+import { MetadataEditionModalComponent } from '../metadata-edition-modal/metadata-edition-modal.component';
+import { BaseDataItem } from 'src/app/common/data/base-data-item.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -153,55 +155,64 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createSceneObject(type: string) {
-    let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
-      baseRect: BasicRectSprite,
-      image: Image,
-      nineSliceImage: NineSliceImage,
-      textfield: Textfield
-    };
 
-    let item = new constructors[type]();
+    this.dialog.open(MetadataEditionModalComponent).afterClosed().subscribe((data: BaseDataItem) => {
+
+      if (data) {
+        let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
+          baseRect: BasicRectSprite,
+          image: Image,
+          nineSliceImage: NineSliceImage,
+          textfield: Textfield
+        };
     
-    this.dataProvider.getBank("scene-objects").pushAfterCreation(item, {
-      name: "TMP name",
-      description: "TMP description",
-      type: type
+        let item = new constructors[type]();
+        
+        this.dataProvider.getBank("scene-objects").pushAfterCreation(item, {
+          name: data.name,
+          description: data.description,
+          type: type
+        });
+    
+    
+        switch (type) {
+          case "baseRect":
+            item.initWithScene(this.editorScene, {
+              x: 40,
+              y: 40,
+              width: 100,
+              height: 80
+            }, this.viewport);
+    
+            break;
+    
+          case "image":
+            (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
+            break;
+    
+          case "nineSliceImage":        
+            (<NineSliceImage>item).initObject(this.editorScene, "t1", 10, {
+              x: 100,
+              y: 100,
+              width: 150,
+              height: 80
+            }, this.viewport);
+    
+            break;
+    
+          case "textfield":
+            (<Textfield>item).initObject(this.editorScene, "Placeholder\nsdsqdsq", {
+              x: 50,
+              y: 50
+            }, this.viewport);
+        }
+    
+        this.editorService.selectObject(item);
+      }
+
     });
 
-
-    switch (type) {
-      case "baseRect":
-        item.initWithScene(this.editorScene, {
-          x: 40,
-          y: 40,
-          width: 100,
-          height: 80
-        }, this.viewport);
-
-        break;
-
-      case "image":
-        (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
-        break;
-
-      case "nineSliceImage":        
-        (<NineSliceImage>item).initObject(this.editorScene, "t1", 10, {
-          x: 100,
-          y: 100,
-          width: 150,
-          height: 80
-        }, this.viewport);
-
-        break;
-
-      case "textfield":
-        (<Textfield>item).initObject(this.editorScene, "Placeholder\nsdsqdsq", {
-          x: 50,
-          y: 50
-        }, this.viewport);
-    }
-
-    this.editorService.selectObject(item);
+    
   }
 
   resize(width: number, height: number) {

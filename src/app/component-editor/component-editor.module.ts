@@ -11,6 +11,7 @@ import { PropertyLineComponent } from './components/property-line/property-line.
 import { OutlineCrossComponent } from './components/outline-cross/outline-cross.component';
 import { DataProviderService } from './services/data-provider.service';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
+import { AdditionalEntryComponent } from './components/additional-entry/additional-entry.component';
 
 @NgModule({
   providers: [
@@ -23,7 +24,8 @@ import { DeletionModalComponent } from './components/deletion-modal/deletion-mod
     PropertiesEditorComponent,
     PropertyLineComponent,
     OutlineCrossComponent,
-    DeletionModalComponent
+    DeletionModalComponent,
+    AdditionalEntryComponent
   ],
   imports: [
     CommonModule,

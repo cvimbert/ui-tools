@@ -15,9 +15,43 @@ export class Textfield extends GraphicObjectContainer {
             name: "Text settings",
             entries: [
                 {
-                    id: "text",
                     name: "Text",
-                    type: PanelEntryType.LONG_STRING
+                    type: PanelEntryType.LONG_STRING,
+                    getter: () => this.text,
+                    setter: (value: string) => this.text = value
+                },
+                {
+                    name: "Size",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.style.fontSize,
+                    setter: (value: number) => this.style.fontSize = value
+                },
+                {
+                    name: "Align",
+                    type: PanelEntryType.SELECT,
+                    selectValues: [
+                        "left",
+                        "center",
+                        "right",
+                        "justify"
+                    ],
+                    getter: () => this.style.align,
+                    setter: (value: string) => this.style.align = value
+                },
+                {
+                    name: "Font family",
+                    type: PanelEntryType.SELECT,
+                    selectValues: [
+                        "Arial"
+                    ],
+                    getter: () => this.style.fontFamily,
+                    setter: (value: string) => this.style.fontFamily = value
+                },
+                {
+                    name: "Color",
+                    type: PanelEntryType.COLOR,
+                    getter: () => this.style.color,
+                    setter: (value: string) => this.style.color = value
                 }
             ]
         }

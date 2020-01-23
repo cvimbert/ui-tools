@@ -1,0 +1,7 @@
+<div class="name-display">{{ entry.name }}:</div>
+<textarea *ngIf="entry.type === 'long_string'" [(ngModel)]="value"></textarea>
+<input *ngIf="entry.type === 'number'" type="number" [(ngModel)]="value">
+<input *ngIf="entry.type === 'color'" type="text" [(ngModel)]="value">
+<select *ngIf="entry.type === 'select'" [(ngModel)]="value">
+  <option *ngFor="let option of entry.selectValues" [value]="option">{{ option }}</option>
+</select>

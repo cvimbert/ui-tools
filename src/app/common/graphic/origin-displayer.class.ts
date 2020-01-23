@@ -22,7 +22,6 @@ export class OriginDisplayer extends Phaser.GameObjects.Graphics {
     this.lineStyle(1, 0x000000);
     this.lineBetween(-8, 0, 8, 0);
 
-    // this.lineStyle(2, 0x00ff00);
     this.lineBetween(0, -8, 0, 8);
 
     scene.add.existing(this);

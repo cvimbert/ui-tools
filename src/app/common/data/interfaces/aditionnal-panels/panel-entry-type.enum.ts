@@ -3,5 +3,6 @@ export enum PanelEntryType {
     LONG_STRING = "long_string",
     NUMBER = "number",
     BOOLEAN = "boolean",
-    COLOR = "color"
+    COLOR = "color",
+    SELECT = "select"
 }

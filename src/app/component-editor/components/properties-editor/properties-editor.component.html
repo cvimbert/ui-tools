@@ -34,8 +34,8 @@
 </div>
 <div class="separator">XY position</div>
 <property-line
-    [enabled]="inspected['mode'] === 'xywh'"
     *ngFor="let item of XYWH_PROPERTIES"
+    [enabled]="inspected['mode'] === 'xywh'"
     [data]="item"
     [object]="inspected"
     [name]="item['name']"
@@ -43,8 +43,8 @@
 ></property-line>
 <div class="separator">TRBL position</div>
 <property-line
-    [enabled]="inspected['mode'] === 'trbl'"
     *ngFor="let item of TRBL_PROPERTIES"
+    [enabled]="inspected['mode'] === 'trbl'"
     [data]="item"
     [object]="inspected"
     [name]="item['name']"

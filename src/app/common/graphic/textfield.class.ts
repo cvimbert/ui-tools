@@ -18,13 +18,19 @@ export class Textfield extends GraphicObjectContainer {
                     name: "Text",
                     type: PanelEntryType.LONG_STRING,
                     getter: () => this.text,
-                    setter: (value: string) => this.text = value
+                    setter: (value: string) => {
+                        this.text = value;
+                        this.updateText();
+                    }
                 },
                 {
                     name: "Size",
                     type: PanelEntryType.NUMBER,
                     getter: () => this.style.fontSize,
-                    setter: (value: number) => this.style.fontSize = value
+                    setter: (value: number) => {
+                        this.style.fontSize = value;
+                        this.updateText();
+                    }
                 },
                 {
                     name: "Align",
@@ -36,22 +42,33 @@ export class Textfield extends GraphicObjectContainer {
                         "justify"
                     ],
                     getter: () => this.style.align,
-                    setter: (value: string) => this.style.align = value
+                    setter: (value: string) => {
+                        this.style.align = value;
+                        this.updateText();
+                    }
                 },
                 {
                     name: "Font family",
                     type: PanelEntryType.SELECT,
                     selectValues: [
-                        "Arial"
+                        "Arial",
+                        "Roboto",
+                        "Times"
                     ],
                     getter: () => this.style.fontFamily,
-                    setter: (value: string) => this.style.fontFamily = value
+                    setter: (value: string) => {
+                        this.style.fontFamily = value;
+                        this.updateText();
+                    }
                 },
                 {
                     name: "Color",
                     type: PanelEntryType.COLOR,
                     getter: () => this.style.color,
-                    setter: (value: string) => this.style.color = value
+                    setter: (value: string) => {
+                        this.style.color = value;
+                        this.updateText();
+                    }
                 }
             ]
         }
@@ -92,6 +109,15 @@ export class Textfield extends GraphicObjectContainer {
         this.render();
     }
 
+    updateText() {
+        this.textObject.text = this.text;
+        this.textObject.setColor(this.style.color);
+        this.textObject.setFontFamily(this.style.fontFamily);
+        this.textObject.setFontSize(this.style.fontSize);
+        this.textObject.setAlign(this.style.align);
+        this.textObject.setWordWrapWidth(this.width.value);
+    }
+
     render() {
         this.calculate();        
 
@@ -101,6 +127,7 @@ export class Textfield extends GraphicObjectContainer {
         this.textObject.setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.textObject.alpha = this.alpha.value;
         this.textObject.rotation = this.rotation.value;
+        this.textObject.setWordWrapWidth(this.width.value);
 
         super.render();
     }

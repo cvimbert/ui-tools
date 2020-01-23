@@ -12,7 +12,7 @@ export class DataBank<T> {
   tempId = 0;
   private jsonConverter: JsonConvert;
 
-  // à déplacer dans la configuration
+  // TODO: à déplacer dans la configuration
   objectConstructor: { [key: string]: { new (): any }} = {
     "image": Image,
     "baseRect": BasicRectSprite,

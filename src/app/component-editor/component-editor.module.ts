@@ -14,6 +14,8 @@ import { DeletionModalComponent } from './components/deletion-modal/deletion-mod
 import { AdditionalEntryComponent } from './components/additional-entry/additional-entry.component';
 import { SceneStateDisplayerComponent } from './components/scene-state-displayer/scene-state-displayer.component';
 import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
+import { StructureObjectsPanelComponent } from './components/structure-objects-panel/structure-objects-panel.component';
+import { EditSceneStateModalComponent } from './components/edit-scene-state-modal/edit-scene-state-modal.component';
 
 @NgModule({
   providers: [
@@ -29,7 +31,9 @@ import { MetadataEditionModalComponent } from './components/metadata-edition-mod
     DeletionModalComponent,
     AdditionalEntryComponent,
     SceneStateDisplayerComponent,
-    MetadataEditionModalComponent
+    MetadataEditionModalComponent,
+    StructureObjectsPanelComponent,
+    EditSceneStateModalComponent
   ],
   imports: [
     CommonModule,

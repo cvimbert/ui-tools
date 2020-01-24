@@ -21,4 +21,12 @@ export class SceneStateDisplayerComponent implements OnInit {
   applyState() {
     this.editorService.applySceneState(this.state);
   }
+
+  deleteState() {
+    this.editorService.deleteSceneState(this.state);
+  }
+
+  editState() {
+    
+  }
 }

@@ -64,6 +64,14 @@ export class ComponentEditorService {
     state.states.forEach(state => this.applyObjectState(state));
   }
 
+  deleteSceneState(state: SceneState) {
+    this.dialog.open(DeletionModalComponent).afterClosed().subscribe((deletion: boolean) => {
+      if (deletion) {
+        this.dataProvider.getBank("scene-states").delete(state);
+      }
+    });
+  }
+
   applyObjectState(state: GraphicObjectState) {
 
     let object = this.sceneObjects.find(object => object.id === state.targetObjectId);
@@ -77,6 +85,7 @@ export class ComponentEditorService {
         }
       } else {
         // ne devrait pas se produire pour le moment
+        console.warn("Why here ?", prop);
       }
     });
 

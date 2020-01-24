@@ -23,6 +23,7 @@
       <input type="button" value="Create nine slice image" (click)="createNineSliceImage()">
       <input type="button" value="Create text" (click)="createText()">
       <input type="button" value="Create state" (click)="createState()">
+      <input type="button" value="Create transition" (click)="createTransition()">
     </div>
     <select *ngIf="editorService.graphicObjects && editorService.graphicObjects.length > 0" class="object-selector" [(ngModel)]="selectedObjectId">
       <option *ngFor="let object of editorService.graphicObjects" value="{{ object.id }}">{{ object.id }} ({{ object.objectType }})</option>

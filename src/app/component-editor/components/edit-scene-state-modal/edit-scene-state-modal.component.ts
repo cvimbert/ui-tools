@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { GraphicObjectState } from 'src/app/common/graphic/states/graphic-object-state.class';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SceneState } from 'src/app/common/graphic/states/scene-state.class';
+import { EditSceneStateData } from '../../interfaces/edit-scene-state-data.interface';
 
 @Component({
   selector: 'app-edit-scene-state-modal',
@@ -7,9 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditSceneStateModalComponent implements OnInit {
 
-  constructor() { }
+  usage: EditSceneStateData[] = [];
+
+  constructor(
+    private dialogRef: MatDialogRef<EditSceneStateModalComponent, EditSceneStateData[]>,
+    @Inject(MAT_DIALOG_DATA) public sceneState: SceneState
+  ) { }
 
   ngOnInit() {
+    this.sceneState.states.forEach(objectState => {
+      this.usage.push({
+        objectState: objectState,
+        used: true
+      });
+    });
   }
 
+  deleteState(item: EditSceneStateData) {
+    let index = this.usage.indexOf(item);
+    this.usage.splice(index, 1);
+  }
+
+  validate() {
+    this.dialogRef.close(this.usage);
+  }
+
+  cancel() {
+    this.dialogRef.close();
+  }
 }

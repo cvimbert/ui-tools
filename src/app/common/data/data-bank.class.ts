@@ -49,7 +49,7 @@ export class DataBank<T> {
     return item;
   }
 
-  pushAfterCreation(item: T, data: BaseData) {
+  pushAfterCreation(item: T, data?: BaseData) {
     item["id"] = this.storageKey + "_" + this.tempId++;
 
     if (data) {

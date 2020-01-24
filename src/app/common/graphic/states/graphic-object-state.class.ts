@@ -21,7 +21,6 @@ export class GraphicObjectState extends FlexibleRectangle {
     ];
 
     static animatedProperties = [
-        "mode",
         "x",
         "y",
         "width",

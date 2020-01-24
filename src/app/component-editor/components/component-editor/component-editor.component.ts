@@ -154,6 +154,10 @@ export class ComponentEditorComponent implements OnInit {
     this.editorService.createState();
   }
 
+  createTransition() {
+    this.editorService.createSceneTransition();
+  }
+
   createSceneObject(type: string) {
 
     this.dialog.open(MetadataEditionModalComponent).afterClosed().subscribe((data: BaseDataItem) => {

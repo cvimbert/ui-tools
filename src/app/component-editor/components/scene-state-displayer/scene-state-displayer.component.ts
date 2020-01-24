@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SceneState } from 'src/app/common/graphic/states/scene-state.class';
 import { ComponentEditorService } from '../../component-editor.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditSceneStateModalComponent } from '../edit-scene-state-modal/edit-scene-state-modal.component';
+import { EditSceneStateData } from '../../interfaces/edit-scene-state-data.interface';
 
 @Component({
   selector: 'scene-state-displayer',
@@ -12,7 +15,8 @@ export class SceneStateDisplayerComponent implements OnInit {
   @Input() state: SceneState;
 
   constructor(
-    public editorService: ComponentEditorService
+    public editorService: ComponentEditorService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -27,6 +31,12 @@ export class SceneStateDisplayerComponent implements OnInit {
   }
 
   editState() {
-    
+    this.dialog.open(EditSceneStateModalComponent, {
+      data: this.state
+    }).afterClosed().subscribe((statesData: EditSceneStateData[]) => {
+      if (statesData) {
+        this.state.states = statesData.map(st => st.objectState);
+      }
+    });
   }
 }

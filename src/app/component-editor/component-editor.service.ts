@@ -9,6 +9,9 @@ import { GraphicObjectState } from '../common/graphic/states/graphic-object-stat
 import { ValueUnitPair } from '../common/geometry/value-unit-pair.class';
 import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
 import { BaseData } from '../common/data/interfaces/base-data.interface';
+import { DataBank } from '../common/data/data-bank.class';
+import { SceneTransition } from '../common/graphic/transitions/scene-transition.class';
+import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -100,5 +103,29 @@ export class ComponentEditorService {
 
   get sceneObjects(): GraphicObjectContainer[] {
     return this.dataProvider.getBank("scene-objects").items;
+  }
+
+  get sceneTransitionsBank(): DataBank<SceneTransition> {
+    return this.dataProvider.getBank("scene-transitions");
+  }
+
+  get sceneTransitions(): SceneTransition[] {
+    return this.sceneTransitionsBank.items;
+  }
+
+  createSceneTransition() {
+    this.dialog.open(SceneTransitionEditModalComponent).afterClosed().subscribe((transition: SceneTransition) => {
+      if (transition) {
+        this.sceneTransitionsBank.pushAfterCreation(transition);
+      }
+    });
+  }
+
+  deleteSceneTransition(transition: SceneTransition) {
+    this.dialog.open(DeletionModalComponent).afterClosed().subscribe((deletion: boolean) => {
+      if (deletion) {
+        this.dataProvider.getBank("scene-transitions").delete(transition);
+      }
+    });
   }
 }

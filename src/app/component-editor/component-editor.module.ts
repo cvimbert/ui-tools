@@ -16,6 +16,8 @@ import { SceneStateDisplayerComponent } from './components/scene-state-displayer
 import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
 import { StructureObjectsPanelComponent } from './components/structure-objects-panel/structure-objects-panel.component';
 import { EditSceneStateModalComponent } from './components/edit-scene-state-modal/edit-scene-state-modal.component';
+import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
+import { SceneTransitionDisplayerComponent } from './components/scene-transition-displayer/scene-transition-displayer.component';
 
 @NgModule({
   providers: [
@@ -33,7 +35,9 @@ import { EditSceneStateModalComponent } from './components/edit-scene-state-moda
     SceneStateDisplayerComponent,
     MetadataEditionModalComponent,
     StructureObjectsPanelComponent,
-    EditSceneStateModalComponent
+    EditSceneStateModalComponent,
+    SceneTransitionEditModalComponent,
+    SceneTransitionDisplayerComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +48,9 @@ import { EditSceneStateModalComponent } from './components/edit-scene-state-moda
   entryComponents: [
     SceneSizeModalComponent,
     DeletionModalComponent,
-    MetadataEditionModalComponent
+    MetadataEditionModalComponent,
+    EditSceneStateModalComponent,
+    SceneTransitionEditModalComponent
   ]
 })
 export class ComponentEditorModule { }

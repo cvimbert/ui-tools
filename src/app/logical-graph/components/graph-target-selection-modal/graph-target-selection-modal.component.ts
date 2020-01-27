@@ -29,7 +29,7 @@ export class GraphTargetSelectionModalComponent implements OnInit {
     if (data["item"]) {
       this.item = data["item"];
       this.selectedTargetId = this.item.id;        
-    }
+    }    
   }
 
   ngOnInit() {

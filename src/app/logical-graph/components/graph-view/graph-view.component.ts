@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GraphScene } from '../../graph-scene.class';
 import { BaseItemData } from '../../interfaces/base-item-data.interface';
@@ -10,6 +10,7 @@ import { GraphTargetSelectionModalComponent } from '../graph-target-selection-mo
 import { GraphItemType } from '../../graph-item-type.class';
 import { GraphItem } from '../../graph-item.class';
 import { SimpleRectangle } from 'src/app/common/geometry/interfaces/simple-rectangle.class';
+import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
 
 @Component({
   selector: 'graph-view',
@@ -26,6 +27,8 @@ export class GraphViewComponent implements OnInit {
     [GraphItemType.ANCHOR]: this.graphService.graphAnchorItems,
     [GraphItemType.VARIABLE]: this.graphService.variableItems
   };
+
+  @Input() itemsProviders: { [key: string]: GraphicObjectContainer };
 
   @ViewChild("canvasElement") canvasElement: ElementRef;
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
@@ -73,8 +76,8 @@ export class GraphViewComponent implements OnInit {
     
     let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
-      width: this.bounds.width,
-      height: this.bounds.height,
+      width: 700,
+      height: 500,
       scale: {
         mode: Phaser.Scale.NONE
       },
@@ -119,7 +122,7 @@ export class GraphViewComponent implements OnInit {
   }
 
   setCanvasSize() {
-    this.game.scale.resize(document.body.clientWidth, 600);
+    // this.game.scale.resize(document.body.clientWidth, 600);
   }
 
   addGraphItem() {

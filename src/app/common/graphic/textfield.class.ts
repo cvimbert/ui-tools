@@ -116,6 +116,7 @@ export class Textfield extends GraphicObjectContainer {
         this.textObject.setFontSize(this.style.fontSize);
         this.textObject.setAlign(this.style.align);
         this.textObject.setWordWrapWidth(this.width.value);
+        this.textObject.setFixedSize(this.width.value, this.height.value);
     }
 
     render() {

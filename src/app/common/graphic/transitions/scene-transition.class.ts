@@ -35,8 +35,7 @@ export class SceneTransition extends BaseDataItem {
         
 
         this.targetSceneState.states.forEach(state => {
-            // console.log(state);
-            state.calculate();
+            // state.calculate();
             let targetSceneObject = sceneObjects.find(obj => obj.id === state.targetObjectId);
 
             let updatedProps: {
@@ -54,7 +53,6 @@ export class SceneTransition extends BaseDataItem {
 
                 let key: string;
                 let val: any;
-                
 
                 if (propValue instanceof ValueUnitPair) {                    
                     equality = propValue.value == (<ValueUnitPair>state[prop]).value;
@@ -82,6 +80,7 @@ export class SceneTransition extends BaseDataItem {
                     duration: this.duration * 1000,
                     ease: this.easing,
                     targets: targetSceneObject,
+                    onStart: () => console.log("start"),
                     onUpdate: () => {
                         updateIndex++;
 

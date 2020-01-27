@@ -100,12 +100,28 @@ export class FlexibleRectangle extends BaseDataItem {
     this._x = value;
   }
 
+  get xValue(): number {
+    return this._x.value;
+  }
+
+  set xValue(value: number) {
+    this._x.value = value;
+  }
+
   get y(): ValueUnitPair {
     return this._y;
   }
 
   set y(value: ValueUnitPair) {
     this._y = value;
+  }
+
+  get yValue(): number {
+    return this._y.value;
+  }
+
+  set yValue(value: number) {
+    this._y.value = value;
   }
 
   get xOrigin(): ValueUnitPair {
@@ -135,6 +151,14 @@ export class FlexibleRectangle extends BaseDataItem {
     this.calculate();
   }
 
+  get widthValue(): number {
+    return this._width.value;
+  }
+
+  set widthValue(value: number) {
+    this._width.value = value;
+  }
+
   get height(): ValueUnitPair {
     return this._height;
   }
@@ -144,12 +168,28 @@ export class FlexibleRectangle extends BaseDataItem {
     this.calculate();
   }
 
+  get heightValue(): number {
+    return this._height.value;
+  }
+
+  set heightValue(value: number) {
+    this._height.value = value;
+  }
+
   get rotation(): ValueUnitPair {
     return this._rotation;
   }
 
   set rotation(value: ValueUnitPair) {
     this._rotation = value;
+  }
+
+  get rotationValue(): number {
+    return this._rotation.value;
+  }
+
+  set rotationValue(value: number) {
+    this._rotation.value = value;
   }
 
   get scaleX(): ValueUnitPair {
@@ -178,6 +218,14 @@ export class FlexibleRectangle extends BaseDataItem {
 
   set alpha(value: ValueUnitPair) {
     this._alpha = value;
+  }
+
+  get alphaValue(): number {
+    return this._alpha.value;
+  }
+
+  set alphaValue(value: number) {
+    this._alpha.value = value;
   }
 
   set top(value: ValueUnitPair) {

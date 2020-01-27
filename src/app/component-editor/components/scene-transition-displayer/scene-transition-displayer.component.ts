@@ -23,7 +23,7 @@ export class SceneTransitionDisplayerComponent implements OnInit {
   }
 
   transitionTo() {
-    this.transition.applyTransition(this.editorService.sceneObjects, this.editorService.sceneStates);
+    this.transition.applyTransition(this.editorService.editorComponent.editorScene, this.editorService.sceneObjects, this.editorService.sceneStates);
   }
 
   editTransition() {

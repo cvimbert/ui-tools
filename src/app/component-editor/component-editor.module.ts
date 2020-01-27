@@ -18,6 +18,8 @@ import { StructureObjectsPanelComponent } from './components/structure-objects-p
 import { EditSceneStateModalComponent } from './components/edit-scene-state-modal/edit-scene-state-modal.component';
 import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
 import { SceneTransitionDisplayerComponent } from './components/scene-transition-displayer/scene-transition-displayer.component';
+import { LogicalGraphModule } from '../logical-graph/logical-graph.module';
+import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
 
 @NgModule({
   providers: [
@@ -43,7 +45,9 @@ import { SceneTransitionDisplayerComponent } from './components/scene-transition
     CommonModule,
     ComponentEditorRoutingModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    LogicalGraphModule,
+    AssetsManagerModule
   ],
   entryComponents: [
     SceneSizeModalComponent,

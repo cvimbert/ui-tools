@@ -1,0 +1,23 @@
+<div class="main-container">
+  <div class="canvas-container" #canvasContainer>
+    <base-graph-item
+      #itemComponent
+      *ngFor="let item of graphItems; let i = index"
+      [pos]="i"
+      [data]="item"
+    ></base-graph-item>
+    <div #canvasElement></div>
+    <div class="bottom-left-panel layer-panel">
+      <select [(ngModel)]="selectedGraphItemType">
+        <option *ngFor="let item of graphItemsList"  value="{{ item }}">{{ item }}</option>
+      </select>
+      <input type="button" value="Add" (click)="addGraphItem()">
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <input type="button" value="Save all" (click)="saveAll()">
+</div>
+<div class="cloud-view-container">
+  <app-cloud-view></app-cloud-view>
+</div>

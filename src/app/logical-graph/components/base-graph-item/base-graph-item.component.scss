@@ -1,0 +1,128 @@
+.item {
+  user-select: none;
+
+  &.disabled {
+    pointer-events: none;
+
+    graph-anchor {
+      pointer-events: initial;
+    }
+  }
+
+  &.transition {
+    background-color: blueviolet;
+  }
+
+  &.timer {
+    background-color: green;
+  }
+
+  &.trigger, &.anchor {
+    background-color: maroon;
+  }
+
+  &.variable {
+    background-color: rgb(11, 187, 11);
+  }
+
+  border: 1px solid black;
+  position: absolute;
+  border-radius: 7px;
+}
+
+.tools-container {
+  display: flex;
+  white-space: nowrap;
+  padding: 12px;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.add-container {
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+
+  opacity: 0.5;
+  
+  &:hover {
+   opacity: 1;
+  }
+}
+
+.tools {
+  // flex: 1;
+  color: white;
+  font-size: 15px;
+
+  .tool {
+    // padding-right: 4px;
+
+    &.drag-anchor {
+      margin-right: 15px;
+    }
+
+    margin-right: 6px;
+  }
+
+  .deletion, .lock, .edit {
+    cursor: pointer;
+
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.item-type {
+  padding-left: 8px;
+  flex: 1;
+  text-align: right;
+  color: white;
+  font-weight: bold;
+}
+
+.content {
+  border-top: 1px solid white;
+  display: flex;
+
+  .left-column {
+    flex: 1;
+    border-right: 1px solid white;
+    text-align: left;
+
+    &.no-right-border {
+      border-right: none;
+    }
+
+    .command {
+      padding-left: 10px;
+    }
+  }
+
+  .right-column {
+    flex: 1;
+    text-align: right;
+
+    .command {
+      padding-right: 10px;
+    }
+  }
+
+  .command {
+    position: relative;
+    color: white;
+    padding: 9px;
+    padding-bottom: 0;
+    white-space: nowrap;
+    font-style: italic;
+
+    &:last-child {
+      padding-bottom: 6px;
+    }
+  }
+}
+

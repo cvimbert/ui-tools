@@ -1,0 +1,36 @@
+.canvas-container {
+    position: relative;
+    border: 1px solid black;
+    display: inline-block;
+    overflow: hidden;
+  }
+  
+  .actions {
+    input {
+      margin-right: 6px;
+    }
+  }
+  
+  .layer-panel {
+    z-index: 2000;
+  }
+  
+  .bottom-left-panel {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+  
+    input {
+      margin-left: 5px;
+    }
+  }
+  
+  .cloud-view-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    pointer-events: none;
+    transform: scale(0.4);
+    transform-origin: right top;
+  }

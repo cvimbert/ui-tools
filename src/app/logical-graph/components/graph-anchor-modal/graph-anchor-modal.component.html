@@ -1,0 +1,15 @@
+<div>
+  <select [(ngModel)]="type" [disabled]="!!item">
+    <option value="in">In</option>
+    <option value="out">Out</option>
+  </select>
+</div>
+<div>
+  <input type="text" [(ngModel)]="anchorId" placeholder="id" [disabled]="!!item">
+</div>
+<div>
+  <input type="text" [(ngModel)]="anchorName" placeholder="name">
+</div>
+<div class="actions">
+  <input type="button" value="Validate" (click)="validate()">
+</div>

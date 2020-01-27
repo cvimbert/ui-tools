@@ -12,7 +12,7 @@ import { GraphItem } from '../../graph-item.class';
 import { SimpleRectangle } from 'src/app/common/geometry/interfaces/simple-rectangle.class';
 
 @Component({
-  selector: 'app-graph-view',
+  selector: 'graph-view',
   templateUrl: './graph-view.component.html',
   styleUrls: ['./graph-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

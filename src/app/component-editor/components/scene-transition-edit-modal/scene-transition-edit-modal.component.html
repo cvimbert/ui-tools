@@ -1,29 +1,31 @@
-<div class="title">Scene transition</div>
-<div class="value-container">
-  <div class="name">Name</div>
-  <input type="text" [(ngModel)]="name">
-</div>
-<div class="value-container">
-  <div class="name">Description</div>
-  <input type="text" [(ngModel)]="description">
-</div>
-<div class="value-container">
-  <div class="name">Duration</div>
-  <input type="number" [(ngModel)]="duration" min="0">
-</div>
-<div class="value-container">
-  <div class="name">Easing</div>
-  <select [(ngModel)]="easing">
-    <option *ngFor="let ease of easings" [value]="ease">{{ ease }}</option>
-  </select>
-</div>
-<div class="value-container">
-  <div class="name">Target</div>
-  <select [(ngModel)]="target">
-    <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
-  </select>
-</div>
-<div class="buttons">
-  <input type="button" value="Validate" (click)="validate()">
-  <input type="button" value="Cancel" (click)="cancel()">
-</div>
+<form>
+  <div class="title">Scene transition</div>
+  <div class="value-container">
+    <div class="name">Name</div>
+    <input name="name" type="text" [(ngModel)]="name">
+  </div>
+  <div class="value-container">
+    <div class="name">Description</div>
+    <input name="description" type="text" [(ngModel)]="description">
+  </div>
+  <div class="value-container">
+    <div class="name">Duration</div>
+    <input name="number" type="number" [(ngModel)]="duration" min="0">
+  </div>
+  <div class="value-container">
+    <div class="name">Easing</div>
+    <select name="easing" [(ngModel)]="easing">
+      <option *ngFor="let ease of easings" [value]="ease">{{ ease }}</option>
+    </select>
+  </div>
+  <div class="value-container">
+    <div class="name">Target</div>
+    <select name="target" [(ngModel)]="target">
+      <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+    </select>
+  </div>
+  <div class="buttons">
+    <input type="button" value="Validate" (click)="validate()">
+    <input type="button" value="Cancel" (click)="cancel()">
+  </div>
+</form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ComponentEditorService } from '../../component-editor.service';
 import { DataBank } from 'src/app/common/data/data-bank.class';
 
@@ -8,6 +8,8 @@ import { DataBank } from 'src/app/common/data/data-bank.class';
   styleUrls: ['./structure-objects-panel.component.scss']
 })
 export class StructureObjectsPanelComponent implements OnInit {
+
+  @Input() bounds: DOMRect;
 
   selectedTabId = "graph";
   providers: { [key: string]: DataBank<any> } = {};

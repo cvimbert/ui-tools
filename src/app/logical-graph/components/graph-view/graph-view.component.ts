@@ -32,6 +32,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
   @Input() height: number = 500;
   @Input() itemsProviders: { [key: string]: DataBank<any> };
   @Input() mainScene: Phaser.Scene;
+  @Input() bounds: DOMRect;
 
   @ViewChild("canvasElement") canvasElement: ElementRef;
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
@@ -39,7 +40,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
 
   graphScene: GraphScene;
   game: Phaser.Game;
-  bounds = new SimpleRectangle(0, 0, 1024, 600);
+  // bounds = new SimpleRectangle(0, 0, 1024, 600);
 
   //positionsDictionary: DataDictionary<SerializablePoint>;
   selectedGraphItemType = GraphItemType.ITEMS_LIST[0];
@@ -106,6 +107,10 @@ export class GraphViewComponent implements OnInit, OnChanges {
         this.banks[key] = this.itemsProviders[key];
       }
     }
+
+    if (changes["bounds"]) {
+      this.setCanvasSize();
+    }
   }
 
   initGraphItem(item: GraphItem) {
@@ -119,7 +124,9 @@ export class GraphViewComponent implements OnInit, OnChanges {
   }
 
   setCanvasSize() {
-    // this.game.scale.resize(document.body.clientWidth, 600);
+    if (this.game) {
+      this.game.scale.resize(this.bounds.width, this.bounds.height);
+    }
   }
 
   addGraphItem() {

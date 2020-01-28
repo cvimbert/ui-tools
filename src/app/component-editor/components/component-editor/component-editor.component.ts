@@ -28,10 +28,13 @@ export class ComponentEditorComponent implements OnInit {
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
   @ViewChild("mainContainer") mainContainer: ElementRef;
   @ViewChild("bottomPanel") bottomPanel: ElementRef;
+
   editorScene: ComponentEditorScene;
   editorGame: Phaser.Game;
   viewport: FlexibleRectangle;
   containerHeight: number;
+
+  bottomPanelBounds: DOMRect;
 
 
   settings: ComponentSettings;
@@ -107,9 +110,8 @@ export class ComponentEditorComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize() {    
-    this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
-    // console.log(this.bottomPanel.nativeElement.getBoundingClientRect().height);
-
+    this.bottomPanelBounds = this.bottomPanel.nativeElement.getBoundingClientRect();
+    this.containerHeight = this.mainContainer.nativeElement.getBoundingClientRect().height;
   }
 
   editSceneSize() {    
@@ -221,8 +223,6 @@ export class ComponentEditorComponent implements OnInit {
       }
 
     });
-
-    
   }
 
   resize(width: number, height: number) {

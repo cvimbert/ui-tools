@@ -1,14 +1,14 @@
 <div>
-  <select [(ngModel)]="selectedTabId">
+  <select class="panel-selector" [(ngModel)]="selectedTabId">
     <option value="scene-states">Scene states</option>
     <option value="scene-transitions">Scene transitions</option>
     <option value="graph">Graph</option>
   </select>
 </div>
-<div *ngIf="selectedTabId === 'scene-states'">
+<div class="items-tab" *ngIf="selectedTabId === 'scene-states'">
   <scene-state-displayer *ngFor="let state of editorService.sceneStates" [state]="state"></scene-state-displayer>
 </div>
-<div *ngIf="selectedTabId === 'scene-transitions'">
+<div class="items-tab" *ngIf="selectedTabId === 'scene-transitions'">
   <scene-transition-displayer  *ngFor="let transition of editorService.sceneTransitions" [transition]="transition"></scene-transition-displayer>
 </div>
 <div *ngIf="selectedTabId === 'graph'">

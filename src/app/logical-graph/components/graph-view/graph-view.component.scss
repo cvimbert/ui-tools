@@ -1,6 +1,12 @@
+.main-container {
+  position: relative;
+}
+
 .canvas-container {
-    position: relative;
-    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // border: 1px solid black;
     display: inline-block;
     overflow: hidden;
   }

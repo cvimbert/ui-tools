@@ -26,6 +26,7 @@ export class ComponentEditorComponent implements OnInit {
 
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
   @ViewChild("mainContainer") mainContainer: ElementRef;
+  @ViewChild("bottomPanel") bottomPanel: ElementRef;
   editorScene: ComponentEditorScene;
   editorGame: Phaser.Game;
   viewport: FlexibleRectangle;
@@ -48,6 +49,7 @@ export class ComponentEditorComponent implements OnInit {
   ngOnInit() {
 
     this.loadComponentSettings();
+
     
     this.viewport = new FlexibleRectangle();
 
@@ -104,6 +106,8 @@ export class ComponentEditorComponent implements OnInit {
   @HostListener('window:resize')
   onResize() {    
     this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
+    console.log(this.bottomPanel.nativeElement.getBoundingClientRect().height);
+
   }
 
   editSceneSize() {    

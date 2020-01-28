@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GraphScene } from '../../graph-scene.class';
 import { BaseItemData } from '../../interfaces/base-item-data.interface';
@@ -18,7 +18,7 @@ import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-co
   styleUrls: ['./graph-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GraphViewComponent implements OnInit {
+export class GraphViewComponent implements OnInit, OnChanges {
 
   banks: { [key: string]: DataBank<any> } = {
     // [GraphItemType.TRANSITION]: this.transitionsService,
@@ -28,6 +28,8 @@ export class GraphViewComponent implements OnInit {
     [GraphItemType.VARIABLE]: this.graphService.variableItems
   };
 
+  @Input() width: number = 600;
+  @Input() height: number = 300;
   @Input() itemsProviders: { [key: string]: GraphicObjectContainer };
 
   @ViewChild("canvasElement") canvasElement: ElementRef;
@@ -76,8 +78,8 @@ export class GraphViewComponent implements OnInit {
     
     let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
-      width: 700,
-      height: 500,
+      width: this.width,
+      height: this.height,
       scale: {
         mode: Phaser.Scale.NONE
       },
@@ -102,6 +104,10 @@ export class GraphViewComponent implements OnInit {
     this.graphService.graphItems.items.forEach(item => {
       this.initGraphItem(item);
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   initGraphItem(item: GraphItem) {

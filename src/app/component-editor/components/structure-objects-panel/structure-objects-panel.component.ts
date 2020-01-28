@@ -8,7 +8,7 @@ import { ComponentEditorService } from '../../component-editor.service';
 })
 export class StructureObjectsPanelComponent implements OnInit {
 
-  selectedTabId = "scene-states";
+  selectedTabId = "graph";
 
   constructor(
     public editorService: ComponentEditorService

@@ -19,10 +19,10 @@ export class GraphItem {
   type = "";
 
   @JsonProperty("x", Number)
-  x = 0;
+  x = 100;
 
   @JsonProperty("y", Number)
-  y = 0;
+  y = 50;
 
   @JsonProperty("itemId", String)
   itemId = "";

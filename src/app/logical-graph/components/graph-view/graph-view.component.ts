@@ -21,7 +21,6 @@ import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-co
 export class GraphViewComponent implements OnInit, OnChanges {
 
   banks: { [key: string]: DataBank<any> } = {
-    // [GraphItemType.TRANSITION]: this.transitionsService,
     [GraphItemType.TIMER]: this.graphService.graphTimerItems,
     [GraphItemType.TRIGGER]: this.graphService.graphTriggerItems,
     [GraphItemType.ANCHOR]: this.graphService.graphAnchorItems,

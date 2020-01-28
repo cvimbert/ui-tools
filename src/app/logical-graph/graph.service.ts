@@ -36,6 +36,7 @@ export class GraphService {
   items: { [key: string]: BaseGraphItemComponent } = {};
   links: GraphLink[] = [];
   scene: GraphScene;
+  mainScene: Phaser.Scene;
   canvasContainerOffset: Point;
 
   tempLink: TemporaryLink;
@@ -50,6 +51,8 @@ export class GraphService {
 
   targetDrawAnchor: GraphAnchorComponent;
   initialDrawAnchor: GraphAnchorComponent;
+
+  providers: { [key: string]: DataBank<any> };
 
   constructor(
     private dialog: MatDialog,

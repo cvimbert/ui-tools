@@ -16,6 +16,7 @@ import { ComponentSettings } from '../../component-settings.class';
 import { Textfield } from 'src/app/common/graphic/textfield.class';
 import { MetadataEditionModalComponent } from '../metadata-edition-modal/metadata-edition-modal.component';
 import { BaseDataItem } from 'src/app/common/data/base-data-item.class';
+import { DataBank } from 'src/app/common/data/data-bank.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -62,6 +63,7 @@ export class ComponentEditorComponent implements OnInit {
     });
 
     this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport);
+    this.editorService.mainScene = this.editorScene;
     this.editorService.editorComponent = this;
 
     let config: Phaser.Types.Core.GameConfig = {
@@ -106,7 +108,7 @@ export class ComponentEditorComponent implements OnInit {
   @HostListener('window:resize')
   onResize() {    
     this.containerHeight = (<HTMLElement>this.mainContainer.nativeElement).getBoundingClientRect().height;
-    console.log(this.bottomPanel.nativeElement.getBoundingClientRect().height);
+    // console.log(this.bottomPanel.nativeElement.getBoundingClientRect().height);
 
   }
 

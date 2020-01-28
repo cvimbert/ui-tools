@@ -12,5 +12,5 @@
   <scene-transition-displayer  *ngFor="let transition of editorService.sceneTransitions" [transition]="transition"></scene-transition-displayer>
 </div>
 <div *ngIf="selectedTabId === 'graph'">
-  <graph-view></graph-view>
+  <graph-view [itemsProviders]="providers" [mainScene]="editorService.mainScene"></graph-view>
 </div>

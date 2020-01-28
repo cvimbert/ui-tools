@@ -1,5 +1,6 @@
 .item {
   user-select: none;
+  font-size: 13px;
 
   &.disabled {
     pointer-events: none;
@@ -52,13 +53,10 @@
 }
 
 .tools {
-  // flex: 1;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
 
   .tool {
-    // padding-right: 4px;
-
     &.drag-anchor {
       margin-right: 15px;
     }

@@ -28,9 +28,10 @@ export class GraphViewComponent implements OnInit, OnChanges {
     [GraphItemType.VARIABLE]: this.graphService.variableItems
   };
 
-  @Input() width: number = 600;
-  @Input() height: number = 300;
-  @Input() itemsProviders: { [key: string]: GraphicObjectContainer };
+  @Input() width: number = 900;
+  @Input() height: number = 500;
+  @Input() itemsProviders: { [key: string]: DataBank<any> };
+  @Input() mainScene: Phaser.Scene;
 
   @ViewChild("canvasElement") canvasElement: ElementRef;
   @ViewChild("canvasContainer") canvasContainer: ElementRef;
@@ -47,23 +48,13 @@ export class GraphViewComponent implements OnInit, OnChanges {
 
   constructor(
     private graphService: GraphService,
-
-    // private cloudService: CloudService,
-    // private transitionsService: TransitionsService,
-
     private dialog: MatDialog,
     private cdRef: ChangeDetectorRef
-  ) {
-    //this.positionsDictionary = new DataDictionary<SerializablePoint>(Configuration.GRAPH_ITEMS_STORAGE_KEY, SerializablePoint);
-  }
-
-  /* @HostListener("document:mouseup", ["$event"])
-  onDocumentMouseUp() {
-    this.graphService.stopDrawTemporaryLink();
-  } */
+  ) {}
 
   ngOnInit() {
     this.graphService.mainView = this;
+    this.graphService.mainScene = this.mainScene;
     this.graphScene = new GraphScene();
     this.graphService.scene = this.graphScene;
 
@@ -73,8 +64,6 @@ export class GraphViewComponent implements OnInit, OnChanges {
       x: offsetRect.left,
       y: offsetRect.top
     };
-
-    // console.log(offsetRect, this.graphService.canvasContainerOffset);
     
     let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
@@ -84,7 +73,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
         mode: Phaser.Scale.NONE
       },
       scene: this.graphScene,
-      backgroundColor: '#ffffff',
+      backgroundColor: '#d3d3d3',
       parent: this.canvasElement.nativeElement
     }; 
 
@@ -107,19 +96,21 @@ export class GraphViewComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+    // console.log(changes);
+
+    // Utile ???
+    if (changes["itemsProviders"]) {
+      this.graphService.providers = this.itemsProviders;
+
+      for (let key in this.itemsProviders) {
+        this.banks[key] = this.itemsProviders[key];
+      }
+    }
   }
 
   initGraphItem(item: GraphItem) {
     let tItem = this.banks[item.type].getItemById(item.itemId);
-
     item.init(tItem, this.graphService);
-
-    // attention, cas particulier
-    if (item.type === GraphItemType.TRANSITION) {
-      // (<Transition>item.targetItem).cloudService = this.cloudService;
-      // (<Transition>item.targetItem).transitionsService = this.transitionsService;
-    }
   }
 
   @HostListener('window:resize', ['$event'])

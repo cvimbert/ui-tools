@@ -23,6 +23,8 @@ export class ComponentEditorService {
 
   graphicObjects: GraphicObjectContainer[];
 
+  mainScene: Phaser.Scene;
+
   constructor(
     private dialog: MatDialog,
     private dataProvider: DataProviderService
@@ -107,6 +109,14 @@ export class ComponentEditorService {
 
   get sceneTransitionsBank(): DataBank<SceneTransition> {
     return this.dataProvider.getBank("scene-transitions");
+  }
+
+  get sceneObjectsBank(): DataBank<GraphicObjectContainer> {
+    return this.dataProvider.getBank("scene-objects");
+  }
+
+  get sceneStatesBank(): DataBank<SceneState> {
+    return this.dataProvider.getBank("scene-states");
   }
 
   get sceneTransitions(): SceneTransition[] {

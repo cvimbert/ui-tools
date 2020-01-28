@@ -82,10 +82,9 @@ export class GraphAnchorComponent implements OnInit {
   getClientPosition(): Point {
     let rect: DOMRect = this.bAnchor.nativeElement.getBoundingClientRect();
     
-    // Attention ! Ici le + 8 sur la position verticale est ajouté de manière complètement empirique et n'a pas de sens
     return {
       x: rect.left + rect.width / 2 - this.graphService.canvasContainerOffset.x,
-      y: rect.top + rect.height / 2 - this.graphService.canvasContainerOffset.y + 8
+      y: rect.top + rect.height / 2 - this.graphService.canvasContainerOffset.y
     }
   }
 

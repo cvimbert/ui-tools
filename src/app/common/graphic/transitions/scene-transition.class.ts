@@ -4,11 +4,58 @@ import { GraphicObjectContainer } from '../graphic-object-container.class';
 import { SceneState } from '../states/scene-state.class';
 import { GraphicObjectState } from '../states/graphic-object-state.class';
 import { ValueUnitPair } from '../../geometry/value-unit-pair.class';
+import { GraphTarget } from 'src/app/logical-graph/interfaces/graph-target.interface';
+import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
+import { BaseGameStructure } from 'src/app/logical-graph/base-game-structure.class';
 
 @JsonObject("SceneTransition")
-export class SceneTransition extends BaseDataItem {
+export class SceneTransition extends BaseGameStructure implements GraphTarget {
 
     private targetSceneState: SceneState;
+
+    playItem: AnchorItem = {
+        id: "play",
+        label: "Play",
+        callback: () => this.play()
+      };
+    
+      stopItem: AnchorItem = {
+        id: "stop",
+        label: "Stop",
+        callback: () => this.stop()
+      };
+    
+      resetItem = {
+        id: "reset",
+        label: "Reset",
+        callback: () => this.reset()
+      };
+    
+      inAnchors: AnchorItem[] = [
+        this.playItem,
+        this.stopItem,
+        this.resetItem
+      ];
+
+      onStartItem = {
+        id: "onstart",
+        label: "On start",
+        callback: () => this.onTransitionStart()
+      };
+    
+      onCompleteItem = {
+        id: "oncomplete",
+        label: "On complete",
+        callback: () => this.onTransitionComplete()
+      };
+    
+      outAnchors: AnchorItem[] = [
+        this.onStartItem,
+        this.onCompleteItem
+      ];
+
+    // @JsonProperty("sourceStateId", String)
+    // sourceStateId = "";
 
     @JsonProperty("targetStateId", String)
     targetStateId = "";
@@ -23,16 +70,52 @@ export class SceneTransition extends BaseDataItem {
         super();
     }
 
-    // Peut-être pas très judicieux de passer les objects et les states comme arguments de la fonction
-    applyTransition(scene: Phaser.Scene, sceneObjects: GraphicObjectContainer[], sceneStates: SceneState[]) {
+    init() {
+        this.initLabel();
+    }
+
+    initLabel() {
+        this.label = this.name;
+    }
+
+    transitionTo(startCallback: () => void, completeCallback: () => void) {
+        let sceneObjects: GraphicObjectContainer[] = this.graphService.providers["sceneObject"].items;
+        let sceneStates: SceneState[] = this.graphService.providers["sceneState"].items;
+        let scene = this.graphService.mainScene;
+
+        this.applyTransition(scene, sceneObjects, sceneStates, startCallback, completeCallback);
+    }
+
+    play() {
+        this.transitionTo(() => {
+            this.graphService.playAllIn(this.onStartItem, this.parentGraphItem);
+        }, () => {
+            this.graphService.playAllIn(this.onCompleteItem, this.parentGraphItem);
+        });
+    }
+
+    stop() {
+    }
+  
+    reset() {
+    }
+
+    onTransitionComplete() {
+        this.graphService.playOut(this.onCompleteItem, this.parentGraphItem);
+    }
+
+    onTransitionStart() {
+        this.graphService.playOut(this.onStartItem, this.parentGraphItem);
+    }
+
+    applyTransition(scene: Phaser.Scene, sceneObjects: GraphicObjectContainer[], sceneStates: SceneState[], startCallback?: () => void, completeCallback?: () => void) {
+
         this.targetSceneState = sceneStates.find(state => state.id === this.targetStateId);
         
         if (!this.targetSceneState) {
             console.warn(`Cannot play transition. No state named ${ this.targetStateId } in scene.`);
             return;
         }
-
-        
 
         this.targetSceneState.states.forEach(state => {
             // state.calculate();
@@ -80,7 +163,11 @@ export class SceneTransition extends BaseDataItem {
                     duration: this.duration * 1000,
                     ease: this.easing,
                     targets: targetSceneObject,
-                    onStart: () => console.log("start"),
+                    onStart: () => {
+                        if (startCallback) {
+                            startCallback();
+                        }
+                    },
                     onUpdate: () => {
                         updateIndex++;
 
@@ -89,7 +176,11 @@ export class SceneTransition extends BaseDataItem {
                             updateIndex = 0;
                         }
                     },
-                    onComplete: () => console.log("completed")
+                    onComplete: () => {
+                        if (completeCallback) {
+                            completeCallback();
+                        }
+                    }
                 };
 
                 updatedProps.forEach(updated => tweenParams[updated.keyName] = updated.val);

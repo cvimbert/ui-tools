@@ -31,16 +31,16 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         callback: () => this.onPointerOut()
     };
 
-    clickItem: AnchorItem = {
+    pointerDownItem: AnchorItem = {
         id: "onclick",
-        label: "On click",
-        callback: () => this.onClick()
+        label: "On pointer down",
+        callback: () => this.onPointerDown()
     };
 
     outAnchors: AnchorItem[] = [
         this.pointerOverItem,
         this.pointerOutItem,
-        this.clickItem
+        this.pointerDownItem
     ];
  
     additionnalPanels: AdditionnalPanel[];
@@ -54,6 +54,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     private _selected = false;
     selectionRect: Phaser.GameObjects.Rectangle;
     originDisplayer: OriginDisplayer;
+
+    private _hitEnabled = false;
+    hitZone: Phaser.GameObjects.Rectangle;
 
     constructor() {
         super();
@@ -74,6 +77,10 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     ) {
         this.scene = scene;
         this.initRect(rect, parent);
+
+        if (this.graphService) {
+            this.hitEnabled = true;
+        }
     }
 
     get selected(): boolean {
@@ -93,6 +100,51 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
         if (value) {
             this.render();
+        }
+    }
+
+    get hitEnabled(): boolean {
+        return this._hitEnabled;
+    }
+
+    set hitEnabled(value: boolean) {
+        if (value && !this._hitEnabled) {
+            this.createHitZone();
+        } else if (!value && this._hitEnabled) {
+            this.destroyHitZone();
+        }
+
+        this._hitEnabled = value;
+    }
+
+    createHitZone() {
+        if (!this.hitZone) {
+            this.hitZone = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xff0000, 0);
+
+            this.hitZone.setInteractive({
+                // useHandCursor: true
+            });
+            
+            this.hitZone.on("pointerover", () => {
+                this.graphService.playAllIn(this.pointerOverItem, this.parentGraphItem);
+            }, this);
+
+            this.hitZone.on("pointerout", () => {
+                this.graphService.playAllIn(this.pointerOutItem, this.parentGraphItem);
+            }, this);
+
+            this.hitZone.on("pointerdown", () => {
+                this.graphService.playAllIn(this.pointerDownItem, this.parentGraphItem);
+            }, this);
+
+            this.drawHitZone();
+        }
+    }
+
+    destroyHitZone() {
+        if (this.hitZone) {
+            this.hitZone.destroy();
+            this.hitZone = null;
         }
     }
 
@@ -129,6 +181,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
         if (this._selected) {
             this.drawSelection();
+            this.drawHitZone();
             this.placeOriginDisplayer();
         }
     }
@@ -139,6 +192,15 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             this.selectionRect.setDisplaySize(this.width.value, this.height.value);
             this.selectionRect.setOrigin(this.xOrigin.value, this.yOrigin.value);
             this.selectionRect.rotation = this.rotation.value;
+        }
+    }
+
+    drawHitZone() {
+        if (this.hitZone) {
+            this.hitZone.setPosition(this.x.value, this.y.value);
+            this.hitZone.setDisplaySize(this.width.value, this.height.value);
+            this.hitZone.setOrigin(this.xOrigin.value, this.yOrigin.value);
+            this.hitZone.rotation = this.rotation.value;
         }
     }
 
@@ -154,7 +216,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         this.originDisplayer.destroy();
     }
 
-    onPointerOver() {
+    onPointerOver() {        
         this.graphService.playOut(this.pointerOverItem, this.parentGraphItem);
     }
 
@@ -162,7 +224,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         this.graphService.playOut(this.pointerOutItem, this.parentGraphItem);
     }
 
-    onClick() {
-        this.graphService.playOut(this.clickItem, this.parentGraphItem);
+    onPointerDown() {
+        this.graphService.playOut(this.pointerDownItem, this.parentGraphItem);
     }
 }

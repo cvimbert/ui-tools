@@ -24,14 +24,14 @@ export class BasicRectSprite extends GraphicObjectContainer {
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
         // Only for editor mode
-        this.sprite.setInteractive({
+        /*this.sprite.setInteractive({
             useHandCursor: true,
             draggable: true
         });
 
         this.sprite.on("pointerdown", () => {
             this.scene.editorService.selectObject(this);
-        });
+        });*/
 
         /*this.scene.input.on('drag', (pointer: any, gameObject: Phaser.GameObjects.Rectangle, dragX: number, dragY: number) => {
             if (gameObject === this.sprite) {

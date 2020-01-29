@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Assets } from '../../assets.class';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
 
 @Component({
   selector: 'app-asset-based-object-edit-modal',
@@ -9,15 +10,21 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AssetBasedObjectEditModalComponent implements OnInit {
 
-  name: string;
-  description: string;
-  selectedAsset: string;
+  name = "";
+  description = "";
+  selectedAsset = "";
 
   constructor(
-    private dialogRef: MatDialogRef<AssetBasedObjectEditModalComponent>
+    private dialogRef: MatDialogRef<AssetBasedObjectEditModalComponent, AssetBasedData>,
+    @Inject(MAT_DIALOG_DATA) public data: AssetBasedData
   ) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.name = this.data.name;
+      this.description = this.data.description;
+      this.selectedAsset = this.data.asset;
+    }
   }
 
   get images(): string[] {
@@ -25,7 +32,11 @@ export class AssetBasedObjectEditModalComponent implements OnInit {
   }
 
   validate() {
-
+    this.dialogRef.close({
+      name: this.name,
+      description: this.description,
+      asset: this.selectedAsset
+    });
   }
 
   cancel() {

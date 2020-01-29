@@ -16,8 +16,8 @@ import { ComponentSettings } from '../../component-settings.class';
 import { Textfield } from 'src/app/common/graphic/textfield.class';
 import { MetadataEditionModalComponent } from '../metadata-edition-modal/metadata-edition-modal.component';
 import { BaseDataItem } from 'src/app/common/data/base-data-item.class';
-import { DataBank } from 'src/app/common/data/data-bank.class';
 import { AssetBasedObjectEditModalComponent } from '../asset-based-object-edit-modal/asset-based-object-edit-modal.component';
+import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
 
 @Component({
   selector: 'app-component-editor',
@@ -148,11 +148,11 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createImage() {
-    this.createSceneObject("image");
+    this.createAssetBasedObject("image");
   }
 
   createNineSliceImage() {
-    this.createSceneObject("nineSliceImage");
+    this.createAssetBasedObject("nineSliceImage");
   }
 
   createText() {
@@ -168,7 +168,7 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createAssetBasedObject(type: string) {
-    this.dialog.open(AssetBasedObjectEditModalComponent).afterClosed().subscribe((data: any) => {
+    this.dialog.open(AssetBasedObjectEditModalComponent).afterClosed().subscribe((data: AssetBasedData) => {
       if (data) {
         let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
           image: Image,
@@ -185,11 +185,11 @@ export class ComponentEditorComponent implements OnInit {
 
         switch (type) {
           case "image":
-            (<Image>item).initObject("arrow", this.editorScene, null, this.viewport);
+            (<Image>item).initObject(data.asset, this.editorScene, null, this.viewport);
             break;
     
           case "nineSliceImage":        
-            (<NineSliceImage>item).initObject(this.editorScene, "t1", 10, {
+            (<NineSliceImage>item).initObject(this.editorScene, data.asset, 10, {
               x: 100,
               y: 100,
               width: 150,

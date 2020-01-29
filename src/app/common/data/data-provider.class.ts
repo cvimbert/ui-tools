@@ -1,13 +1,16 @@
 import { DataBank } from './data-bank.class';
 import { DataConfiguration } from './data-configuration.class';
+import { ElectronService } from 'ngx-electron';
 
 export class DataProvider {
   
     banks: { [key: string]: DataBank<any> } = {};
 
-    constructor() {
+    constructor(
+        electronService: ElectronService
+    ) {
         DataConfiguration.BANK_CONFIGURATION.forEach(item => {
-            this.banks[item.name] = new DataBank<any>(item.name, item.objectContructor);
+            this.banks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
         });
     }
 

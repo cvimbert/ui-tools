@@ -21,6 +21,7 @@ import { SceneTransitionDisplayerComponent } from './components/scene-transition
 import { LogicalGraphModule } from '../logical-graph/logical-graph.module';
 import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
 import { AssetBasedObjectEditModalComponent } from './components/asset-based-object-edit-modal/asset-based-object-edit-modal.component';
+import { NgxElectronModule } from 'ngx-electron';
 
 @NgModule({
   providers: [
@@ -49,7 +50,8 @@ import { AssetBasedObjectEditModalComponent } from './components/asset-based-obj
     MatDialogModule,
     FormsModule,
     LogicalGraphModule,
-    AssetsManagerModule
+    AssetsManagerModule,
+    NgxElectronModule
   ],
   entryComponents: [
     SceneSizeModalComponent,

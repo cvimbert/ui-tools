@@ -1,6 +1,7 @@
 {
   "name": "ui-tools",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +9,8 @@
     "electron": "electron .",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron-nb": "electron ."
   },
   "private": true,
   "dependencies": {

@@ -5,6 +5,7 @@ import { BasicRectSprite } from '../graphic/basic-rect-sprite.class';
 import { Image } from '../graphic/image.class';
 import { NineSliceImage } from '../graphic/nine-slice-image.class';
 import { Textfield } from '../graphic/textfield.class';
+import { ElectronService } from 'ngx-electron';
 
 export class DataBank<T> {
 
@@ -22,7 +23,8 @@ export class DataBank<T> {
 
   constructor(
     public storageKey: string,
-    public itemClass: {new (): T}
+    public itemClass: {new (): T},
+    public electronService: ElectronService
   ) {
     this.jsonConverter = new JsonConvert(
       OperationMode.ENABLE,
@@ -83,26 +85,56 @@ export class DataBank<T> {
   }
 
   save() {
-    localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX] = this.tempId;
-
     let obj = this.jsonConverter.serializeArray(this.items);
-    localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX] = JSON.stringify(obj);
+
+    if (!this.electronService.isElectronApp) {
+      localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX] = this.tempId;
+      localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX] = JSON.stringify(obj);
+    } else {
+      let fs = this.electronService.remote.require("fs");
+
+      let fileObj: Object = {
+        index: this.tempId,
+        object: obj
+      };
+
+      fs.writeFileSync(DataConfiguration.savePath + this.storageKey + ".json", JSON.stringify(fileObj));
+    }
   }
 
   load() {    
-    let index = localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX];
+    let obj: Object;
+    let index: number;
+    this.items = [];
+
+    if (!this.electronService.isElectronApp) {
+      index = localStorage[this.storageKey + DataConfiguration.INDEX_SUFFIX];
+      let itemsStr = localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX];
+  
+      if (itemsStr != undefined) {
+        obj = JSON.parse(itemsStr);
+      }
+    } else {
+      let fs = this.electronService.remote.require("fs");
+
+      let path = DataConfiguration.savePath + this.storageKey + ".json";
+
+      if (fs.existsSync(path)) {
+        let content = fs.readFileSync(path, 'utf8');
+
+        if (content) {
+          let completeObj: Object = JSON.parse(content);
+          index = completeObj["index"];
+          obj = completeObj["object"];
+        }
+      }
+    }
 
     if (index != undefined) {
       this.tempId = index;
     }
 
-    let itemsStr = localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX];
-
-    if (itemsStr != undefined) {
-      let obj = JSON.parse(itemsStr);
-      
-      this.items = [];
-
+    if (obj) {
       (<Array<any>>obj).forEach(item => {
         let objectClass = this.objectConstructor[item.objectType];
 

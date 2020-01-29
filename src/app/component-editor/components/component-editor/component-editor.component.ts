@@ -18,6 +18,8 @@ import { MetadataEditionModalComponent } from '../metadata-edition-modal/metadat
 import { BaseDataItem } from 'src/app/common/data/base-data-item.class';
 import { AssetBasedObjectEditModalComponent } from '../asset-based-object-edit-modal/asset-based-object-edit-modal.component';
 import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
+import { ElectronService } from 'ngx-electron';
+import { DataConfiguration } from 'src/app/common/data/data-configuration.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -48,7 +50,8 @@ export class ComponentEditorComponent implements OnInit {
     public editorService: ComponentEditorService,
     private dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
-    private dataProvider: DataProviderService
+    private dataProvider: DataProviderService,
+    private electronService: ElectronService
   ) { }
 
   ngOnInit() {
@@ -94,10 +97,25 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   loadComponentSettings() {
-    let settingsStr = localStorage["settings"];
+    let obj: Object;
 
-    if (settingsStr) {
-      let obj = JSON.parse(settingsStr);
+    if (!this.electronService.isElectronApp) {
+      let settingsStr = localStorage["settings"];
+
+      if (settingsStr) {
+        obj = JSON.parse(settingsStr);
+      }
+    } else {
+      let fs = this.electronService.remote.require("fs");
+
+      let path = DataConfiguration.savePath + "settings.json";
+
+      if (fs.existsSync(path)) {
+        obj = JSON.parse(fs.readFileSync(path, 'utf8'));
+      }
+    }
+
+    if (obj) {
       this.settings = this.mainSerializer.deserializeObject(obj, ComponentSettings);
     } else {
       this.settings = new ComponentSettings();
@@ -106,7 +124,15 @@ export class ComponentEditorComponent implements OnInit {
 
   saveComponentSettings() {
     let obj = this.mainSerializer.serializeObject(this.settings);
-    localStorage["settings"] = JSON.stringify(obj);
+    let str = JSON.stringify(obj);
+
+    if (!this.electronService.isElectronApp) {
+      localStorage["settings"] = str;
+    } else {
+      let fs = this.electronService.remote.require("fs");
+      let path = DataConfiguration.savePath + "settings.json";
+      fs.writeFileSync(path, str);
+    }
   }
 
   @HostListener('window:resize')

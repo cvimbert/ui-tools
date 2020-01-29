@@ -26,6 +26,7 @@ import { AddAnchorModalComponent } from './components/add-anchor-modal/add-ancho
 import { AddAnchorModalData } from './interfaces/add-anchor-modal-data.interface';
 import { SerializableAnchorItem } from './serializable-anchor-item.class';
 import { ArgumentsEditorModalComponent } from './components/arguments-editor-modal/arguments-editor-modal.component';
+import { ElectronService } from 'ngx-electron';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +43,11 @@ export class GraphService {
   tempLink: TemporaryLink;
   private pTempDrawing = false;
 
-  graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem);
-  graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer);
-  graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger);
-  graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor);
-  variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable);
+  graphItems: DataBank<GraphItem>;
+  graphTimerItems: DataBank<GraphTimer>;
+  graphTriggerItems: DataBank<GraphTrigger>;
+  graphAnchorItems: DataBank<GraphAnchor>;
+  variableItems:DataBank<Variable>;
   
 
   targetDrawAnchor: GraphAnchorComponent;
@@ -56,7 +57,14 @@ export class GraphService {
 
   constructor(
     private dialog: MatDialog,
-  ) { }
+    private electronService: ElectronService
+  ) {
+    this.graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem, electronService);
+    this.graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer, electronService);
+    this.graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger, electronService);
+    this.graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor, electronService);
+    this.variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable, electronService);
+  }
 
   set tempDrawing(value: boolean) {
     this.pTempDrawing = value;

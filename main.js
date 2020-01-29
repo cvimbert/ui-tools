@@ -15,6 +15,8 @@ function createWindow () {
     show: false
   })
 
+  // mainWindow.setMenu(null);
+
   mainWindow.on('page-title-updated', function(e) {
     e.preventDefault()
   });

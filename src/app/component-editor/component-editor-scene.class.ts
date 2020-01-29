@@ -33,14 +33,14 @@ export class ComponentEditorScene extends Phaser.Scene {
         this.load.image("t1", "button.png");
         this.load.image("arrow", "arrow.png");
 
-        // En attendant un mécanisme d'upload
+        // En attendaninitRect mécanisme d'upload
         Assets.images.forEach(imagePath => this.load.image(imagePath, imagePath));
     }
 
     create() {
         console.log("Creating...");
 
-        this.viewport.init();
+        this.viewport.initRect();
 
         this.drawBackground();
         

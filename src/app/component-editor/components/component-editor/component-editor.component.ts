@@ -58,7 +58,7 @@ export class ComponentEditorComponent implements OnInit {
     
     this.viewport = new FlexibleRectangle();
 
-    this.viewport.init({
+    this.viewport.initRect({
       x: 0,
       y: 0,
       width: this.settings.sceneWidth,

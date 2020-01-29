@@ -65,7 +65,7 @@ export class FlexibleRectangle extends BaseDataItem {
   }
 
   // à faire après la création de l'objet
-  init(rect?: Rectangle, parent?: FlexibleRectangle) {
+  initRect(rect?: Rectangle, parent?: FlexibleRectangle) {
     this.rectangle = rect;
     this.parent = parent;
 

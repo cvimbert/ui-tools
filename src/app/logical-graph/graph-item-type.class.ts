@@ -9,13 +9,15 @@ export class GraphItemType {
   static TRIGGER = "trigger";
   static ANCHOR = "anchor";
   static VARIABLE = "variable";
+  static GRAPHIC_OBJECT = "sceneObject";
 
   static ITEMS_LIST = [
     GraphItemType.TRANSITION,
     GraphItemType.TIMER,
     GraphItemType.TRIGGER,
     GraphItemType.ANCHOR,
-    GraphItemType.VARIABLE
+    GraphItemType.VARIABLE,
+    GraphItemType.GRAPHIC_OBJECT
   ];
 
   static ITEMS_CREATION_MODAL_COMPONENT = {

@@ -24,9 +24,7 @@ export class GraphTargetSelectionModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<GraphTargetSelectionModalComponent>,
     private graphService: GraphService,
-    @Inject(MAT_DIALOG_DATA) public data: GraphTargetModalData,
-    // public diffsService: DiffsService,
-    // public transitionsService: TransitionsService
+    @Inject(MAT_DIALOG_DATA) public data: GraphTargetModalData
   ) {
     if (data["item"]) {
       this.item = data["item"];
@@ -37,12 +35,9 @@ export class GraphTargetSelectionModalComponent implements OnInit {
   ngOnInit() {
     if (this.data.type === GraphItemType.TRANSITION) {
       this.graphTargets = this.graphService.providers["transition"].items;
-      /*this.graphTargets = this.transitionsService.items;
-
-      if (this.graphTargets.length > 0 && !this.item) {
-        this.selectedTargetId = this.graphTargets[0].id;
-      }*/
-    }
+    } else if (this.data.type === GraphItemType.GRAPHIC_OBJECT) {
+      this.graphTargets = this.graphService.providers["sceneObject"].items;
+    }    
   }
 
   get selectedTarget(): GraphTarget {

@@ -9,8 +9,6 @@ import { GraphTarget } from '../../interfaces/graph-target.interface';
 import { GraphTargetSelectionModalComponent } from '../graph-target-selection-modal/graph-target-selection-modal.component';
 import { GraphItemType } from '../../graph-item-type.class';
 import { GraphItem } from '../../graph-item.class';
-import { SimpleRectangle } from 'src/app/common/geometry/interfaces/simple-rectangle.class';
-import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
 
 @Component({
   selector: 'graph-view',

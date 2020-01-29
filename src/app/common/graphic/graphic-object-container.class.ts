@@ -4,10 +4,45 @@ import { JsonObject, JsonProperty } from 'json2typescript';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { OriginDisplayer } from './origin-displayer.class';
 import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
+import { GraphTarget } from 'src/app/logical-graph/interfaces/graph-target.interface';
+import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
+import { GraphService } from 'src/app/logical-graph/graph.service';
+import { GraphItem } from 'src/app/logical-graph/graph-item.class';
 
 @JsonObject("GraphicObjectContainer")
-export class GraphicObjectContainer extends FlexibleRectangle {
+export class GraphicObjectContainer extends FlexibleRectangle implements GraphTarget {
 
+    graphService: GraphService;
+    parentGraphItem: GraphItem;
+
+    label = "";
+
+    inAnchors: AnchorItem[] = [];
+
+    pointerOverItem: AnchorItem = {
+        id: "onpointerover",
+        label: "On pointer over",
+        callback: () => this.onPointerOver()
+    };
+
+    pointerOutItem: AnchorItem = {
+        id: "onpointerout",
+        label: "On pointer out",
+        callback: () => this.onPointerOut()
+    };
+
+    clickItem: AnchorItem = {
+        id: "onclick",
+        label: "On click",
+        callback: () => this.onClick()
+    };
+
+    outAnchors: AnchorItem[] = [
+        this.pointerOverItem,
+        this.pointerOutItem,
+        this.clickItem
+    ];
+ 
     additionnalPanels: AdditionnalPanel[];
 
     @JsonProperty("objectType", String)
@@ -24,13 +59,21 @@ export class GraphicObjectContainer extends FlexibleRectangle {
         super();
     }
 
+    init() {
+        this.initLabel();
+    }
+
+    initLabel() {
+        this.label = this.name;
+    }
+
     initWithScene(
         scene: ComponentEditorScene,
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
         this.scene = scene;
-        this.init(rect, parent);
+        this.initRect(rect, parent);
     }
 
     get selected(): boolean {
@@ -109,5 +152,17 @@ export class GraphicObjectContainer extends FlexibleRectangle {
     destroy() {
         this.selectionRect.destroy();
         this.originDisplayer.destroy();
+    }
+
+    onPointerOver() {
+        this.graphService.playOut(this.pointerOverItem, this.parentGraphItem);
+    }
+
+    onPointerOut() {
+        this.graphService.playOut(this.pointerOutItem, this.parentGraphItem);
+    }
+
+    onClick() {
+        this.graphService.playOut(this.clickItem, this.parentGraphItem);
     }
 }

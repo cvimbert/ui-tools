@@ -1,0 +1,19 @@
+<div class="title">Asset based object</div>
+<div class="value-container">
+  <div class="name">Name</div>
+  <input name="name" type="text" [(ngModel)]="name">
+</div>
+<div class="value-container">
+  <div class="name">Description</div>
+  <input name="description" type="text" [(ngModel)]="description">
+</div>
+<div class="value-container">
+  <div class="name">Asset</div>
+  <select [(ngModel)]="selectedAsset">
+    <option *ngFor="let image of images" [value]="image">{{ image }}</option>
+  </select>
+</div>
+<div class="buttons">
+  <input type="button" value="Validate" (click)="validate()">
+  <input type="button" value="Cancel" (click)="cancel()">
+</div>

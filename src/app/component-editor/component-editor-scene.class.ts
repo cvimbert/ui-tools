@@ -7,6 +7,8 @@ import { Image } from '../common/graphic/image.class';
 import { NineSliceImage } from '../common/graphic/nine-slice-image.class';
 import { Textfield } from '../common/graphic/textfield.class';
 import { GraphicObjectContainer } from '../common/graphic/graphic-object-container.class';
+import { Assets } from './assets.class';
+import { load } from '@angular/core/src/render3';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -25,9 +27,14 @@ export class ComponentEditorScene extends Phaser.Scene {
     preload() {
         console.log("Preloading...");
         
-        this.load.setBaseURL("./assets/");
-        this.load.image("t1", "tmp/button.png");
-        this.load.image("arrow", "tmp/arrow.png");
+        this.load.setBaseURL("./assets/images");
+
+        // TODO: à supprimer
+        this.load.image("t1", "button.png");
+        this.load.image("arrow", "arrow.png");
+
+        // En attendant un mécanisme d'upload
+        Assets.images.forEach(imagePath => this.load.image(imagePath, imagePath));
     }
 
     create() {

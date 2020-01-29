@@ -20,6 +20,7 @@ import { SceneTransitionEditModalComponent } from './components/scene-transition
 import { SceneTransitionDisplayerComponent } from './components/scene-transition-displayer/scene-transition-displayer.component';
 import { LogicalGraphModule } from '../logical-graph/logical-graph.module';
 import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
+import { AssetBasedObjectEditModalComponent } from './components/asset-based-object-edit-modal/asset-based-object-edit-modal.component';
 
 @NgModule({
   providers: [
@@ -39,7 +40,8 @@ import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
     StructureObjectsPanelComponent,
     EditSceneStateModalComponent,
     SceneTransitionEditModalComponent,
-    SceneTransitionDisplayerComponent
+    SceneTransitionDisplayerComponent,
+    AssetBasedObjectEditModalComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
     DeletionModalComponent,
     MetadataEditionModalComponent,
     EditSceneStateModalComponent,
-    SceneTransitionEditModalComponent
+    SceneTransitionEditModalComponent,
+    AssetBasedObjectEditModalComponent
   ]
 })
 export class ComponentEditorModule { }

@@ -94,6 +94,10 @@ export class DataBank<T> {
       let fs = this.electronService.remote.require("fs");
       let dir = directory ? directory + "/" : "";
 
+      if (!fs.existsSync(DataConfiguration.savePath + dir)) {
+        fs.mkdirSync(DataConfiguration.savePath + dir, { recursive: true });
+      }
+
       let fileObj: Object = {
         index: this.tempId,
         object: obj

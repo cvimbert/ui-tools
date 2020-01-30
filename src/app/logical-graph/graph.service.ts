@@ -33,6 +33,8 @@ import { ElectronService } from 'ngx-electron';
 })
 export class GraphService {
 
+  componentId: string;
+
   mainView: GraphViewComponent;
   items: { [key: string]: BaseGraphItemComponent } = {};
   links: GraphLink[] = [];
@@ -55,8 +57,6 @@ export class GraphService {
 
   providers: { [key: string]: DataBank<any> };
 
-  componentId: string;
-
   constructor(
     private dialog: MatDialog,
     private electronService: ElectronService
@@ -66,9 +66,6 @@ export class GraphService {
     this.graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger, electronService);
     this.graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor, electronService);
     this.variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable, electronService);
-
-    // va sûrement être à déplacer dans le composant root de graphAu !
-    this.loadGraphItems();
   }
 
   set tempDrawing(value: boolean) {
@@ -362,6 +359,8 @@ export class GraphService {
   }
 
   loadGraphItems() {
+    console.log(this.componentId);
+    
     this.graphItems.load(this.componentId);
     this.graphTimerItems.load(this.componentId);
     this.graphTriggerItems.load(this.componentId);

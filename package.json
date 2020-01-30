@@ -9,8 +9,7 @@
     "electron": "electron .",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "electron-nb": "electron ."
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

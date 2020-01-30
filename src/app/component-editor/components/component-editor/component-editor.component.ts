@@ -21,6 +21,7 @@ import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
 import { ElectronService } from 'ngx-electron';
 import { DataConfiguration } from 'src/app/common/data/data-configuration.class';
 import { ActivatedRoute } from '@angular/router';
+import { GraphService } from 'src/app/logical-graph/graph.service';
 
 @Component({
   selector: 'app-component-editor',
@@ -40,7 +41,6 @@ export class ComponentEditorComponent implements OnInit {
 
   bottomPanelBounds: DOMRect;
 
-
   settings: ComponentSettings;
 
   private mainSerializer = new JsonConvert(OperationMode.ENABLE,
@@ -53,7 +53,8 @@ export class ComponentEditorComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private dataProvider: DataProviderService,
     private electronService: ElectronService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private graphService: GraphService
   ) { }
 
   ngOnInit() {
@@ -61,48 +62,51 @@ export class ComponentEditorComponent implements OnInit {
     // id de composant à passer ici
 
     this.route.params.subscribe(params => {
-      console.log(params["id"]);
+      this.editorService.componentId = params["id"];
+      this.graphService.componentId = params["id"];
+
+      this.dataProvider.loadAll(this.editorService.componentId);
+
+      this.loadComponentSettings();
+      
+      this.viewport = new FlexibleRectangle();
+
+      this.viewport.initRect({
+        x: 0,
+        y: 0,
+        width: this.settings.sceneWidth,
+        height: this.settings.sceneHeight,
+        xOrigin: 0.5
+      });
+
+      this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport);
+      this.editorService.mainScene = this.editorScene;
+      this.editorService.editorComponent = this;
+
+      let config: Phaser.Types.Core.GameConfig = {
+        type: Phaser.WEBGL,
+        width: this.viewport.width.value,
+        height: this.viewport.height.value,
+        resolution: window.devicePixelRatio,
+        scale: {
+          mode: Phaser.Scale.NONE
+        },
+        scene: this.editorScene,
+        backgroundColor: '#ffffff',
+        parent: this.canvasContainer.nativeElement,
+        plugins: {
+          global: [
+            NineSlicePlugin.DefaultCfg
+          ],
+        }
+      };
+      
+      this.editorGame = new Phaser.Game(config);
+
+      this.onResize();
     });
 
-    this.dataProvider.loadAll();
-
-    this.loadComponentSettings();
     
-    this.viewport = new FlexibleRectangle();
-
-    this.viewport.initRect({
-      x: 0,
-      y: 0,
-      width: this.settings.sceneWidth,
-      height: this.settings.sceneHeight,
-      xOrigin: 0.5
-    });
-
-    this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport);
-    this.editorService.mainScene = this.editorScene;
-    this.editorService.editorComponent = this;
-
-    let config: Phaser.Types.Core.GameConfig = {
-      type: Phaser.WEBGL,
-      width: this.viewport.width.value,
-      height: this.viewport.height.value,
-      resolution: window.devicePixelRatio,
-      scale: {
-        mode: Phaser.Scale.NONE
-      },
-      scene: this.editorScene,
-      backgroundColor: '#ffffff',
-      parent: this.canvasContainer.nativeElement,
-      plugins: {
-        global: [
-          NineSlicePlugin.DefaultCfg
-        ],
-      }
-    };
-    
-    this.editorGame = new Phaser.Game(config);
-
-    this.onResize();
   }
 
   loadComponentSettings() {
@@ -116,8 +120,9 @@ export class ComponentEditorComponent implements OnInit {
       }
     } else {
       let fs = this.electronService.remote.require("fs");
+      let dir = this.editorService.componentId ? this.editorService.componentId + "/" : "";
 
-      let path = DataConfiguration.savePath + "settings.json";
+      let path = DataConfiguration.savePath + dir + "settings.json";
 
       if (fs.existsSync(path)) {
         obj = JSON.parse(fs.readFileSync(path, 'utf8'));
@@ -139,7 +144,15 @@ export class ComponentEditorComponent implements OnInit {
       localStorage["settings"] = str;
     } else {
       let fs = this.electronService.remote.require("fs");
-      let path = DataConfiguration.savePath + "settings.json";
+      let dir = this.editorService.componentId ? this.editorService.componentId + "/" : "";
+
+      let path = DataConfiguration.savePath + dir + "settings.json";
+
+
+      if (!fs.existsSync(DataConfiguration.savePath + dir)) {
+        fs.mkdirSync(DataConfiguration.savePath + dir, { recursive: true });
+      }
+
       fs.writeFileSync(path, str);
     }
   }
@@ -174,7 +187,7 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   saveAll() {
-    this.dataProvider.saveAll(); 
+    this.dataProvider.saveAll(this.editorService.componentId); 
     this.saveComponentSettings();
   }
 

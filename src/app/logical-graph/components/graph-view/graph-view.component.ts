@@ -51,6 +51,9 @@ export class GraphViewComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
+
+    this.graphService.loadGraphItems();
+
     this.graphService.mainView = this;
     this.graphService.mainScene = this.mainScene;
     this.graphScene = new GraphScene();

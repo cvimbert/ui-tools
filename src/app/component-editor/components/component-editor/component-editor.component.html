@@ -11,12 +11,12 @@
       </div>
     </div>
     <div class="bottom-panel" #bottomPanel>
-      <structure-objects-panel [bounds]="bottomPanelBounds"></structure-objects-panel>
+      <structure-objects-panel *ngIf="editorService.componentId" [bounds]="bottomPanelBounds"></structure-objects-panel>
     </div>
   </div>
   <div class="right">
     <div class="buttons">
-      <input type="button" value="Go to index" [routerLink]="['../index']">
+      <input type="button" value="Go to index" [routerLink]="['/index']">
       <input type="button" value="Scene size" (click)="editSceneSize()">
       <input type="button" value="Save all" (click)="saveAll()">
       <input type="button" value="Create base rect" (click)="createBaseRect()">

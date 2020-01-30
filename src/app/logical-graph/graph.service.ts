@@ -59,7 +59,7 @@ export class GraphService {
 
   constructor(
     private dialog: MatDialog,
-    private electronService: ElectronService
+    electronService: ElectronService
   ) {
     this.graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem, electronService);
     this.graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer, electronService);

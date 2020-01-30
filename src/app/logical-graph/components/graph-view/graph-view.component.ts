@@ -59,12 +59,6 @@ export class GraphViewComponent implements OnInit, OnChanges {
     this.graphScene = new GraphScene();
     this.graphService.scene = this.graphScene;
 
-    let offsetRect: DOMRect = this.canvasContainer.nativeElement.getBoundingClientRect();
-
-    this.graphService.canvasContainerOffset = {
-      x: offsetRect.left,
-      y: offsetRect.top
-    };
     
     let config: Phaser.Types.Core.GameConfig = {
       type: Phaser.WEBGL,
@@ -84,6 +78,8 @@ export class GraphViewComponent implements OnInit, OnChanges {
     // en attendant mieux
     setTimeout(() => {
       // attention, possibilité de fonctionnement asynchrone ici
+      this.calculateOffsetContainer();
+
       this.setCanvasSize();
       this.loadPositions();
       this.createAllLinks();
@@ -94,6 +90,18 @@ export class GraphViewComponent implements OnInit, OnChanges {
     this.graphService.graphItems.items.forEach(item => {
       this.initGraphItem(item);
     });
+  }
+
+  calculateOffsetContainer() {
+    let offsetRect: DOMRect = this.canvasContainer.nativeElement.getBoundingClientRect();
+
+    this.graphService.canvasContainerOffset = {
+      x: offsetRect.left,
+      y: offsetRect.top
+    };
+
+    console.log("calculate");
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -121,6 +129,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
   @HostListener('window:resize', ['$event'])
   onResize() {
       this.setCanvasSize();
+      this.calculateOffsetContainer();
   }
 
   setCanvasSize() {

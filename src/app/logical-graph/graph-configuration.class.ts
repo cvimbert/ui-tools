@@ -13,5 +13,5 @@ export class GraphConfiguration {
     static VARIABLE_STORAGE_KEY = "variable-item";
 
     // temporaire ??
-    static highlightingTimeoutDelay = 2000;
+    static highlightingTimeoutDelay = 500;
 }

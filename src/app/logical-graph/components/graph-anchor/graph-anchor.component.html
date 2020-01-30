@@ -1,4 +1,4 @@
-<div [class.highlighted]="highlighted" class="content">
+<div [@highlightable]="highlightedState" class="content">
   <div class="args-displayer" *ngIf="hasArgs()" (click)="displayArgs($event)">
     <i class="fas fa-ellipsis-h"></i>
   </div>

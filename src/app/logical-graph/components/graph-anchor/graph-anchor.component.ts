@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BaseGraphItemComponent } from '../base-graph-item/base-graph-item.component';
 import { AnchorItem } from '../../interfaces/anchor-item.interface';
-import { trigger, state, style } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Argument } from '../../interfaces/argument.interface';
 import { Point } from 'src/app/common/geometry/interfaces/point.interface';
 import { GraphService } from '../../graph.service';
@@ -14,11 +14,15 @@ import { GraphConfiguration } from '../../graph-configuration.class';
   animations: [
     trigger('highlightable', [
       state('highlighted', style({
-
+        color: "#000000",
+        backgroundColor: "#ffffff"
       })),
       state('released', style({
-
-      }))
+        color: "#ffffff",
+        backgroundColor: "transparent"
+      })),
+      transition('released => highlighted', animate('10ms linear')),
+      transition('highlighted => released', animate('500ms linear')),
     ])
   ]
 })
@@ -30,6 +34,7 @@ export class GraphAnchorComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() parentItem: BaseGraphItemComponent;
   highlighted = false;
+  highlightedState = "released";
   highlightingTimeout: any;
 
   constructor(
@@ -61,16 +66,19 @@ export class GraphAnchorComponent implements OnInit, OnDestroy {
 
   highlight() {
     this.highlighted = true;
+    this.highlightedState = "highlighted";
     this.cdRef.detectChanges();
 
     this.highlightingTimeout = setTimeout(() => {
       this.highlighted = false;
+      this.highlightedState = "released";
       this.cdRef.detectChanges();
     }, GraphConfiguration.highlightingTimeoutDelay);
   }
 
   breakHighlight() {
     this.highlighted = false;
+    this.highlightedState = "released";
     clearTimeout(this.highlightingTimeout);
   }
 

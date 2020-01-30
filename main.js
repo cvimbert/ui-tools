@@ -8,7 +8,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    title: "[(|)] OKAMI [(|)]",
+    title: "[(|)] OKAMI UI [(|)]",
     webPreferences: {
       nodeIntegration: true
     },

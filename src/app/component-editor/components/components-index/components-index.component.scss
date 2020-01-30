@@ -1,6 +1,7 @@
 :host {
   text-align: center;
-  padding-top: 60px;
+  padding-top: 20px;
+  display: block;
 }
 
 .title {
@@ -12,6 +13,10 @@
 
 .component {
   margin-bottom: 8px;
+
+  input {
+    margin-right: 5px;
+  }
 }
 
 .name {

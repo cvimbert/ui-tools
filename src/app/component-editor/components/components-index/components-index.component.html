@@ -3,6 +3,7 @@
   <div class="component" *ngFor="let comp of components">
     <div class="name">{{ comp.name }}</div>
       <input type="button" value="Go" [routerLink]="['/component-editor', comp.id]">
+      <input type="button" value="Delete" (click)="deleteItem(comp)">
   </div>
 </div>
 <div class="buttons">

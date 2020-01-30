@@ -11,7 +11,7 @@ export class StructureObjectsPanelComponent implements OnInit {
 
   @Input() bounds: DOMRect;
 
-  selectedTabId = "graph";
+  selectedTabId = "scene-states";
   providers: { [key: string]: DataBank<any> } = {};
 
   constructor(

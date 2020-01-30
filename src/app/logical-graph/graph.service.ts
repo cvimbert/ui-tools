@@ -55,6 +55,8 @@ export class GraphService {
 
   providers: { [key: string]: DataBank<any> };
 
+  componentId: string;
+
   constructor(
     private dialog: MatDialog,
     private electronService: ElectronService
@@ -64,6 +66,9 @@ export class GraphService {
     this.graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger, electronService);
     this.graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor, electronService);
     this.variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable, electronService);
+
+    // va sûrement être à déplacer dans le composant root de graphAu !
+    this.loadGraphItems();
   }
 
   set tempDrawing(value: boolean) {
@@ -356,12 +361,20 @@ export class GraphService {
 
   }
 
+  loadGraphItems() {
+    this.graphItems.load(this.componentId);
+    this.graphTimerItems.load(this.componentId);
+    this.graphTriggerItems.load(this.componentId);
+    this.graphAnchorItems.load(this.componentId);
+    this.variableItems.load(this.componentId);
+  }
+
   saveGraphItems() {
-    this.graphItems.save();
-    this.graphTimerItems.save();
-    this.graphTriggerItems.save();
-    this.graphAnchorItems.save();
-    this.variableItems.save();
+    this.graphItems.save(this.componentId);
+    this.graphTimerItems.save(this.componentId);
+    this.graphTriggerItems.save(this.componentId);
+    this.graphAnchorItems.save(this.componentId);
+    this.variableItems.save(this.componentId);
   }
 
 }

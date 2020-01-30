@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BaseGraphItemComponent } from '../base-graph-item/base-graph-item.component';
 import { AnchorItem } from '../../interfaces/anchor-item.interface';
 import { trigger, state, style } from '@angular/animations';
@@ -22,7 +22,7 @@ import { GraphConfiguration } from '../../graph-configuration.class';
     ])
   ]
 })
-export class GraphAnchorComponent implements OnInit {
+export class GraphAnchorComponent implements OnInit, OnDestroy {
 
   @ViewChild("banchor") bAnchor: ElementRef;
   @Input() type: string;
@@ -39,6 +39,10 @@ export class GraphAnchorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.cdRef.detach();
   }
 
   onOver() {

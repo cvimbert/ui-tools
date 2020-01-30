@@ -32,7 +32,7 @@ export class DataBank<T> {
       true
     );
 
-    this.load();
+    // this.load();
   }
 
   createItem(data: BaseData): T {
@@ -84,7 +84,7 @@ export class DataBank<T> {
     }
   }
 
-  save() {
+  save(directory?: string) {
     let obj = this.jsonConverter.serializeArray(this.items);
 
     if (!this.electronService.isElectronApp) {
@@ -92,17 +92,18 @@ export class DataBank<T> {
       localStorage[this.storageKey + DataConfiguration.ITEMS_SUFFIX] = JSON.stringify(obj);
     } else {
       let fs = this.electronService.remote.require("fs");
+      let dir = directory ? directory + "/" : "";
 
       let fileObj: Object = {
         index: this.tempId,
         object: obj
       };
 
-      fs.writeFileSync(DataConfiguration.savePath + this.storageKey + ".json", JSON.stringify(fileObj));
+      fs.writeFileSync(DataConfiguration.savePath + dir + this.storageKey + ".json", JSON.stringify(fileObj));
     }
   }
 
-  load() {    
+  load(directory?: string) {    
     let obj: Object;
     let index: number;
     this.items = [];
@@ -116,8 +117,9 @@ export class DataBank<T> {
       }
     } else {
       let fs = this.electronService.remote.require("fs");
+      let dir = directory ? directory + "/" : "";
 
-      let path = DataConfiguration.savePath + this.storageKey + ".json";
+      let path = DataConfiguration.savePath + dir + this.storageKey + ".json";
 
       if (fs.existsSync(path)) {
         let content = fs.readFileSync(path, 'utf8');

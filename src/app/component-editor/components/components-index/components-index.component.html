@@ -1,0 +1,10 @@
+<div class="title">Components</div>
+<div>
+  <div class="component" *ngFor="let comp of components">
+    <div class="name">{{ comp.name }}</div>
+      <input type="button" value="Go" [routerLink]="['/component-editor', comp.id]">
+  </div>
+</div>
+<div class="buttons">
+  <input type="button" value="Create component" (click)="addComponent()">
+</div>

@@ -22,6 +22,7 @@ import { LogicalGraphModule } from '../logical-graph/logical-graph.module';
 import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
 import { AssetBasedObjectEditModalComponent } from './components/asset-based-object-edit-modal/asset-based-object-edit-modal.component';
 import { NgxElectronModule } from 'ngx-electron';
+import { ComponentsIndexComponent } from './components/components-index/components-index.component';
 
 @NgModule({
   providers: [
@@ -42,7 +43,8 @@ import { NgxElectronModule } from 'ngx-electron';
     EditSceneStateModalComponent,
     SceneTransitionEditModalComponent,
     SceneTransitionDisplayerComponent,
-    AssetBasedObjectEditModalComponent
+    AssetBasedObjectEditModalComponent,
+    ComponentsIndexComponent
   ],
   imports: [
     CommonModule,

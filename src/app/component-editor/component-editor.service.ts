@@ -25,10 +25,14 @@ export class ComponentEditorService {
 
   mainScene: Phaser.Scene;
 
+  componentId: string;
+
   constructor(
     private dialog: MatDialog,
     private dataProvider: DataProviderService
-  ) { }
+  ) {
+    
+  }
 
   selectObject(object: GraphicObjectContainer) {
         
@@ -121,6 +125,10 @@ export class ComponentEditorService {
 
   get sceneTransitions(): SceneTransition[] {
     return this.sceneTransitionsBank.items;
+  }
+
+  createComponent() {
+
   }
 
   createSceneTransition() {

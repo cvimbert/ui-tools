@@ -4,29 +4,48 @@ import { ElectronService } from 'ngx-electron';
 
 export class DataProvider {
   
-    banks: { [key: string]: DataBank<any> } = {};
+    componentsBanks: { [key: string]: DataBank<any> } = {};
+    mainBanks: { [key: string]: DataBank<any> } = {};
 
     constructor(
         electronService: ElectronService
     ) {
-        DataConfiguration.BANK_CONFIGURATION.forEach(item => {
-            this.banks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
+        DataConfiguration.COMPONENTS_BANK_CONFIGURATION.forEach(item => {
+            this.componentsBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
+        });
+
+        DataConfiguration.MAIN_BANK_CONFIGURATION.forEach(item => {
+            this.mainBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
         });
     }
 
-    loadAll() {
-        for (let key in this.banks) {
-            this.banks[key].load();
+    loadAll(path?: string) {
+        for (let key in this.componentsBanks) {
+            this.componentsBanks[key].load(path);
+        }
+
+        for (let key in this.mainBanks) {
+            this.mainBanks[key].load();
         }
     }
 
-    saveAll() {
-        for (let key in this.banks) {
-            this.banks[key].save();
+    saveAll(path?: string) {
+        for (let key in this.componentsBanks) {
+            this.componentsBanks[key].save(path);
+        }
+
+        for (let key in this.mainBanks) {
+            this.mainBanks[key].save();
         }
     }
 
     getBank(name: string): DataBank<any> {
-        return this.banks[name];
+        let bank = this.componentsBanks[name];
+
+        if (!bank) {
+            bank = this.mainBanks[name];
+        }
+
+        return bank;
     }
 }

@@ -20,6 +20,7 @@ import { AssetBasedObjectEditModalComponent } from '../asset-based-object-edit-m
 import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
 import { ElectronService } from 'ngx-electron';
 import { DataConfiguration } from 'src/app/common/data/data-configuration.class';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-component-editor',
@@ -51,13 +52,21 @@ export class ComponentEditorComponent implements OnInit {
     private dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     private dataProvider: DataProviderService,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
-    this.loadComponentSettings();
+    // id de composant à passer ici
 
+    this.route.params.subscribe(params => {
+      console.log(params["id"]);
+    });
+
+    this.dataProvider.loadAll();
+
+    this.loadComponentSettings();
     
     this.viewport = new FlexibleRectangle();
 

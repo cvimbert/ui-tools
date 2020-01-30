@@ -68,6 +68,10 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     initLabel() {
         this.label = this.name;
+
+        if (this.graphService) {
+            this.hitEnabled = true;
+        }
     }
 
     initWithScene(
@@ -77,10 +81,6 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     ) {
         this.scene = scene;
         this.initRect(rect, parent);
-
-        if (this.graphService) {
-            this.hitEnabled = true;
-        }
     }
 
     get selected(): boolean {
@@ -118,7 +118,12 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     }
 
     createHitZone() {
+        // console.log("ici");
+        
         if (!this.hitZone) {
+            // console.log("create hit zone");
+            
+
             this.hitZone = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xff0000, 0);
 
             this.hitZone.setInteractive({

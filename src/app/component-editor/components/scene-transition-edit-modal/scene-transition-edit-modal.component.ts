@@ -12,7 +12,7 @@ import { Easings } from 'src/app/common/graphic/transitions/easings.class';
 })
 export class SceneTransitionEditModalComponent implements OnInit {
 
-  private states: SceneState[];
+  states: SceneState[];
 
   name = "";
   description = "";

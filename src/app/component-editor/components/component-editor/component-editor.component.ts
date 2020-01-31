@@ -187,7 +187,8 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   saveAll() {
-    this.dataProvider.saveAll(this.editorService.componentId); 
+    this.dataProvider.saveAll(this.editorService.componentId);
+    this.graphService.saveGraphItems();
     this.saveComponentSettings();
   }
 

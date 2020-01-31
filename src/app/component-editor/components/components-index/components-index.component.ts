@@ -8,6 +8,8 @@ import { BaseData } from 'src/app/common/data/interfaces/base-data.interface';
 import { DeletionModalComponent } from '../deletion-modal/deletion-modal.component';
 import { ElectronService } from 'ngx-electron';
 import { DataConfiguration } from 'src/app/common/data/data-configuration.class';
+import { DataBank } from 'src/app/common/data/data-bank.class';
+import { EditorComposition } from '../../editor-composition.class';
 
 @Component({
   selector: 'app-components-index',
@@ -24,27 +26,39 @@ export class ComponentsIndexComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataProvider.getBank("components").load();
+    this.componentsBank.load();
   }
 
   addComponent() {
     this.dialog.open(MetadataEditionModalComponent).afterClosed().subscribe((data: BaseData) => {
       if (data) {
-        this.dataProvider.getBank("components").createItem(data);
-        this.dataProvider.getBank("components").save();
+        this.componentsBank.createItem(data);
+        this.componentsBank.save();
       }
     });
   }
 
+  get componentsBank(): DataBank<EditorComponent> {
+    return this.dataProvider.getBank("components");
+  }
+
+  get compositionsBank(): DataBank<EditorComposition> {
+    return this.dataProvider.getBank("compositions");
+  }
+
   get components(): EditorComponent[] {
-    return this.dataProvider.getBank("components").items;
+    return this.componentsBank.items;
+  }
+
+  get compositions(): EditorComposition[] {
+    return this.compositionsBank.items;
   }
 
   deleteItem(item: EditorComponent) {
     this.dialog.open(DeletionModalComponent).afterClosed().subscribe(deletion => {
       if (deletion) {
-        this.dataProvider.getBank("components").delete(item);
-        this.dataProvider.getBank("components").save();
+        this.componentsBank.delete(item);
+        this.componentsBank.save();
 
         // removing the folder
         let fs = this.electronService.remote.require("fs");
@@ -55,6 +69,19 @@ export class ComponentsIndexComponent implements OnInit {
         } */
       }
     })
+  }
+
+  editData(item: EditorComponent) {
+    this.dialog.open(MetadataEditionModalComponent, {
+      data: item
+    }).afterClosed().subscribe((data: BaseData) => {
+      if (data) {
+        item.name = data.name;
+        item.description = data.description;
+
+        this.componentsBank.save();
+      }
+    });
   }
 
 }

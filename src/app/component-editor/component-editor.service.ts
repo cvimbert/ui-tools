@@ -12,6 +12,7 @@ import { BaseData } from '../common/data/interfaces/base-data.interface';
 import { DataBank } from '../common/data/data-bank.class';
 import { SceneTransition } from '../common/graphic/transitions/scene-transition.class';
 import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
+import { GraphService } from '../logical-graph/graph.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class ComponentEditorService {
 
   constructor(
     private dialog: MatDialog,
-    private dataProvider: DataProviderService
+    private dataProvider: DataProviderService,
+    private graphService: GraphService
   ) {
     
   }

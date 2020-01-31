@@ -1,11 +1,28 @@
-<div class="title">Components</div>
-<div>
-  <div class="component" *ngFor="let comp of components">
-    <div class="name">{{ comp.name }}</div>
-      <input type="button" value="Go" [routerLink]="['/component-editor', comp.id]">
-      <input type="button" value="Delete" (click)="deleteItem(comp)">
+<div class="block-container">
+  <div class="title">Components</div>
+  <div>
+    <div class="component" *ngFor="let comp of components">
+      <div class="name">{{ comp.name }}</div>
+        <input type="button" value="Go" [routerLink]="['/component-editor', comp.id]">
+        <input type="button" value="Delete" (click)="deleteItem(comp)">
+        <input type="button" value="Edit" (click)="editData(comp)">
+    </div>
+  </div>
+  <div class="buttons">
+    <input type="button" value="Create component" (click)="addComponent()">
   </div>
 </div>
-<div class="buttons">
-  <input type="button" value="Create component" (click)="addComponent()">
+<div class="block-container">
+  <div class="title">Compositions</div>
+  <div>
+    <div class="component" *ngFor="let comp of compositions">
+      <div class="name">{{ comp.name }}</div>
+        <input type="button" value="Go" [routerLink]="['/compositions-editor', comp.id]">
+        <input type="button" value="Delete" (click)="deleteComposition(comp)">
+        <input type="button" value="Edit" (click)="editData(comp)">
+    </div>
+  </div>
+  <div class="buttons">
+    <input type="button" value="Create Composition" (click)="addComposition()">
+  </div>
 </div>

@@ -81,6 +81,10 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     ) {
         this.scene = scene;
         this.initRect(rect, parent);
+
+        if (this.graphService) {
+            this.hitEnabled = true;
+        }
     }
 
     get selected(): boolean {

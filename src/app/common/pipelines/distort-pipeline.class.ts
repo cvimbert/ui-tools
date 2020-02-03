@@ -6,7 +6,10 @@ export class DistortPipeline extends Phaser.Renderer.WebGL.Pipelines.TextureTint
       renderer: game.renderer,
       fragShader: `
       precision mediump float;
+
+      // ici c'est time qui doit varier
       uniform float     time;
+      
       uniform vec2      resolution;
       uniform sampler2D uMainSampler;
       varying vec2 outTexCoord;

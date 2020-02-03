@@ -48,9 +48,9 @@ export class ComponentEditorScene extends Phaser.Scene {
         
         let bank: DataBank<GraphicObjectContainer> = this.dataProvider.getBank("scene-objects");
 
-        let jj = (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).addPipeline('Distort', new DistortPipeline(this.game));
-        jj.setFloat2('resolution', <number>this.game.config.width, <number>this.game.config.height);
-         this.cameras.main.setRenderToTexture("Distort");
+        // let jj = (<Phaser.Renderer.WebGL.WebGLRenderer>this.game.renderer).addPipeline('Distort', new DistortPipeline(this.game));
+        // jj.setFloat2('resolution', <number>this.game.config.width, <number>this.game.config.height);
+        // this.cameras.main.setRenderToTexture("Distort");
 
         bank.items.forEach(item => {
             switch(item.objectType) {
@@ -77,8 +77,6 @@ export class ComponentEditorScene extends Phaser.Scene {
         });
 
         this.editorService.graphicObjects = bank.items;
-        
-
     }
 
     drawBackground() {

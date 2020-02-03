@@ -87,7 +87,10 @@ export class ComponentEditorComponent implements OnInit {
         type: Phaser.WEBGL,
         width: this.viewport.width.value,
         height: this.viewport.height.value,
-        resolution: window.devicePixelRatio,
+
+        // Problem with shaders
+        // resolution: window.devicePixelRatio,
+        
         scale: {
           mode: Phaser.Scale.NONE
         },

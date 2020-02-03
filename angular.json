@@ -32,7 +32,9 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              
+              "node_modules/gsap/umd/TweenMax.js",
+              "node_modules/gsap/umd/ScrollToPlugin.js",
+              "node_modules/gsap/umd/Draggable.js"
             ],
             "es5BrowserSupport": true
           },

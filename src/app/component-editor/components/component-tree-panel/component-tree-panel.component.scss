@@ -1,0 +1,32 @@
+.objects-list {
+  height: 100%;
+  border: 1px solid;
+  border-right: none;
+  // width: 170px;
+}
+
+.object-item {
+  height: 36px;
+  line-height: 35px;
+  border-bottom: 1px solid;
+  background-color: white;
+  display: flex;
+  padding: 0 0 0 15px;
+  width: 170px;
+}
+
+.name {
+  flex: 1;
+}
+
+.object-placeholder {
+  height: 36px;
+  background-color: grey;
+}
+
+.visibility-display {
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+  width: 30px;
+}

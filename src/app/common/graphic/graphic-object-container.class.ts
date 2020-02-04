@@ -47,6 +47,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     @JsonProperty("objectType", String)
     objectType = "";
+    
+    @JsonProperty("visibility", Boolean)
+    _visibility = true;
 
     // le parent devrait aussi se trouver ici
     scene: ComponentEditorScene;
@@ -74,6 +77,14 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         }
     }
 
+    afterInit() {
+        if (this.graphService) {
+            this.hitEnabled = true;
+        }
+
+        this.setVisibility(this._visibility);
+    }
+
     initWithScene(
         scene: ComponentEditorScene,
         rect?: Rectangle,
@@ -81,10 +92,26 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     ) {
         this.scene = scene;
         this.initRect(rect, parent);
+    }
 
-        if (this.graphService) {
-            this.hitEnabled = true;
+    get visibility(): boolean {
+        return this._visibility;
+    }
+
+    setVisibility(value: boolean) {
+        if (this.selectionRect) {
+            this.selectionRect.visible = value;
         }
+
+        if (this.originDisplayer) {
+            this.originDisplayer.visible = value;
+        }
+
+        this._visibility = value;
+    }
+
+    toggleVisibility() {
+        this.setVisibility(!this._visibility);
     }
 
     get selected(): boolean {

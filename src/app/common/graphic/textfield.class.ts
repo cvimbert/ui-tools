@@ -107,7 +107,7 @@ export class Textfield extends GraphicObjectContainer {
         this.height.value = this.textObject.height;
 
         // this.textObject.setPipeline("Distort");
-
+        this.afterInit();
         this.render();
     }
 
@@ -133,6 +133,11 @@ export class Textfield extends GraphicObjectContainer {
         this.textObject.setWordWrapWidth(this.width.value);
 
         super.render();
+    }
+
+    setVisibility(value: boolean) {
+        this.textObject.visible = value;
+        super.setVisibility(value);
     }
 
     destroy() {

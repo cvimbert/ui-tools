@@ -4,6 +4,7 @@
     vertical-align: middle;
     background-color: #f1f1f1;
     flex: 1;
+    display: flex;
 }
 
 .canvas-container {
@@ -36,6 +37,7 @@
 
 .wrapper {
     height: 100%;
+    flex: 1;
 }
 
 .cross-lt {

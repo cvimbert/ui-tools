@@ -30,6 +30,7 @@ export class Image extends GraphicObjectContainer {
         this.width.value = this.image.width;
         this.height.value = this.image.height;
 
+        this.afterInit();
         this.render();
     }
 
@@ -50,6 +51,11 @@ export class Image extends GraphicObjectContainer {
         // this.scaleY.value = this.image.scaleY;
 
         super.render();
+    }
+
+    setVisibility(value: boolean) {
+        this.image.visible = value;
+        super.setVisibility(value);
     }
 
     destroy() {

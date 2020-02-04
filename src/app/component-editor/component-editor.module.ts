@@ -23,6 +23,8 @@ import { AssetsManagerModule } from '../assets-manager/assets-manager.module';
 import { AssetBasedObjectEditModalComponent } from './components/asset-based-object-edit-modal/asset-based-object-edit-modal.component';
 import { NgxElectronModule } from 'ngx-electron';
 import { ComponentsIndexComponent } from './components/components-index/components-index.component';
+import { ComponentTreePanelComponent } from './components/component-tree-panel/component-tree-panel.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   providers: [
@@ -44,7 +46,8 @@ import { ComponentsIndexComponent } from './components/components-index/componen
     SceneTransitionEditModalComponent,
     SceneTransitionDisplayerComponent,
     AssetBasedObjectEditModalComponent,
-    ComponentsIndexComponent
+    ComponentsIndexComponent,
+    ComponentTreePanelComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +56,8 @@ import { ComponentsIndexComponent } from './components/components-index/componen
     FormsModule,
     LogicalGraphModule,
     AssetsManagerModule,
-    NgxElectronModule
+    NgxElectronModule,
+    DragDropModule
   ],
   entryComponents: [
     SceneSizeModalComponent,

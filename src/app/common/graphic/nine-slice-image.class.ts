@@ -39,6 +39,7 @@ export class NineSliceImage extends GraphicObjectContainer {
             sliceSize, sliceSize
         ).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
+        this.afterInit();
         this.render();
     }
 
@@ -55,6 +56,11 @@ export class NineSliceImage extends GraphicObjectContainer {
         this.image.setScale(this.scaleX.value, this.scaleY.value);
 
         super.render();
+    }
+
+    setVisibility(value: boolean) {
+        this.image.visible = value;
+        super.setVisibility(value);
     }
 
     destroy() {

@@ -1,6 +1,9 @@
 <div class="main">
   <div class="left">
+
     <div class="editor-main-container" #mainContainer>
+
+
       <div class="wrapper" [style.line-height.px]="containerHeight">
         <div class="canvas-container" #canvasContainer>
           <outline-cross class="cross-lt"></outline-cross>
@@ -9,10 +12,15 @@
           <outline-cross class="cross-rb"></outline-cross>
         </div>
       </div>
+
+      <component-tree-panel></component-tree-panel>
+
     </div>
+
     <div class="bottom-panel" #bottomPanel>
       <structure-objects-panel *ngIf="editorService.componentId" [bounds]="bottomPanelBounds"></structure-objects-panel>
     </div>
+
   </div>
   <div class="right">
     <div class="buttons">

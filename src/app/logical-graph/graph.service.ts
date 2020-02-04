@@ -57,6 +57,8 @@ export class GraphService {
 
   providers: { [key: string]: DataBank<any> };
 
+  graphOffset: Point = { x: 0, y: 0 };
+
   constructor(
     private dialog: MatDialog,
     electronService: ElectronService
@@ -270,7 +272,7 @@ export class GraphService {
     let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
 
     // c'est ici qu'on highlight tous les graphlinks
-    baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight());
+    baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight(this.graphOffset));
 
     outLinks.forEach(link => {
       let targetItem = this.graphItems.items.find(item => item.id === link.targetObject);      
@@ -358,9 +360,7 @@ export class GraphService {
 
   }
 
-  loadGraphItems() {
-    console.log(this.componentId);
-    
+  loadGraphItems() {    
     this.graphItems.load(this.componentId);
     this.graphTimerItems.load(this.componentId);
     this.graphTriggerItems.load(this.componentId);

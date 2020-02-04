@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.items-container {
+  position: absolute;
+}
+
 .canvas-container {
     position: absolute;
     top: 0;
@@ -33,4 +37,45 @@
     pointer-events: none;
     transform: scale(0.4);
     transform-origin: right top;
+  }
+
+  .arrow {
+    position: absolute;
+    background-color: lightblue;
+    opacity: 0.5;
+
+    &.active {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    &.top, &.bottom {
+      width: 100px;
+      height: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.right, &.left {
+      width: 50px;
+      height: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &.top {
+      top: 10px;
+    }
+
+    &.bottom {
+      bottom: 10px;
+    }
+
+    &.right {
+      right: 10px;
+    }
+
+    &.left {
+      left: 10px;
+    }
   }

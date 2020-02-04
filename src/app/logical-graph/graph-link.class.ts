@@ -2,7 +2,7 @@ import { BaseGraphItemComponent } from './components/base-graph-item/base-graph-
 import { GraphScene } from './graph-scene.class';
 import { OutLink } from './out-link.class';
 import { GraphItem } from './graph-item.class';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 import { GraphService } from './graph.service';
 import { Point } from '../common/geometry/interfaces/point.interface';
 import { GraphConfiguration } from './graph-configuration.class';
@@ -33,7 +33,7 @@ export class GraphLink {
 
   }
 
-  drawLink(color = 0x000000) {
+  drawLink(color = 0x000000, offset?: Point) {
     if (!this.scene || !this.scene.add) return;
 
     if (!this.lineGraphics) {
@@ -46,6 +46,14 @@ export class GraphLink {
 
     let fromPoint = this.fromItem.getAnchorComponentPosition(this.fromAnchor);
     let toPoint = this.toItem.getAnchorComponentPosition(this.toAnchor);
+
+    /* if (offset) {
+      fromPoint.x += offset.x;
+      toPoint.x += offset.x;
+
+      fromPoint.y += offset.y;
+      toPoint.y += offset.y;
+    } */
 
     let points = GraphLink.getSplinePoints(toPoint, fromPoint);
 
@@ -88,22 +96,22 @@ export class GraphLink {
     }
   }
 
-  highlight() {
+  highlight(offset: Point) {
     // console.log("Graphlink highlight", this);
     // un simple effet sur l'alpha ou un effet de couleur, avec tween, devraient suffire
-    this.applyHighlightFx();
+    this.applyHighlightFx(offset);
 
     setTimeout(() => {
-      this.removeHighlightFx();
+      this.removeHighlightFx(offset);
     }, GraphConfiguration.highlightingTimeoutDelay);
   }
 
-  applyHighlightFx() {
-    this.drawLink(0xcc0000);
+  applyHighlightFx(offset?: Point) {
+    this.drawLink(0xcc0000, offset);
   }
 
-  removeHighlightFx() {
-    this.drawLink();
+  removeHighlightFx(offset?: Point) {
+    this.drawLink(0x000000, offset);
   }
 
   static getSplinePoints(from: Point, to: Point): Phaser.Math.Vector2[] {
@@ -133,8 +141,8 @@ export class GraphLink {
     });
   }
 
-  onMove() {
-    this.drawLink();
+  onMove(offset?: Point) {
+    this.drawLink(0x000000, offset);
   }
 
   destroy() {

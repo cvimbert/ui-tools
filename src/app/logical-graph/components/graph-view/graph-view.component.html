@@ -1,11 +1,17 @@
 <div class="main-container">
   <div class="canvas-container" #canvasContainer>
-    <base-graph-item
+    <div class="items-container" [style.left.px]="graphService.graphOffset.x" [style.top.px]="graphService.graphOffset.y">
+      <base-graph-item
       #itemComponent
       *ngFor="let item of graphItems; let i = index"
       [pos]="i"
       [data]="item"
     ></base-graph-item>
+    </div>
+    <!-- <div class="arrow top active" (mousedown)="startScrollGraph(0, 1)" (mouseup)="stopScrollGraph()"></div>
+    <div class="arrow right" (mousedown)="startScrollGraph(-1, 0)"></div>
+    <div class="arrow bottom" (mousedown)="startScrollGraph(0, -1)"></div>
+    <div class="arrow left" (mousedown)="startScrollGraph(1, 0)"></div> -->
     <div #canvasElement></div>
     <div class="bottom-left-panel layer-panel">
       <select [(ngModel)]="selectedGraphItemType">

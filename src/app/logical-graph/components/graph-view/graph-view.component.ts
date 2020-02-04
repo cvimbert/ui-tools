@@ -9,6 +9,7 @@ import { GraphTarget } from '../../interfaces/graph-target.interface';
 import { GraphTargetSelectionModalComponent } from '../graph-target-selection-modal/graph-target-selection-modal.component';
 import { GraphItemType } from '../../graph-item-type.class';
 import { GraphItem } from '../../graph-item.class';
+import { Point } from 'electron';
 
 @Component({
   selector: 'graph-view',
@@ -37,15 +38,13 @@ export class GraphViewComponent implements OnInit, OnChanges {
 
   graphScene: GraphScene;
   game: Phaser.Game;
-  // bounds = new SimpleRectangle(0, 0, 1024, 600);
 
-  //positionsDictionary: DataDictionary<SerializablePoint>;
   selectedGraphItemType = GraphItemType.ITEMS_LIST[0];
 
   items: BaseItemData[];
 
   constructor(
-    private graphService: GraphService,
+    public graphService: GraphService,
     private dialog: MatDialog,
     private cdRef: ChangeDetectorRef
   ) {}
@@ -56,7 +55,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
 
     this.graphService.mainView = this;
     this.graphService.mainScene = this.mainScene;
-    this.graphScene = new GraphScene();
+    this.graphScene = new GraphScene(this.graphService);
     this.graphService.scene = this.graphScene;
 
     
@@ -181,7 +180,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
 
   redrawAllLinks() {
     this.graphService.links.forEach(link => {
-        link.drawLink();
+        link.drawLink(0x000000, this.graphService.graphOffset);
     });
   }
 
@@ -198,5 +197,16 @@ export class GraphViewComponent implements OnInit, OnChanges {
     // this.savePositions();
 
     this.graphService.saveGraphItems();
+  }
+
+  startScrollGraph(x: number, y: number) {
+    this.graphService.graphOffset.x += x * 10;
+    this.graphService.graphOffset.y += y * 10;
+
+    setTimeout(() => this.redrawAllLinks());
+  }
+
+  stopScrollGraph() {
+
   }
 }

@@ -22,6 +22,7 @@ import { ElectronService } from 'ngx-electron';
 import { DataConfiguration } from 'src/app/common/data/data-configuration.class';
 import { ActivatedRoute } from '@angular/router';
 import { GraphService } from 'src/app/logical-graph/graph.service';
+import { NodalContainer } from 'src/app/common/graphic/nodal-container.class';
 
 @Component({
   selector: 'app-component-editor',
@@ -214,7 +215,11 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createText() {
-    this.createSceneObject("textfield")
+    this.createSceneObject("textfield");
+  }
+
+  createContainer() {
+    this.createSceneObject("nodalContainer");
   }
 
   createState() {
@@ -269,7 +274,8 @@ export class ComponentEditorComponent implements OnInit {
       if (data) {
         let constructors: { [key: string] : { new (): GraphicObjectContainer } } = {
           baseRect: BasicRectSprite,
-          textfield: Textfield
+          textfield: Textfield,
+          nodalContainer: NodalContainer
         };
     
         let item = new constructors[type]();
@@ -296,6 +302,14 @@ export class ComponentEditorComponent implements OnInit {
             (<Textfield>item).initObject(this.editorScene, "Placeholder\nsdsqdsq", {
               x: 50,
               y: 50
+            }, this.viewport);
+
+            break;
+
+          case "nodalContainer":
+            (<NodalContainer>item).initObject(this.editorScene, {
+              x: 0,
+              y: 0
             }, this.viewport);
 
             break;

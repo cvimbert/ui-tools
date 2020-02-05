@@ -10,6 +10,7 @@ import { GraphicObjectContainer } from '../common/graphic/graphic-object-contain
 import { Assets } from './assets.class';
 import { load } from '@angular/core/src/render3';
 import { DistortPipeline } from '../common/pipelines/distort-pipeline.class';
+import { NodalContainer } from '../common/graphic/nodal-container.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -71,6 +72,11 @@ export class ComponentEditorScene extends Phaser.Scene {
                 case "textfield":
                     let tim = <Textfield>item;
                     tim.initObject(this, tim.text, null, this.viewport);
+                    break;
+
+                case "nodalContainer":
+                    let nodalCont = <NodalContainer>item;
+                    nodalCont.initObject(this, null, this.viewport);
                     break;
             }
            

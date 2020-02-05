@@ -140,6 +140,11 @@ export class Textfield extends GraphicObjectContainer {
         super.setVisibility(value);
     }
 
+    setDepth(value: number) {
+        this.textObject.depth = value;
+        super.setDepth(value);
+    }
+
     destroy() {
         this.textObject.destroy();
         super.destroy();

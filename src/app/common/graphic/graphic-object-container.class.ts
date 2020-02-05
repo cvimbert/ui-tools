@@ -52,7 +52,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     _visibility = true;
 
     // à sérialiser
-    depth = 1;
+    _depth = 1;
 
     // le parent devrait aussi se trouver ici
     scene: ComponentEditorScene;
@@ -111,6 +111,10 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         }
 
         this._visibility = value;
+    }
+
+    setDepth(value: number) {
+        this._depth = value;
     }
 
     toggleVisibility() {

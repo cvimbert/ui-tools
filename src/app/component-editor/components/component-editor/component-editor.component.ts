@@ -69,7 +69,7 @@ export class ComponentEditorComponent implements OnInit {
 
       // Temporaire
       this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer, index) => {
-        item.depth = index + 1;
+        item._depth = index + 1;
       });
 
       this.loadComponentSettings();

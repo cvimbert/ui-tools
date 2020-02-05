@@ -58,6 +58,11 @@ export class Image extends GraphicObjectContainer {
         super.setVisibility(value);
     }
 
+    setDepth(value: number) {
+        this.image.depth = value;
+        super.setDepth(value);
+    }
+
     destroy() {
         this.image.destroy();
         super.destroy();

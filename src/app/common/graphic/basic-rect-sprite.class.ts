@@ -45,6 +45,11 @@ export class BasicRectSprite extends GraphicObjectContainer {
         super.setVisibility(value);
     }
 
+    setDepth(value: number) {
+        this.sprite.depth = value;
+        super.setDepth(value);
+    }
+
     destroy() {
         this.sprite.destroy();
         super.destroy();

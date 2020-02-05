@@ -20,13 +20,15 @@ export class ComponentTreePanelComponent implements OnInit {
   }
 
   get items(): GraphicObjectContainer[] {
-    return this.editorService.sceneObjectsBank.items.sort((it1: GraphicObjectContainer, it2: GraphicObjectContainer) => {
-      return it1.depth - it2.depth;
-    });
+    return this.editorService.sceneObjectsBank.items;
   }
 
   set items(value: GraphicObjectContainer[]) {
     this.editorService.sceneObjectsBank.items = value;
+  }
+
+  setAllDepths() {
+    this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer, index) => item.setDepth(index + 1));
   }
 
   drop(evt: CdkDragDrop<string[]>) {
@@ -34,6 +36,7 @@ export class ComponentTreePanelComponent implements OnInit {
     let target = this.items[evt.currentIndex];
     this.items[evt.currentIndex] = moved;
     this.items[evt.previousIndex] = target;
+    this.setAllDepths();
   }
 
   isSelected(item: GraphicObjectContainer): boolean {

@@ -66,6 +66,7 @@ export class ComponentEditorComponent implements OnInit {
       this.graphService.componentId = params["id"];
 
       this.dataProvider.loadAll(this.editorService.componentId);
+      this.graphService.loadGraphItems();
 
       // Temporaire
       this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer, index) => {

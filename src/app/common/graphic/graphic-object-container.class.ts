@@ -51,6 +51,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     @JsonProperty("visibility", Boolean)
     _visibility = true;
 
+    // à sérialiser
+    depth = 1;
+
     // le parent devrait aussi se trouver ici
     scene: ComponentEditorScene;
 

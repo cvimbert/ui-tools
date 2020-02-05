@@ -20,7 +20,9 @@ export class ComponentTreePanelComponent implements OnInit {
   }
 
   get items(): GraphicObjectContainer[] {
-    return this.editorService.sceneObjectsBank.items;
+    return this.editorService.sceneObjectsBank.items.sort((it1: GraphicObjectContainer, it2: GraphicObjectContainer) => {
+      return it1.depth - it2.depth;
+    });
   }
 
   set items(value: GraphicObjectContainer[]) {

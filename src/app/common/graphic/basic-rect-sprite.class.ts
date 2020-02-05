@@ -2,13 +2,57 @@ import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { GraphicObjectContainer } from './graphic-object-container.class';
-import { JsonObject } from 'json2typescript';
+import { JsonObject, JsonProperty } from 'json2typescript';
+import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
+import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
 
 @JsonObject("BasicRectSprite")
 export class BasicRectSprite extends GraphicObjectContainer {
 
+    additionnalPanels: AdditionnalPanel[] = [
+        {
+            name: "Rectangle",
+            entries: [
+                {
+                    name: "Background color",
+                    type: PanelEntryType.COLOR,
+                    getter: () => this.backgroundColor,
+                    setter: (value: number) => {
+                        this.backgroundColor = value;
+                    }
+                },
+                {
+                    name: "Border color",
+                    type: PanelEntryType.COLOR,
+                    getter: () => this.borderColor,
+                    setter: (value: number) => {
+                        this.borderColor = value;
+                    }
+                },
+                {
+                    name: "Border width",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.borderWidth,
+                    setter: (value: number) => {
+                        this.borderWidth = value;
+                    }
+                }
+            ]
+        }
+    ];
+
+
     private sprite: Phaser.GameObjects.Rectangle;
     scene: ComponentEditorScene;
+
+    @JsonProperty("backgroundColor", Number)
+    backgroundColor = 0xff0000;
+
+    @JsonProperty("borderColor", Number)
+    borderColor = 0x000000;
+
+    @JsonProperty("borderWidth", Number)
+    borderWidth = 0;
 
     constructor() {
         super();

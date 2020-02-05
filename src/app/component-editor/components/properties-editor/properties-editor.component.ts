@@ -57,13 +57,8 @@ export class PropertiesEditorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    switch (this.inspected.objectType) {
-      case "textfield":
-        this.additionalPanels = this.inspected.additionnalPanels;
-        break;
-
-      default:
-        this.additionalPanels = [];
+    if (this.inspected.additionnalPanels) {
+      this.additionalPanels = this.inspected.additionnalPanels;
     }
   }
 

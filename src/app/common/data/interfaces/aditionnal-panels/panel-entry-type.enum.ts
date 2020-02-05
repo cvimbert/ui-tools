@@ -4,5 +4,6 @@ export enum PanelEntryType {
     NUMBER = "number",
     BOOLEAN = "boolean",
     COLOR = "color",
+    COLOR_INT = "color_int",
     SELECT = "select"
 }

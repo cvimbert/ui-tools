@@ -49,6 +49,10 @@ export class NodalContainer extends GraphicObjectContainer {
       super.setDepth(value);
   }
 
+  addObjectToContainer(object: GraphicObjectContainer) {
+    console.log("add object");
+  }
+
   destroy() {
       this.container.destroy();
       super.destroy();

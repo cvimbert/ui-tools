@@ -1,5 +1,5 @@
 import { GraphService } from './graph.service';
-import { Point } from 'electron';
+import { Point } from '../common/geometry/interfaces/point.interface';
 
 export class GraphScene extends Phaser.Scene {
 

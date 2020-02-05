@@ -34,7 +34,19 @@ export class ComponentTreePanelComponent implements OnInit {
     this.items[evt.previousIndex] = target;
   }
 
+  isSelected(item: GraphicObjectContainer): boolean {
+    return item === this.editorService.selectedObject;
+  }
+
   toggleVisibility(object: GraphicObjectContainer) {
     object.toggleVisibility();
+  }
+
+  selectItem(item: GraphicObjectContainer) {
+    this.editorService.selectObject(item);
+  }
+
+  deleteItem(item: GraphicObjectContainer) {
+    this.editorService.tryToDeleteObject(item);
   }
 }

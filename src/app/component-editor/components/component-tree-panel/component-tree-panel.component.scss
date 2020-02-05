@@ -13,6 +13,10 @@
   display: flex;
   padding: 0 0 0 15px;
   width: 170px;
+
+  &.selected {
+    background-color: lightgray;
+  }
 }
 
 .name {
@@ -24,9 +28,10 @@
   background-color: grey;
 }
 
-.visibility-display {
+.visibility-display, .delete-display {
   padding-left: 10px;
   cursor: pointer;
   padding-right: 10px;
   width: 30px;
+  flex: 0;
 }

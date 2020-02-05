@@ -1,9 +1,18 @@
 <div cdkDropList class="objects-list" (cdkDropListDropped)="drop($event)">
-  <div class="object-item" *ngFor="let object of items" cdkDrag>
+  <div
+    class="object-item"
+    *ngFor="let object of items"
+    cdkDrag
+    [class.selected]="isSelected(object)"
+    (click)="selectItem(object)"
+  >
     <div class="object-placeholder" *cdkDragPlaceholder></div>
     <div class="name">{{ object.name }}</div>
     <div class="visibility-display" (click)="toggleVisibility(object)">
       <i class="far fa-eye" [class.fa-eye]="object.visibility" [class.fa-eye-slash]="!object.visibility"></i>
+    </div>
+    <div class="delete-display" (click)="deleteItem(object)">
+      <i class="fa fa-trash"></i>
     </div>
   </div>
 </div>

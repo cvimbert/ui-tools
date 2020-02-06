@@ -4,18 +4,21 @@
     <div class="name-display">Parent:</div>
     <select name="parent" id="parent" [(ngModel)]="inspected.parentContainerId">
         <option value="">----</option>
-        <option *ngFor="let item of containersList" [value]="item.Id">{{ item.name }}</option>
+        <option *ngFor="let item of containersList" [value]="item.id">{{ item.name }}</option>
     </select>
 </div>
 <div class="separator">Object metas</div>
 <div>
-    <div class="name-display">Id:</div><input disabled type="text" [(ngModel)]="inspected['id']">
+    <div class="name-display">Id:</div>
+    <input disabled type="text" [(ngModel)]="inspected['id']">
 </div>
 <div>
-    <div class="name-display">Name:</div><input type="text" [(ngModel)]="inspected['name']">
+    <div class="name-display">Name:</div>
+    <input type="text" [(ngModel)]="inspected['name']">
 </div>
 <div>
-    <div class="name-display">Description:</div><textarea [(ngModel)]="inspected['description']"></textarea>
+    <div class="name-display">Description:</div>
+    <textarea [(ngModel)]="inspected['description']"></textarea>
 </div>
 
 <ng-container *ngFor="let panel of additionalPanels">

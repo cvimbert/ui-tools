@@ -8,6 +8,7 @@ import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
 export class NodalContainer extends GraphicObjectContainer {
 
   container: Phaser.GameObjects.Container;
+  children: GraphicObjectContainer[] = [];
 
   initObject(
     scene: ComponentEditorScene,
@@ -36,6 +37,8 @@ export class NodalContainer extends GraphicObjectContainer {
 
     this.container.setScale(this.scaleX.value, this.scaleY.value);
 
+    this.children.forEach(child => child.render());
+
     super.render();
   }
 
@@ -50,8 +53,33 @@ export class NodalContainer extends GraphicObjectContainer {
   }
 
   addObjectToContainer(object: GraphicObjectContainer) {
-    console.log("add object: " + object.id);
-    object.gameObjects.forEach(gameObject => this.container.add(gameObject));
+    
+    // console.log("add object: " + object.id);
+
+    this.container.add(object.mainContainer)
+
+    // TODO : ajustement potentiel de sa position (ou pas...)
+
+    object.parent = this;
+    object.render();
+    
+    this.children.push(object);
+  }
+
+  removeObjectFromContainer(object: GraphicObjectContainer) {
+    // console.log("remove object: " + object.id);
+
+    this.scene.add.existing(object.mainContainer);
+
+    object.parent = this.scene.viewport;
+
+    let index = this.children.indexOf(object);
+
+    if (index != -1) {
+      this.children.splice(index, 1);
+    }
+
+    object.render();
   }
 
   destroy() {

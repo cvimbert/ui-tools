@@ -8,6 +8,7 @@ import { GraphTarget } from 'src/app/logical-graph/interfaces/graph-target.inter
 import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
 import { GraphService } from 'src/app/logical-graph/graph.service';
 import { GraphItem } from 'src/app/logical-graph/graph-item.class';
+import { NodalContainer } from './nodal-container.class';
 
 @JsonObject("GraphicObjectContainer")
 export class GraphicObjectContainer extends FlexibleRectangle implements GraphTarget {
@@ -17,6 +18,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     // pour phaser uniquement
     gameObjects: Phaser.GameObjects.GameObject[] = [];
+    mainContainer: Phaser.GameObjects.Container;
 
     label = "";
 
@@ -58,7 +60,10 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     _depth = 1;
 
     // A sérialiser aussi
+    @JsonProperty("parentContainerId")
     _parentContainerId = "";
+
+    parentContainer: NodalContainer;
 
     // le parent devrait aussi se trouver ici
     scene: ComponentEditorScene;
@@ -83,8 +88,28 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     }
 
     set parentContainerId(value: string) {
+        if (value == "") {
+            // console.log("no parent");
+            
+            if (this.parentContainer) {
+                this.parentContainer.removeObjectFromContainer(this);
+            }
+
+            this.parentContainer = null;
+        } else if (value !== this._parentContainerId) {
+            this.setContainerId(value)
+        }
+
         this._parentContainerId = value;
     }
+
+    setContainerId(value: string) {
+        this.parentContainer = <NodalContainer>this.scene.editorService.sceneObjectsBank.getItemById(value);
+        // console.log(this.parentContainer);
+        
+        this.parentContainer.addObjectToContainer(this);
+    }
+    
 
     initLabel() {
         this.label = this.name;
@@ -97,6 +122,13 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     afterInit() {
         if (this.graphService) {
             this.hitEnabled = true;
+        }
+
+        this.mainContainer = this.scene.add.container(0, 0);
+
+        if (this._parentContainerId != "") {
+            // en attente de l'initialisation de tous les objets (pourrait être fait dans une seconde passe)
+            setTimeout(() => this.setContainerId(this._parentContainerId));
         }
 
         this.setVisibility(this._visibility);
@@ -124,10 +156,15 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             this.originDisplayer.visible = value;
         }
 
+        // if (this.mainContainer) {
+            this.mainContainer.visible = value;
+        // }
+
         this._visibility = value;
     }
 
     setDepth(value: number) {
+        this.mainContainer.depth = value;
         this._depth = value;
     }
 
@@ -177,6 +214,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             
 
             this.hitZone = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xff0000, 0);
+            this.mainContainer.add(this.hitZone);
 
             this.hitZone.setInteractive({
                 // useHandCursor: true
@@ -208,6 +246,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     createSelectionRect() {
         if (!this.selectionRect) {
             this.selectionRect = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value);
+            this.mainContainer.add(this.selectionRect);
             this.selectionRect.setStrokeStyle(1, 0x000000);
             this.drawSelection();
         }
@@ -223,6 +262,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     createOriginDisplayer() {
         if (!this.originDisplayer) {
             this.originDisplayer = new OriginDisplayer(this.scene);
+            this.mainContainer.add(this.originDisplayer);
         }
     }
 

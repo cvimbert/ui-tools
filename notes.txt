@@ -20,3 +20,4 @@
 - DataBank d'object unique (pour settings, par ex)
 - Primitive "rectangle" à peaufiner
 - "Inpecteur" de couleur
+- Taille de coin du nine slice

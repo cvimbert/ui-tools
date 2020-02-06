@@ -103,13 +103,14 @@ export class Textfield extends GraphicObjectContainer {
             align: this.style.align
         });
 
-        this.gameObjects.push(this.textObject);
-
         this.width.value = this.textObject.width;
         this.height.value = this.textObject.height;
 
         // this.textObject.setPipeline("Distort");
         this.afterInit();
+
+        this.mainContainer.add(this.textObject);
+
         this.render();
     }
 
@@ -135,16 +136,6 @@ export class Textfield extends GraphicObjectContainer {
         this.textObject.setWordWrapWidth(this.width.value);
 
         super.render();
-    }
-
-    setVisibility(value: boolean) {
-        this.textObject.visible = value;
-        super.setVisibility(value);
-    }
-
-    setDepth(value: number) {
-        this.textObject.depth = value;
-        super.setDepth(value);
     }
 
     destroy() {

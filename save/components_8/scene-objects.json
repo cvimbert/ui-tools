@@ -1,1 +1,71 @@
-{"index":7,"object":[{"id":"scene-objects_6","name":"Arr 1","description":"","mode":"trbl","x":{"value":390,"unity":null},"y":{"value":100,"unity":null},"xOrigin":{"value":1,"unity":null},"yOrigin":{"value":0.5,"unity":null},"width":{"value":44,"unity":null},"height":{"value":49,"unity":null},"rotation":{"value":0,"unity":null},"scaleX":{"value":1,"unity":null},"scaleY":{"value":1,"unity":null},"alpha":{"value":1,"unity":null},"top":{"value":50,"unity":"percent"},"right":{"value":10,"unity":null},"bottom":{"value":null,"unity":null},"left":{"value":null,"unity":null},"objectType":"image","visibility":true,"textureId":"test1/right-arrow.png"}]}
+{
+  "index": 7,
+  "object": [
+    {
+      "id": "scene-objects_6",
+      "name": "Arr 1",
+      "description": "",
+      "parentContainerId": "",
+      "mode": "trbl",
+      "x": {
+        "value": 390,
+        "unity": null
+      },
+      "y": {
+        "value": 100,
+        "unity": null
+      },
+      "xOrigin": {
+        "value": 1,
+        "unity": null
+      },
+      "yOrigin": {
+        "value": 0.5,
+        "unity": null
+      },
+      "width": {
+        "value": 44,
+        "unity": null
+      },
+      "height": {
+        "value": 49,
+        "unity": null
+      },
+      "rotation": {
+        "value": 0,
+        "unity": null
+      },
+      "scaleX": {
+        "value": 1,
+        "unity": null
+      },
+      "scaleY": {
+        "value": 1,
+        "unity": null
+      },
+      "alpha": {
+        "value": 1,
+        "unity": null
+      },
+      "top": {
+        "value": 50,
+        "unity": "percent"
+      },
+      "right": {
+        "value": 10,
+        "unity": null
+      },
+      "bottom": {
+        "value": null,
+        "unity": null
+      },
+      "left": {
+        "value": null,
+        "unity": null
+      },
+      "objectType": "image",
+      "visibility": true,
+      "textureId": "test1/right-arrow.png"
+    }
+  ]
+}

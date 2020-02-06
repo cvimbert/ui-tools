@@ -309,7 +309,9 @@ export class ComponentEditorComponent implements OnInit {
           case "nodalContainer":
             (<NodalContainer>item).initObject(this.editorScene, {
               x: 0,
-              y: 0
+              y: 0,
+              width: 300,
+              height: 100
             }, this.viewport);
 
             break;

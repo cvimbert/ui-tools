@@ -68,7 +68,7 @@ export class BasicRectSprite extends GraphicObjectContainer {
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.afterInit();
 
-        this.gameObjects.push(this.sprite);
+        this.mainContainer.add(this.sprite);
 
         this.render();
     }
@@ -85,16 +85,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
         this.sprite.setDisplaySize(this.width.value, this.height.value);
 
         super.render();
-    }
-
-    setVisibility(value: boolean) {
-        this.sprite.visible = value;
-        super.setVisibility(value);
-    }
-
-    setDepth(value: number) {
-        this.sprite.depth = value;
-        super.setDepth(value);
     }
 
     destroy() {

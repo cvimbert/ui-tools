@@ -11,16 +11,20 @@ import { Assets } from './assets.class';
 import { load } from '@angular/core/src/render3';
 import { DistortPipeline } from '../common/pipelines/distort-pipeline.class';
 import { NodalContainer } from '../common/graphic/nodal-container.class';
+import { ElectronService } from 'ngx-electron';
+import { DataConfiguration } from '../common/data/data-configuration.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
     private background: Phaser.GameObjects.Graphics;
     distortPipeline: DistortPipeline;
+    images: string[];
 
     constructor(
         public editorService: ComponentEditorService,
         public dataProvider: DataProviderService,
-        public viewport: FlexibleRectangle
+        public viewport: FlexibleRectangle,
+        public electronService: ElectronService
     ) {
         super({
             key: "ComponentEditorScene"
@@ -32,12 +36,22 @@ export class ComponentEditorScene extends Phaser.Scene {
         
         this.load.setBaseURL("./assets/images");
 
-        // TODO: à supprimer
-        this.load.image("t1", "button.png");
-        this.load.image("arrow", "arrow.png");
+        this.images = [];
 
-        // En attendaninitRect mécanisme d'upload
         Assets.images.forEach(imagePath => this.load.image(imagePath, imagePath));
+
+        // chargement des images du dossier images
+        if (this.electronService.isElectronApp) {
+            let fs = this.electronService.remote.require("fs");
+
+            let imagesPath = "src/assets/images/upload"
+            if (fs.existsSync(imagesPath)) {
+                let content = fs.readdirSync(imagesPath);
+                this.images.push(...content);
+
+                this.images.forEach(image => this.load.image(image, "upload" + "/" + image));
+            }
+        }
     }
 
     create() {

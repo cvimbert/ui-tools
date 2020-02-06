@@ -1,0 +1,1 @@
+{"index":2,"object":[{"id":"scene-transitions_0","name":"To name down","description":"","targetStateId":"scene-states_1","duration":0.2,"easing":"Quad.easeOut"},{"id":"scene-transitions_1","name":"To name up","description":"","targetStateId":"scene-states_3","duration":0.2,"easing":"Quad.easeOut"}]}

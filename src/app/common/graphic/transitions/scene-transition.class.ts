@@ -7,6 +7,7 @@ import { ValueUnitPair } from '../../geometry/value-unit-pair.class';
 import { GraphTarget } from 'src/app/logical-graph/interfaces/graph-target.interface';
 import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
 import { BaseGameStructure } from 'src/app/logical-graph/base-game-structure.class';
+import { CoordinatesMode } from '../../geometry/coordinates-modes.enum';
 
 @JsonObject("SceneTransition")
 export class SceneTransition extends BaseGameStructure implements GraphTarget {
@@ -117,16 +118,30 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
             return;
         }
 
+        console.log(this.targetSceneState);
+        
+
         this.targetSceneState.states.forEach(state => {
             // state.calculate();
             let targetSceneObject = sceneObjects.find(obj => obj.id === state.targetObjectId);
+
+            // targetSceneObject.calculate();
+            console.log(state);
+            // return;
+            
+            // state.calculate();
+
+            let props = GraphicObjectState.animatedProperties.concat(targetSceneObject.mode === CoordinatesMode.XYWH ? GraphicObjectState.XYProperties : GraphicObjectState.TRBLProperties);
+
+            console.log(props);
+            
 
             let updatedProps: {
                 keyName: string,
                 val: any
             }[] = [];
 
-            GraphicObjectState.animatedProperties.forEach(prop => {
+            props.forEach(prop => {
                 // Pour chacune des propriétés, on vérifie si la valeur courante est différente de la valeur dans l'état
                 // Si différence, on lance un tween
                 // Mécanisme qui sera plus que suffisant dans un premier temps
@@ -154,6 +169,9 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
                     });
                 }
             });
+
+            console.log(updatedProps);
+            
 
             if (updatedProps.length > 0) {
 

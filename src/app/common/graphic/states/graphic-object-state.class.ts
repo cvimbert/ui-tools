@@ -21,14 +21,22 @@ export class GraphicObjectState extends FlexibleRectangle {
     ];
 
     static animatedProperties = [
-        "x",
-        "y",
         "width",
         "height",
         "rotation",
         "scaleX",
         "scaleY",
-        "alpha"
+        "alpha",
+        "x",
+        "y"
+    ];
+
+    static XYProperties = [
+        
+    ];
+
+    static TRBLProperties = [
+        
     ];
 
     @JsonProperty("targetObjectId", String)

@@ -13,6 +13,8 @@ import { DataBank } from '../common/data/data-bank.class';
 import { SceneTransition } from '../common/graphic/transitions/scene-transition.class';
 import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
 import { GraphService } from '../logical-graph/graph.service';
+import { ComponentEditorScene } from './component-editor-scene.class';
+import { CoordinatesMode } from '../common/geometry/coordinates-modes.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,7 @@ export class ComponentEditorService {
 
   graphicObjects: GraphicObjectContainer[];
 
-  mainScene: Phaser.Scene;
+  mainScene: ComponentEditorScene;
 
   componentId: string;
 
@@ -88,7 +90,9 @@ export class ComponentEditorService {
     let object = this.sceneObjects.find(object => object.id === state.targetObjectId);
     let updatedProperties: string[] = [];
 
-    GraphicObjectState.animatedProperties.forEach(prop => {
+    let props = GraphicObjectState.animatedProperties.concat(object.mode === CoordinatesMode.XYWH ? GraphicObjectState.XYProperties : GraphicObjectState.TRBLProperties);
+    
+    props.forEach(prop => {
       if (object[prop] instanceof ValueUnitPair) {
         if (!object[prop].equals(state[prop])) {
           object[prop].setTo(state[prop]);

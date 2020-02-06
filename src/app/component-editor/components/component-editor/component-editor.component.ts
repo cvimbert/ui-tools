@@ -86,7 +86,7 @@ export class ComponentEditorComponent implements OnInit {
         xOrigin: 0.5
       });
 
-      this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport);
+      this.editorScene = new ComponentEditorScene(this.editorService, this.dataProvider, this.viewport, this.electronService);
       this.editorService.mainScene = this.editorScene;
       this.editorService.editorComponent = this;
 

@@ -3,6 +3,7 @@ import { GraphicObjectState } from 'src/app/common/graphic/states/graphic-object
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SceneState } from 'src/app/common/graphic/states/scene-state.class';
 import { EditSceneStateData } from '../../interfaces/edit-scene-state-data.interface';
+import { ComponentEditorService } from '../../component-editor.service';
 
 @Component({
   selector: 'app-edit-scene-state-modal',
@@ -15,6 +16,7 @@ export class EditSceneStateModalComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<EditSceneStateModalComponent, EditSceneStateData[]>,
+    private editorService: ComponentEditorService,
     @Inject(MAT_DIALOG_DATA) public sceneState: SceneState
   ) { }
 
@@ -25,6 +27,15 @@ export class EditSceneStateModalComponent implements OnInit {
         used: true
       });
     });
+  }
+
+  getTargetName(state: GraphicObjectState): string {
+    console.log(state);
+    
+    let object = this.editorService.sceneObjectsBank.getItemById(state.targetObjectId);
+    console.log(object, state.targetObjectId);
+    
+    return object.name;
   }
 
   deleteState(item: EditSceneStateData) {

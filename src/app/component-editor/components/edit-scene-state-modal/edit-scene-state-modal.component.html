@@ -1,6 +1,6 @@
 <div class="title">Scene state edition</div>
 <div class="line" *ngFor="let item of usage">
-    <div class="name">{{ item.objectState.targetObjectId }}</div>
+    <div class="name">{{ item.objectState.targetObjectId }} - {{ getTargetName(item.objectState) }}</div>
     <input type="button" value="-" (click)="deleteState(item)">
 </div>
 <div class="buttons">

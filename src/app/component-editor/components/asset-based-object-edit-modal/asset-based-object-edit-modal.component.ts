@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Assets } from '../../assets.class';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssetBasedData } from '../../interfaces/assets-based-data.interface';
+import { ComponentEditorService } from '../../component-editor.service';
 
 @Component({
   selector: 'app-asset-based-object-edit-modal',
@@ -16,6 +17,7 @@ export class AssetBasedObjectEditModalComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<AssetBasedObjectEditModalComponent, AssetBasedData>,
+    private editorService: ComponentEditorService,
     @Inject(MAT_DIALOG_DATA) public data: AssetBasedData
   ) { }
 
@@ -28,7 +30,7 @@ export class AssetBasedObjectEditModalComponent implements OnInit {
   }
 
   get images(): string[] {
-    return Assets.images;
+    return Assets.images.concat(this.editorService.mainScene.images);
   }
 
   validate() {

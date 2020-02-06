@@ -25,6 +25,7 @@ import { NgxElectronModule } from 'ngx-electron';
 import { ComponentsIndexComponent } from './components/components-index/components-index.component';
 import { ComponentTreePanelComponent } from './components/component-tree-panel/component-tree-panel.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ToColorStringPipe } from './pipes/to-color-string.pipe';
 
 @NgModule({
   providers: [
@@ -47,7 +48,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     SceneTransitionDisplayerComponent,
     AssetBasedObjectEditModalComponent,
     ComponentsIndexComponent,
-    ComponentTreePanelComponent
+    ComponentTreePanelComponent,
+    ToColorStringPipe
   ],
   imports: [
     CommonModule,

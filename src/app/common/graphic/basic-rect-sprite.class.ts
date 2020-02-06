@@ -17,16 +17,18 @@ export class BasicRectSprite extends GraphicObjectContainer {
                     name: "Background color",
                     type: PanelEntryType.COLOR,
                     getter: () => this.backgroundColor,
-                    setter: (value: number) => {
-                        this.backgroundColor = value;
+                    setter: (value: string) => {
+                        this.backgroundColor = parseInt(value.substr(1), 16);
+                        this.setRectStyle();
                     }
                 },
                 {
                     name: "Border color",
                     type: PanelEntryType.COLOR,
                     getter: () => this.borderColor,
-                    setter: (value: number) => {
-                        this.borderColor = value;
+                    setter: (value: string) => {
+                        this.borderColor = parseInt(value.substr(1), 16);
+                        this.setRectStyle();
                     }
                 },
                 {
@@ -35,6 +37,7 @@ export class BasicRectSprite extends GraphicObjectContainer {
                     getter: () => this.borderWidth,
                     setter: (value: number) => {
                         this.borderWidth = value;
+                        this.setRectStyle();
                     }
                 }
             ]
@@ -70,7 +73,14 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
         this.mainContainer.add(this.sprite);
 
+        this.setRectStyle();
+
         this.render();
+    }
+
+    setRectStyle() {
+        this.sprite.fillColor = this.backgroundColor;
+        this.sprite.setStrokeStyle(this.borderWidth, this.borderColor);
     }
 
     render() {  

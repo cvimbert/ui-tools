@@ -67,6 +67,9 @@ export class BasicRectSprite extends GraphicObjectContainer {
         
         this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
         this.afterInit();
+
+        this.gameObjects.push(this.sprite);
+
         this.render();
     }
 

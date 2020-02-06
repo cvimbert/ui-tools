@@ -39,6 +39,8 @@ export class NineSliceImage extends GraphicObjectContainer {
             sliceSize, sliceSize
         ).setOrigin(this.xOrigin.value, this.yOrigin.value);
 
+        this.gameObjects.push(this.image);
+
         this.afterInit();
         this.render();
     }

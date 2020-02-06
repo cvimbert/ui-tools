@@ -15,6 +15,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     graphService: GraphService;
     parentGraphItem: GraphItem;
 
+    // pour phaser uniquement
+    gameObjects: Phaser.GameObjects.GameObject[] = [];
+
     label = "";
 
     inAnchors: AnchorItem[] = [];
@@ -54,6 +57,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     // à sérialiser
     _depth = 1;
 
+    // A sérialiser aussi
+    _parentContainerId = "";
+
     // le parent devrait aussi se trouver ici
     scene: ComponentEditorScene;
 
@@ -70,6 +76,14 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     init() {
         this.initLabel();
+    }
+
+    get parentContainerId(): string {
+        return this._parentContainerId;
+    }
+
+    set parentContainerId(value: string) {
+        this._parentContainerId = value;
     }
 
     initLabel() {

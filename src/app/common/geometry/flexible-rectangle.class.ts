@@ -56,7 +56,8 @@ export class FlexibleRectangle extends BaseDataItem {
   private _left: ValueUnitPair = new ValueUnitPair();
 
   private rectangle?: Rectangle;
-  public parent?: FlexibleRectangle
+
+  parent?: FlexibleRectangle
 
   constructor(
     

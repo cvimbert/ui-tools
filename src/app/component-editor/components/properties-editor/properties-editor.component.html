@@ -1,4 +1,12 @@
 <div class="object-name">{{ inspected["name"] }} ({{ inspected["objectType"] }})</div>
+<div class="separator"></div>
+<div>
+    <div class="name-display">Parent:</div>
+    <select name="parent" id="parent" [(ngModel)]="inspected.parentContainerId">
+        <option value="">----</option>
+        <option *ngFor="let item of containersList" [value]="item.Id">{{ item.name }}</option>
+    </select>
+</div>
 <div class="separator">Object metas</div>
 <div>
     <div class="name-display">Id:</div><input disabled type="text" [(ngModel)]="inspected['id']">

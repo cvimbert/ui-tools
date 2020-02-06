@@ -48,12 +48,14 @@ export class PropertiesEditorComponent implements OnInit, OnChanges {
 
   constructor(
     public editorService: ComponentEditorService
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit() {    
     
+  }
+
+  get containersList(): GraphicObjectContainer[] {
+    return this.editorService.sceneObjectsBank.items.filter(item => item !== this.inspected && item.objectType === "nodalContainer");
   }
 
   ngOnChanges() {

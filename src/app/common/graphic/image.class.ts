@@ -30,6 +30,8 @@ export class Image extends GraphicObjectContainer {
         this.width.value = this.image.width;
         this.height.value = this.image.height;
 
+        this.gameObjects.push(this.image);
+
         this.afterInit();
         this.render();
     }

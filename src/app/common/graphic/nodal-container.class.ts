@@ -50,7 +50,8 @@ export class NodalContainer extends GraphicObjectContainer {
   }
 
   addObjectToContainer(object: GraphicObjectContainer) {
-    console.log("add object");
+    console.log("add object: " + object.id);
+    object.gameObjects.forEach(gameObject => this.container.add(gameObject));
   }
 
   destroy() {

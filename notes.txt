@@ -1,0 +1,22 @@
+- Debug du graph (bugs les plus gênants, en tout cas)
+- Icône OKAMI
+- Liste de propriétés interpolées (checkboxes)
+- Px par défaut da
+- Compositions
+- Editions des datas de composant
+
+- Objet shader, avec propriétés en entrée
+- Objet "relais" : une entrée et une sortie, automatiquement triggered
+- Objet porte logique (AND, OR, NOR, NAND, XOR)
+- Tracé des spline à revoir
+- Scroll de la zone de graphe
+- Système d'écoute d'events sur parent uniquemet pour les graphes
+- Panneau d'ordonnancement des elements graphiques
+- Container
+
+- Gestionnaire de médias
+- Imbrication de composants
+- Conteneurs
+- DataBank d'object unique (pour settings, par ex)
+- Primitive "rectangle" à peaufiner
+- "Inpecteur" de couleur

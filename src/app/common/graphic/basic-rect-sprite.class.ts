@@ -57,10 +57,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
     @JsonProperty("borderWidth", Number)
     borderWidth = 0;
 
-    constructor() {
-        super();
-    }
-
     initWithScene(
         scene: ComponentEditorScene,
         rect?: Rectangle,

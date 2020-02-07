@@ -5,13 +5,14 @@
 }
 
 .object-item {
-  height: 36px;
-  line-height: 35px;
+  height: 26px;
+  line-height: 25px;
   border-bottom: 1px solid;
   background-color: white;
   display: flex;
   padding: 0 0 0 15px;
   width: 170px;
+  font-size: 14px;
 
   &.selected {
     background-color: lightgray;
@@ -23,7 +24,7 @@
 }
 
 .object-placeholder {
-  height: 45px;
+  height: 35px;
   background-color: grey;
 }
 

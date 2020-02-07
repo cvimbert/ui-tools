@@ -31,12 +31,15 @@ export class NodalContainer extends GraphicObjectContainer {
     this.container.rotation = this.rotation.value;
     this.container.alpha = this.alpha.value;
 
+    console.log("alpha", this.alpha.value, this.container);
+
+    // this.children.forEach(child => child.mainContainer.alpha = this.alpha.value);
+
     // Ces méthodes n'existent pas dans l'objet container
     // this.container.resize(this.width.value, this.height.value);
     // this.container.setOrigin(this.xOrigin.value, this.yOrigin.value);
 
     this.container.setScale(this.scaleX.value, this.scaleY.value);
-
     this.children.forEach(child => child.render());
 
     super.render();
@@ -54,9 +57,12 @@ export class NodalContainer extends GraphicObjectContainer {
 
   addObjectToContainer(object: GraphicObjectContainer) {
     
-    // console.log("add object: " + object.id);
+    console.log("add object: " + object.id + " in " + this.id);
 
-    this.container.add(object.mainContainer)
+    this.container.add(object.mainContainer);
+
+    // console.log(this.container);
+    
 
     // TODO : ajustement potentiel de sa position (ou pas...)
 

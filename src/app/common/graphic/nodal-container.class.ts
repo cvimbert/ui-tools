@@ -20,6 +20,9 @@ export class NodalContainer extends GraphicObjectContainer {
       this.container = scene.add.container(this.x.value, this.y.value);
 
       this.afterInit();
+
+      this.mainContainer.add(this.container);
+
       this.render();
   }
 
@@ -30,8 +33,9 @@ export class NodalContainer extends GraphicObjectContainer {
     this.container.y = this.y.value;
     this.container.rotation = this.rotation.value;
     this.container.alpha = this.alpha.value;
+    this.container.setScale(this.scaleX.value, this.scaleY.value);
 
-    console.log("alpha", this.alpha.value, this.container);
+    // console.log("alpha", this.alpha.value, this.container);
 
     // this.children.forEach(child => child.mainContainer.alpha = this.alpha.value);
 
@@ -40,6 +44,8 @@ export class NodalContainer extends GraphicObjectContainer {
     // this.container.setOrigin(this.xOrigin.value, this.yOrigin.value);
 
     this.container.setScale(this.scaleX.value, this.scaleY.value);
+
+    // Utile ??
     this.children.forEach(child => child.render());
 
     super.render();
@@ -57,7 +63,7 @@ export class NodalContainer extends GraphicObjectContainer {
 
   addObjectToContainer(object: GraphicObjectContainer) {
     
-    console.log("add object: " + object.id + " in " + this.id);
+    // console.log("add object: " + object.id + " in " + this.id);
 
     this.container.add(object.mainContainer);
 

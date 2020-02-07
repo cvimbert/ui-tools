@@ -46,7 +46,6 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
 
     private sprite: Phaser.GameObjects.Rectangle;
-    scene: ComponentEditorScene;
 
     @JsonProperty("backgroundColor", Number)
     backgroundColor = 0xff0000;
@@ -57,17 +56,26 @@ export class BasicRectSprite extends GraphicObjectContainer {
     @JsonProperty("borderWidth", Number)
     borderWidth = 0;
 
-    initWithScene(
+    constructor() {
+        super();
+    }
+
+    initObject(
         scene: ComponentEditorScene,
         rect?: Rectangle,
         parent?: FlexibleRectangle
     ) {
         super.initWithScene(scene, rect, parent);
         
-        this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xffff00, 1).setOrigin(this.xOrigin.value, this.yOrigin.value);
+        this.sprite = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, this.backgroundColor).setOrigin(this.xOrigin.value, this.yOrigin.value);
+        
+        this.sprite.active = true;
+        
         this.afterInit();
 
+
         this.mainContainer.add(this.sprite);
+
 
         this.setRectStyle();
 

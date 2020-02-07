@@ -289,7 +289,7 @@ export class ComponentEditorComponent implements OnInit {
     
         switch (type) {
           case "baseRect":
-            item.initWithScene(this.editorScene, {
+            (<BasicRectSprite>item).initObject(this.editorScene, {
               x: 40,
               y: 40,
               width: 100,

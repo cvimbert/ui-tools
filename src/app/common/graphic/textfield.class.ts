@@ -103,6 +103,8 @@ export class Textfield extends GraphicObjectContainer {
             align: this.style.align
         });
 
+        this.textObject.setShadow(1, 1, '#000000', 3, true, true);
+
         this.width.value = this.textObject.width;
         this.height.value = this.textObject.height;
 

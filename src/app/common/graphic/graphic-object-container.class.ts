@@ -295,7 +295,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     drawHitZone() {
         if (this.hitZone) {
             this.hitZone.setPosition(this.x.value, this.y.value);
-            this.hitZone.setDisplaySize(this.width.value, this.height.value);
+            this.hitZone.setSize(this.width.value, this.height.value);
             this.hitZone.setOrigin(this.xOrigin.value, this.yOrigin.value);
             this.hitZone.rotation = this.rotation.value;
         }

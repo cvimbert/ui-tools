@@ -26,6 +26,7 @@ import { ComponentsIndexComponent } from './components/components-index/componen
 import { ComponentTreePanelComponent } from './components/component-tree-panel/component-tree-panel.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ToColorStringPipe } from './pipes/to-color-string.pipe';
+import { TreePanelSectionComponent } from './components/tree-panel-section/tree-panel-section.component';
 
 @NgModule({
   providers: [
@@ -49,7 +50,8 @@ import { ToColorStringPipe } from './pipes/to-color-string.pipe';
     AssetBasedObjectEditModalComponent,
     ComponentsIndexComponent,
     ComponentTreePanelComponent,
-    ToColorStringPipe
+    ToColorStringPipe,
+    TreePanelSectionComponent
   ],
   imports: [
     CommonModule,

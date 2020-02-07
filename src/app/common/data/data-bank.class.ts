@@ -33,8 +33,6 @@ export class DataBank<T> {
       ValueCheckingMode.ALLOW_NULL,
       true
     );
-
-    // this.load();
   }
 
   createItem(data: BaseData): T {

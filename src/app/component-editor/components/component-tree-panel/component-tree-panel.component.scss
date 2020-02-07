@@ -3,35 +3,3 @@
   border: 1px solid;
   border-right: none;
 }
-
-.object-item {
-  height: 26px;
-  line-height: 25px;
-  border-bottom: 1px solid;
-  background-color: white;
-  display: flex;
-  padding: 0 0 0 15px;
-  width: 170px;
-  font-size: 14px;
-
-  &.selected {
-    background-color: lightgray;
-  }
-}
-
-.name {
-  flex: 1;
-}
-
-.object-placeholder {
-  height: 35px;
-  background-color: grey;
-}
-
-.visibility-display, .delete-display {
-  padding-left: 10px;
-  cursor: pointer;
-  padding-right: 10px;
-  width: 30px;
-  flex: 0;
-}

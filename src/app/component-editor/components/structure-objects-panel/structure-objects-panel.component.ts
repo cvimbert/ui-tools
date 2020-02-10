@@ -22,6 +22,7 @@ export class StructureObjectsPanelComponent implements OnInit {
     this.providers = {
       transition: this.editorService.sceneTransitionsBank,
       sceneState: this.editorService.sceneStatesBank,
+      // "scene_state": this.editorService.sceneStatesBank,
       sceneObject: this.editorService.sceneObjectsBank
     };
   }

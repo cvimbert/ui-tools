@@ -10,6 +10,7 @@ export class GraphItemType {
   static ANCHOR = "anchor";
   static VARIABLE = "variable";
   static GRAPHIC_OBJECT = "sceneObject";
+  static SCENE_STATE = "sceneState";
 
   static ITEMS_LIST = [
     GraphItemType.TRANSITION,
@@ -17,7 +18,8 @@ export class GraphItemType {
     GraphItemType.TRIGGER,
     GraphItemType.ANCHOR,
     GraphItemType.VARIABLE,
-    GraphItemType.GRAPHIC_OBJECT
+    GraphItemType.GRAPHIC_OBJECT,
+    GraphItemType.SCENE_STATE
   ];
 
   static ITEMS_CREATION_MODAL_COMPONENT = {

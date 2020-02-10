@@ -49,10 +49,19 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
         label: "On complete",
         callback: () => this.onTransitionComplete()
       };
+
+      afterAnchor: AnchorItem = {
+        id: "after",
+        label: "After",
+        callback: () => {
+          this.onAfter();
+        }
+      };
     
       outAnchors: AnchorItem[] = [
         this.onStartItem,
-        this.onCompleteItem
+        this.onCompleteItem,
+        this.afterAnchor,
       ];
 
     // @JsonProperty("sourceStateId", String)
@@ -79,6 +88,14 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
         this.label = this.name;
     }
 
+    onAfter() {
+        this.graphService.playOut(this.afterAnchor, this.parentGraphItem);
+    }
+
+    triggerAfter() {
+        this.graphService.playAllIn(this.afterAnchor, this.parentGraphItem);
+    }
+
     transitionTo(startCallback: () => void, completeCallback: () => void) {
         let sceneObjects: GraphicObjectContainer[] = this.graphService.providers["sceneObject"].items;
         let sceneStates: SceneState[] = this.graphService.providers["sceneState"].items;
@@ -93,6 +110,8 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
         }, () => {
             this.graphService.playAllIn(this.onCompleteItem, this.parentGraphItem);
         });
+
+        this.triggerAfter();
     }
 
     stop() {

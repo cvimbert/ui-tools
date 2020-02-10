@@ -124,7 +124,6 @@ export class GraphViewComponent implements OnInit, OnChanges {
     }
 
     let tItem = this.banks[item.type].getItemById(item.itemId);
-    console.log(tItem);
     
     item.init(tItem, this.graphService);
   }

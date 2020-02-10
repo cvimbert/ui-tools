@@ -3,5 +3,6 @@ export class ArgumentType {
   static STRING = "string";
   static NUMBER = "number";
   static REFERENCE = "reference";
+  static OBJECT_PROPERTY = "object_property";
   static ALL = "all";
 }

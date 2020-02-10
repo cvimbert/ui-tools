@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ɵArgumentType } from '@angular/core';
 import { Argument } from '../../interfaces/argument.interface';
 import { ArgumentValue } from '../../argument-value.class';
 import { ArgumentType } from '../../argument-type.class';
+import { GraphicObjectState } from 'src/app/common/graphic/states/graphic-object-state.class';
 
 @Component({
   selector: 'arguments-editor-section',
@@ -20,7 +21,7 @@ export class ArgumentsEditorSectionComponent implements OnInit {
 
   ngOnInit() {
     if (typeof this.arg.type === "function") {
-      this.argTypes = this.arg.type();
+      this.argTypes = this.arg.type(this.values);
     } else {
       this.argTypes = this.arg.type;
     }
@@ -74,14 +75,17 @@ export class ArgumentsEditorSectionComponent implements OnInit {
     }
   }
 
+  get objectProperties(): string[] {
+    return GraphicObjectState.animatedProperties;
+  }
+
   getValue(): any {
     switch (this.selectedType) {
-      case ArgumentType.STRING:
-      case ArgumentType.NUMBER:
-        return this.value;
-
       case ArgumentType.BOOLEAN:
         return this.value === "true";
+
+      default:
+        return this.value;
     }
   }
 

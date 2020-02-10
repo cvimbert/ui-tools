@@ -9,6 +9,10 @@ import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interfa
 import { GraphService } from 'src/app/logical-graph/graph.service';
 import { GraphItem } from 'src/app/logical-graph/graph-item.class';
 import { NodalContainer } from './nodal-container.class';
+import { ArgumentType } from 'src/app/logical-graph/argument-type.class';
+import { ArgumentValue } from 'src/app/logical-graph/argument-value.class';
+import { ValueUnitPair } from '../geometry/value-unit-pair.class';
+
 
 @JsonObject("GraphicObjectContainer")
 export class GraphicObjectContainer extends FlexibleRectangle implements GraphTarget {
@@ -22,7 +26,28 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     label = "";
 
-    inAnchors: AnchorItem[] = [];
+    setPropAnchor: AnchorItem = {
+        id: "setProp",
+        label: "Set property",
+        nameGetter: args => args.length > 0 ? `Set '${ args[0].value }' to ${ args[1].value }` : "",
+        arguments: {
+            propName: {
+              name: "Property",
+              type: ArgumentType.OBJECT_PROPERTY,
+              mandatory: true,
+            },
+            propValue: {
+                name: "Value",
+                type: ArgumentType.NUMBER,
+                mandatory: true
+            }
+        },
+        callback: args => this.setObjectProperty(args)
+    };
+
+    inAnchors: AnchorItem[] = [
+        this.setPropAnchor
+    ];
 
     pointerOverItem: AnchorItem = {
         id: "onpointerover",
@@ -56,7 +81,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     @JsonProperty("visibility", Boolean)
     _visibility = true;
 
-    // à sérialiser
+    // à sérialiser (ou pas)
     _depth = 1;
 
     // A sérialiser aussi
@@ -85,6 +110,18 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     get parentContainerId(): string {
         return this._parentContainerId;
+    }
+
+    setObjectProperty(args: ArgumentValue[]) {
+        let prop: any = this[args[0].value];
+
+        if (prop instanceof ValueUnitPair) {
+            prop.value = args[1].value;
+        } else {
+            this[args[0].value] = args[1].value;
+        }
+        
+        this.render();
     }
 
     set parentContainerId(value: string) {

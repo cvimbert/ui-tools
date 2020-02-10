@@ -34,6 +34,11 @@
       <option value="false">False</option>
     </select>
   </div>
+  <div *ngIf="selectedType === 'object_property'">
+    <select [(ngModel)]="value">
+      <option *ngFor="let prop of objectProperties" [value]="prop">{{ prop }}</option>
+    </select>
+  </div>
   <div *ngIf="selectedType === 'reference'">
     WIP
   </div>

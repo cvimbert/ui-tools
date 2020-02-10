@@ -13,6 +13,7 @@ import { DistortPipeline } from '../common/pipelines/distort-pipeline.class';
 import { NodalContainer } from '../common/graphic/nodal-container.class';
 import { ElectronService } from 'ngx-electron';
 import { DataConfiguration } from '../common/data/data-configuration.class';
+import { ComponentReference } from '../common/graphic/components/component-reference.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -91,6 +92,11 @@ export class ComponentEditorScene extends Phaser.Scene {
                 case "nodalContainer":
                     let nodalCont = <NodalContainer>item;
                     nodalCont.initObject(this, null, this.viewport);
+                    break;
+
+                case "componentReference":
+                    let compRef = <ComponentReference>item;
+                    compRef.initObject(this, null, this.viewport);
                     break;
             }
            

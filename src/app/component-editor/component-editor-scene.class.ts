@@ -114,8 +114,10 @@ export class ComponentEditorScene extends Phaser.Scene {
         let cw = 0;
         let ch = 0;
 
+        let start = true;
+
         const size = 10;
-        let even = true;
+        let even = start;
 
         while (ch < h) {
             while (cw < w) {
@@ -132,7 +134,8 @@ export class ComponentEditorScene extends Phaser.Scene {
 
             cw = 0;
             ch += size;
-            even = !even;
+            start = !start;
+            even = start;
         }
     }
 

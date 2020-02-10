@@ -87,10 +87,10 @@ export class ComponentEditorService {
 
   applyObjectState(state: GraphicObjectState) {
 
-    let object = this.sceneObjects.find(object => object.id === state.targetObjectId);
+    let object: GraphicObjectContainer = this.sceneObjects.find(object => object.id === state.targetObjectId);
     let updatedProperties: string[] = [];
 
-    let props = GraphicObjectState.animatedProperties.concat(object.mode === CoordinatesMode.XYWH ? GraphicObjectState.XYProperties : GraphicObjectState.TRBLProperties);
+    let props = GraphicObjectState.animatedProperties;
     
     props.forEach(prop => {
       if (object[prop] instanceof ValueUnitPair) {

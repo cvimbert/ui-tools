@@ -118,7 +118,7 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
             return;
         }
 
-        console.log(this.targetSceneState);
+        // console.log(this.targetSceneState);
         
 
         this.targetSceneState.states.forEach(state => {
@@ -126,14 +126,14 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
             let targetSceneObject = sceneObjects.find(obj => obj.id === state.targetObjectId);
 
             // targetSceneObject.calculate();
-            console.log(state);
+            // console.log(state);
             // return;
             
             // state.calculate();
 
             let props = GraphicObjectState.animatedProperties.concat(targetSceneObject.mode === CoordinatesMode.XYWH ? GraphicObjectState.XYProperties : GraphicObjectState.TRBLProperties);
 
-            console.log(props);
+            // console.log(props);
             
 
             let updatedProps: {
@@ -168,10 +168,7 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
                         val: val
                     });
                 }
-            });
-
-            console.log(updatedProps);
-            
+            });            
 
             if (updatedProps.length > 0) {
 

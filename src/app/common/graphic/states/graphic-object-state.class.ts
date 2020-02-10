@@ -28,7 +28,11 @@ export class GraphicObjectState extends FlexibleRectangle {
         "scaleY",
         "alpha",
         "x",
-        "y"
+        "y",
+        "top",
+        "right",
+        "bottom",
+        "left"
     ];
 
     static XYProperties = [

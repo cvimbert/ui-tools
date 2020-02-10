@@ -21,3 +21,6 @@
 - Primitive "rectangle" à peaufiner
 - "Inpecteur" de couleur
 - Taille de coin du nine slice
+
+- Debug des tweens d'animation (positions TRBL)
+- Utilisation de composants en tant que GraphicObject

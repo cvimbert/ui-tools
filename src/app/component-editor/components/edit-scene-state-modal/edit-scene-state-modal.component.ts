@@ -29,12 +29,8 @@ export class EditSceneStateModalComponent implements OnInit {
     });
   }
 
-  getTargetName(state: GraphicObjectState): string {
-    console.log(state);
-    
+  getTargetName(state: GraphicObjectState): string {    
     let object = this.editorService.sceneObjectsBank.getItemById(state.targetObjectId);
-    console.log(object, state.targetObjectId);
-    
     return object.name;
   }
 

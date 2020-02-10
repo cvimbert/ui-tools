@@ -209,6 +209,38 @@ export class FlexibleRectangle extends BaseDataItem {
     this._scaleY = value;
   }
 
+  get topValue(): number {
+    return this._top.value;
+  }
+
+  set topValue(value: number) {
+    this._top.value = value;
+  }
+
+  get rightValue(): number {
+    return this._right.value;
+  }
+
+  set rightValue(value: number) {
+    this._right.value = value;
+  }
+
+  get bottomValue(): number {
+    return this._bottom.value;
+  }
+
+  set bottomValue(value: number) {
+    this._bottom.value = value;
+  }
+
+  get leftValue(): number {
+    return this._left.value;
+  }
+
+  set leftValue(value: number) {
+    this._left.value = value;
+  }
+
   get top(): ValueUnitPair {
     return this._top;
   }
@@ -274,13 +306,19 @@ export class FlexibleRectangle extends BaseDataItem {
   calculate() {
     if (this.mode === CoordinatesMode.TRBL) {
 
+
+      // console.log("ici");
+      
       // Pourcentage uniquement pour le mode TRLB ?
       let topPxVal = this.getCalculatedValue(this._top, () => this.parent.height.value * this._top.value / 100);
       let rightPxVal = this.getCalculatedValue(this._right, () => this.parent.width.value * (1 - this._right.value / 100));
       let bottomPxVal = this.getCalculatedValue(this._bottom, () => this.parent.height.value * (1 - this._bottom.value / 100));
       let leftPxVal = this.getCalculatedValue(this._left, () => this.parent.width.value * this._left.value / 100);
 
-      if (topPxVal != null) {
+      // console.log(leftPxVal, rightPxVal);
+      
+
+      if (topPxVal != null) {        
         this._y.value = topPxVal;
       }
 

@@ -63,16 +63,11 @@ export class ComponentTreePanelComponent implements OnInit {
       }
     });
     
-    console.log(elements);
-
     // applatissage de la liste
 
     let flatten: TreeElement[] = [];
 
-    elements.forEach(element => flatten.push(...this.getFlatten(element)));
-
-    console.log(flatten);
-    
+    elements.forEach(element => flatten.push(...this.getFlatten(element)));    
     
     return flatten;
   }

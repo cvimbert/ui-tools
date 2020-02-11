@@ -11,6 +11,7 @@ export class GraphItemType {
   static VARIABLE = "variable";
   static GRAPHIC_OBJECT = "sceneObject";
   static SCENE_STATE = "sceneState";
+  static COMPONENT_REFERENCE = "componentReference"
 
   static ITEMS_LIST = [
     GraphItemType.TRANSITION,
@@ -19,7 +20,8 @@ export class GraphItemType {
     GraphItemType.ANCHOR,
     GraphItemType.VARIABLE,
     GraphItemType.GRAPHIC_OBJECT,
-    GraphItemType.SCENE_STATE
+    GraphItemType.SCENE_STATE,
+    GraphItemType.COMPONENT_REFERENCE
   ];
 
   static ITEMS_CREATION_MODAL_COMPONENT = {

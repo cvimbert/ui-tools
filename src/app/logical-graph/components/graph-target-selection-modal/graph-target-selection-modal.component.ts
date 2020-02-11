@@ -39,6 +39,8 @@ export class GraphTargetSelectionModalComponent implements OnInit {
       this.graphTargets = this.graphService.providers["sceneObject"].items;
     } else if (this.data.type === GraphItemType.SCENE_STATE) {      
       this.graphTargets = this.graphService.providers["sceneState"].items;
+    } else if (this.data.type === GraphItemType.COMPONENT_REFERENCE) {
+      this.graphTargets = this.graphService.providers["componentReference"].items;
     }
   }
 

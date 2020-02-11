@@ -142,12 +142,14 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     setContainerId(value: string) {
         this.parentContainer = <NodalContainer>this.scene.editorService.sceneObjectsBank.getItemById(value);
-        // console.log(this.parentContainer);
         
-        this.parentContainer.addObjectToContainer(this);
+        if (this.parentContainer) {
+            this.parentContainer.addObjectToContainer(this);
+        } else {
+            console.warn("Ce cas ne devrait pas se produire. A étudier.");
+        }
     }
     
-
     initLabel() {
         this.label = this.name;
 

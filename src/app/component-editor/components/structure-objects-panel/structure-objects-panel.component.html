@@ -10,7 +10,7 @@
   <scene-state-displayer *ngFor="let state of editorService.sceneStates" [state]="state"></scene-state-displayer>
 </div>
 <div class="items-tab" *ngIf="selectedTabId === 'scene-transitions'">
-  <scene-transition-displayer  *ngFor="let transition of editorService.sceneTransitions" [transition]="transition"></scene-transition-displayer>
+  <scene-transition-displayer *ngFor="let transition of editorService.sceneTransitions" [transition]="transition"></scene-transition-displayer>
 </div>
 <!-- <div class="items-tab" *ngIf="selectedTabId === 'component-references'">
 

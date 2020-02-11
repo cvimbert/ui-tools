@@ -1,1 +1,1 @@
-{"index":13,"object":[]}
+{"index":15,"object":[{"id":"scene-transitions_13","name":"To st1","description":"","targetStateId":"scene-states_17","duration":1,"easing":"Quad.easeOut"},{"id":"scene-transitions_14","name":"To st2","description":"","targetStateId":"scene-states_18","duration":1,"easing":"Quad.easeOut"}]}

@@ -7,6 +7,7 @@ import { NineSliceImage } from '../graphic/nine-slice-image.class';
 import { Textfield } from '../graphic/textfield.class';
 import { ElectronService } from 'ngx-electron';
 import { NodalContainer } from '../graphic/nodal-container.class';
+import { ComponentReference } from '../graphic/components/component-reference.class';
 
 export class DataBank<T> {
 
@@ -20,7 +21,8 @@ export class DataBank<T> {
     "baseRect": BasicRectSprite,
     "nineSliceImage": NineSliceImage,
     "textfield": Textfield,
-    "nodalContainer": NodalContainer
+    "nodalContainer": NodalContainer,
+    "componentReference": ComponentReference
   };
 
   constructor(

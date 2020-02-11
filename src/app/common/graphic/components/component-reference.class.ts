@@ -7,8 +7,12 @@ import { FlexibleRectangle } from '../../geometry/flexible-rectangle.class';
 @JsonObject("ComponentReference")
 export class ComponentReference extends GraphicObjectContainer {
 
-  @JsonProperty("componentId")
-  _componentId = "";
+  constructor() {
+    super();
+  }
+
+  @JsonProperty("componentId", String)
+  componentId = "";
 
   initObject(
     scene: ComponentEditorScene,

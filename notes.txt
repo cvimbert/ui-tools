@@ -25,3 +25,4 @@
 - Debug des tweens d'animation (positions TRBL)
 - Utilisation de composants en tant que GraphicObject
 - States dans les graphes
+- Mise à jour de l'arborescence de scène

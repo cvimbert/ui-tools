@@ -1,0 +1,19 @@
+<div class="title">Component instance</div>
+<div class="value-container">
+  <div class="name">Name</div>
+  <input type="text" [(ngModel)]="name">
+</div>
+<div class="value-container">
+  <div class="name">Description</div>
+  <input type="text" [(ngModel)]="description">
+</div>
+<div class="value-container">
+  <div class="name">Instance of</div>
+  <select name="instance-of" id="instance-of" [(ngModel)]="reference">
+    <option *ngFor="let component of components" [value]="component.id">{{ component.name }}</option>
+  </select>
+</div>
+<div class="buttons">
+  <input type="button" value="Validate" (click)="validate()">
+  <input type="button" value="Cancel" (click)="cancel()">
+</div>

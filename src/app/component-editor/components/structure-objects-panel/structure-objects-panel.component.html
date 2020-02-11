@@ -2,6 +2,7 @@
   <select class="panel-selector" [(ngModel)]="selectedTabId">
     <option value="scene-states">Scene states</option>
     <option value="scene-transitions">Scene transitions</option>
+    <!-- <option value="component-references">Component references</option> -->
     <option value="graph">Graph</option>
   </select>
 </div>
@@ -11,6 +12,9 @@
 <div class="items-tab" *ngIf="selectedTabId === 'scene-transitions'">
   <scene-transition-displayer  *ngFor="let transition of editorService.sceneTransitions" [transition]="transition"></scene-transition-displayer>
 </div>
+<!-- <div class="items-tab" *ngIf="selectedTabId === 'component-references'">
+
+</div> -->
 <div *ngIf="selectedTabId === 'graph'">
   <graph-view [itemsProviders]="providers" [mainScene]="editorService.mainScene" [bounds]="bounds"></graph-view>
 </div>

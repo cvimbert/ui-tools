@@ -27,6 +27,7 @@ import { ComponentTreePanelComponent } from './components/component-tree-panel/c
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ToColorStringPipe } from './pipes/to-color-string.pipe';
 import { TreePanelSectionComponent } from './components/tree-panel-section/tree-panel-section.component';
+import { ComponentInstanceEditionModalComponent } from './components/component-instance-edition-modal/component-instance-edition-modal.component';
 
 @NgModule({
   providers: [
@@ -51,7 +52,8 @@ import { TreePanelSectionComponent } from './components/tree-panel-section/tree-
     ComponentsIndexComponent,
     ComponentTreePanelComponent,
     ToColorStringPipe,
-    TreePanelSectionComponent
+    TreePanelSectionComponent,
+    ComponentInstanceEditionModalComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +71,8 @@ import { TreePanelSectionComponent } from './components/tree-panel-section/tree-
     MetadataEditionModalComponent,
     EditSceneStateModalComponent,
     SceneTransitionEditModalComponent,
-    AssetBasedObjectEditModalComponent
+    AssetBasedObjectEditModalComponent,
+    ComponentInstanceEditionModalComponent
   ]
 })
 export class ComponentEditorModule { }

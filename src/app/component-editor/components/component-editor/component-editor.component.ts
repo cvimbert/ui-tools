@@ -24,6 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GraphService } from 'src/app/logical-graph/graph.service';
 import { NodalContainer } from 'src/app/common/graphic/nodal-container.class';
 import { ComponentReference } from 'src/app/common/graphic/components/component-reference.class';
+import { ComponentInstanceEditionModalComponent } from '../component-instance-edition-modal/component-instance-edition-modal.component';
 
 @Component({
   selector: 'app-component-editor',
@@ -224,7 +225,12 @@ export class ComponentEditorComponent implements OnInit {
   }
 
   createComponentReference() {
-    this.createSceneObject("componentReference");
+
+    this.dialog.open(ComponentInstanceEditionModalComponent).afterClosed().subscribe(() => {
+
+    });
+
+    // this.createSceneObject("componentReference");
   }
 
   createState() {
@@ -234,6 +240,7 @@ export class ComponentEditorComponent implements OnInit {
   createTransition() {
     this.editorService.createSceneTransition();
   }
+  
 
   createAssetBasedObject(type: string) {
     this.dialog.open(AssetBasedObjectEditModalComponent).afterClosed().subscribe((data: AssetBasedData) => {

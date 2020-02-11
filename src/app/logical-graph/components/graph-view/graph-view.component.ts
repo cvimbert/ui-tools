@@ -96,14 +96,9 @@ export class GraphViewComponent implements OnInit, OnChanges {
       x: offsetRect.left,
       y: offsetRect.top
     };
-
-    console.log("calculate");
-    
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
-
     // Utile ???
     if (changes["itemsProviders"]) {
       this.graphService.providers = this.itemsProviders;

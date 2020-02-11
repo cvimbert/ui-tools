@@ -99,13 +99,13 @@ export class ComponentCluster {
     let inAnchors = this.graphAnchorItems.items.filter(item => item.type === "in").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
       label: item.anchorName,
-      callback: () => console.log("coming soon !")
+      callback: () => console.log("coming soon !", item)
     });
     
     let outAnchors = this.graphAnchorItems.items.filter(item => item.type === "out").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
       label: item.anchorName,
-      callback: () => console.log("coming soon !")
+      callback: () => console.log("coming soon !", item)
     });
 
     reference.inAnchors.push(...inAnchors);
@@ -118,5 +118,58 @@ export class ComponentCluster {
     this.graphTriggerItems.load(this.reference.componentId);
     this.graphAnchorItems.load(this.reference.componentId);
     this.variableItems.load(this.reference.componentId);
+  }
+
+  playAnchor(anchor: AnchorItem, graphItem: GraphItem) {
+    if (anchor.callback) {
+      anchor.callback(anchor.argumentValues);
+    } else {
+      this.playOut(anchor, graphItem);
+    }
+  }
+
+  playOut(anchor: AnchorItem, graphItem: GraphItem) {
+
+    let outLinks = graphItem.outLinks.filter(link => link.localProperty === anchor.id);
+
+    // UTILE ??
+    // let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
+
+    // Inutile pour les componentReference
+    // baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight(this.graphOffset));
+
+    outLinks.forEach(link => {
+      let targetItem: GraphItem = this.graphItems.items.find(item => item.id === link.targetObject);      
+      let targetProp = targetItem.inAnchors.find(anchor => anchor.id === link.targetProperty);
+
+      if (!targetProp) {
+        console.warn("No targetProp for", targetItem);
+        return;
+      }
+
+      this.playIn(targetProp, targetItem);
+    });
+  }
+
+  playAllIn(inAnchor: AnchorItem, graphItem: GraphItem) {
+    // pas clean de filtrer sur les callback, on devrait le faire sur un type
+    let incs = graphItem.outAnchors.filter(anchor => anchor.type === inAnchor.id);
+    
+    incs.forEach(inc => {
+      this.playIn(inc, graphItem);
+      this.playOut(inc, graphItem);
+    });
+  }
+
+  playIn(inAnchor: AnchorItem, graphItem: GraphItem) {
+    // on doit activer tous les liens du type donné
+
+    // UTILE ??
+    // let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
+    // baseItem.getAnchor(inAnchor.id).highlight();
+
+    if (inAnchor.callback) {
+      inAnchor.callback(inAnchor.argumentValues);
+    }
   }
 }

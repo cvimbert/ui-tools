@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentEditorService } from '../../component-editor.service';
 import { DataProviderService } from '../../services/data-provider.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { GraphicObjectContainer } from 'src/app/common/graphic/graphic-object-container.class';
 import { TreeElement } from 'src/app/common/data/interfaces/tree-element.interface';
-import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'component-tree-panel',
@@ -54,7 +52,7 @@ export class ComponentTreePanelComponent implements OnInit {
         };
       }
 
-      if (item.parentContainerId != "") {
+      if (item.parentContainerId && item.parentContainerId != "") {
         element.depth = containersDic[item.parentContainerId].depth + 1;
         containersDic[item.parentContainerId].children.push(element);
       } else {

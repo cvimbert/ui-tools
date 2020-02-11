@@ -8,12 +8,11 @@ import { NineSliceImage } from '../common/graphic/nine-slice-image.class';
 import { Textfield } from '../common/graphic/textfield.class';
 import { GraphicObjectContainer } from '../common/graphic/graphic-object-container.class';
 import { Assets } from './assets.class';
-import { load } from '@angular/core/src/render3';
 import { DistortPipeline } from '../common/pipelines/distort-pipeline.class';
 import { NodalContainer } from '../common/graphic/nodal-container.class';
 import { ElectronService } from 'ngx-electron';
-import { DataConfiguration } from '../common/data/data-configuration.class';
 import { ComponentReference } from '../common/graphic/components/component-reference.class';
+import { ComponentCluster } from '../common/graphic/components/component-cluster.class';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -97,6 +96,7 @@ export class ComponentEditorScene extends Phaser.Scene {
                 case "componentReference":
                     let compRef = <ComponentReference>item;
                     compRef.initObject(this, null, this.viewport);
+                    let cluster = new ComponentCluster(this.electronService, compRef, compRef, this);
                     break;
             }
            

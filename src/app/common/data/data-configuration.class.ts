@@ -5,6 +5,12 @@ import { TargetStorage } from './target-storage.enum';
 import { GraphicObjectContainer } from '../graphic/graphic-object-container.class';
 import { EditorComponent } from 'src/app/component-editor/editor-component.class';
 import { EditorComposition } from 'src/app/component-editor/editor-composition.class';
+import { BasicRectSprite } from '../graphic/basic-rect-sprite.class';
+import { NineSliceImage } from '../graphic/nine-slice-image.class';
+import { Textfield } from '../graphic/textfield.class';
+import { NodalContainer } from '../graphic/nodal-container.class';
+import { ComponentReference } from '../graphic/components/component-reference.class';
+import { Image } from '../graphic/image.class';
 
 export class DataConfiguration {
   static INDEX_SUFFIX = "-index";

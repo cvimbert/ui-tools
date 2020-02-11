@@ -1,13 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from 'json2typescript';
 import { DataConfiguration } from './data-configuration.class';
 import { BaseData } from './interfaces/base-data.interface';
-import { BasicRectSprite } from '../graphic/basic-rect-sprite.class';
-import { Image } from '../graphic/image.class';
-import { NineSliceImage } from '../graphic/nine-slice-image.class';
-import { Textfield } from '../graphic/textfield.class';
 import { ElectronService } from 'ngx-electron';
-import { NodalContainer } from '../graphic/nodal-container.class';
-import { ComponentReference } from '../graphic/components/component-reference.class';
 
 export class DataBank<T> {
 
@@ -16,19 +10,12 @@ export class DataBank<T> {
   private jsonConverter: JsonConvert;
 
   // TODO: à déplacer dans la configuration
-  objectConstructor: { [key: string]: { new (): any }} = {
-    "image": Image,
-    "baseRect": BasicRectSprite,
-    "nineSliceImage": NineSliceImage,
-    "textfield": Textfield,
-    "nodalContainer": NodalContainer,
-    "componentReference": ComponentReference
-  };
 
   constructor(
     public storageKey: string,
     public itemClass: {new (): T},
-    public electronService: ElectronService
+    public electronService: ElectronService,
+    public objectConstructor: { [key: string]: { new (): any }}
   ) {
     this.jsonConverter = new JsonConvert(
       OperationMode.ENABLE,

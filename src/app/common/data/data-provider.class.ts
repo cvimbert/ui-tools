@@ -1,6 +1,7 @@
 import { DataBank } from './data-bank.class';
 import { DataConfiguration } from './data-configuration.class';
 import { ElectronService } from 'ngx-electron';
+import { DataConstructors } from './data-contructors.class';
 
 export class DataProvider {
   
@@ -11,11 +12,11 @@ export class DataProvider {
         electronService: ElectronService
     ) {
         DataConfiguration.COMPONENTS_BANK_CONFIGURATION.forEach(item => {
-            this.componentsBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
+            this.componentsBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService, DataConstructors.CONSTRUCTORS);
         });
 
         DataConfiguration.MAIN_BANK_CONFIGURATION.forEach(item => {
-            this.mainBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService);
+            this.mainBanks[item.name] = new DataBank<any>(item.name, item.objectContructor, electronService, DataConstructors.CONSTRUCTORS);
         });
     }
 

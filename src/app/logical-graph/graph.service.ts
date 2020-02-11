@@ -27,6 +27,8 @@ import { AddAnchorModalData } from './interfaces/add-anchor-modal-data.interface
 import { SerializableAnchorItem } from './serializable-anchor-item.class';
 import { ArgumentsEditorModalComponent } from './components/arguments-editor-modal/arguments-editor-modal.component';
 import { ElectronService } from 'ngx-electron';
+import { DataConfiguration } from '../common/data/data-configuration.class';
+import { DataConstructors } from '../common/data/data-contructors.class';
 
 @Injectable({
   providedIn: 'root'
@@ -63,11 +65,11 @@ export class GraphService {
     private dialog: MatDialog,
     electronService: ElectronService
   ) {
-    this.graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem, electronService);
-    this.graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer, electronService);
-    this.graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger, electronService);
-    this.graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor, electronService);
-    this.variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable, electronService);
+    this.graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem, electronService, DataConstructors.CONSTRUCTORS);
+    this.graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer, electronService, DataConstructors.CONSTRUCTORS);
+    this.graphTriggerItems = new DataBank<GraphTrigger>(GraphConfiguration.GRAPH_TRIGGERS_STORAGE_KEY, GraphTrigger, electronService, DataConstructors.CONSTRUCTORS);
+    this.graphAnchorItems = new DataBank<GraphAnchor>(GraphConfiguration.GRAPH_ANCHORS_STORAGE_KEY, GraphAnchor, electronService, DataConstructors.CONSTRUCTORS);
+    this.variableItems = new DataBank<Variable>(GraphConfiguration.VARIABLE_STORAGE_KEY, Variable, electronService, DataConstructors.CONSTRUCTORS);
   }
 
   set tempDrawing(value: boolean) {

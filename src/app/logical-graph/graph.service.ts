@@ -30,6 +30,7 @@ import { ElectronService } from 'ngx-electron';
 import { DataConstructors } from '../common/data/data-contructors.class';
 import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
 import { ComponentEditorScene } from '../component-editor/component-editor-scene.class';
+import { ComponentReference } from '../common/graphic/components/component-reference.class';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,8 @@ import { ComponentEditorScene } from '../component-editor/component-editor-scene
 export class GraphService implements ComponentClusterInterface {
 
   componentId: string;
+  parentCluster: ComponentClusterInterface;
+  reference: ComponentReference;
 
   mainView: GraphViewComponent;
   items: { [key: string]: BaseGraphItemComponent } = {};
@@ -52,7 +55,7 @@ export class GraphService implements ComponentClusterInterface {
   graphTimerItems: DataBank<GraphTimer>;
   graphTriggerItems: DataBank<GraphTrigger>;
   graphAnchorItems: DataBank<GraphAnchor>;
-  variableItems:DataBank<Variable>;
+  variableItems: DataBank<Variable>;
   
 
   targetDrawAnchor: GraphAnchorComponent;
@@ -271,7 +274,7 @@ export class GraphService implements ComponentClusterInterface {
   playOut(anchor: AnchorItem, graphItem: GraphItem) {
     // GraphUtils.timeLog("play out: " + graphItem.id + " -> " + anchor.id);
 
-    console.log("play out", anchor, graphItem);
+    // console.log("play out", anchor, graphItem);
     
     let outLinks = graphItem.outLinks.filter(link => link.localProperty === anchor.id);
     let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
@@ -336,7 +339,7 @@ export class GraphService implements ComponentClusterInterface {
   playIn(inAnchor: AnchorItem, graphItem: GraphItem) {
     // GraphUtils.timeLog("play in: " + graphItem.id + " -> " + inAnchor.id);
 
-    console.log("Play in", inAnchor, graphItem);
+    // console.log("Play in", inAnchor, graphItem);
     
 
     // on doit activer tous les liens du type donné

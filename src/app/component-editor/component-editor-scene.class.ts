@@ -71,7 +71,7 @@ export class ComponentEditorScene extends Phaser.Scene {
 
         bank.items.forEach(item => {
             switch(item.objectType) {
-                case "baseRect":
+                case "baseRect": 
                     (<BasicRectSprite>item).initObject(this, null, this.viewport);
                     break;
                 

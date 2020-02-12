@@ -2,6 +2,7 @@ import { JsonObject, JsonProperty } from 'json2typescript';
 import { GraphTarget } from './interfaces/graph-target.interface';
 import { AnchorItem } from './interfaces/anchor-item.interface';
 import { BaseGameStructure } from './base-game-structure.class';
+import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
 
 @JsonObject("GraphAnchor")
 export class GraphAnchor extends BaseGameStructure implements GraphTarget {
@@ -54,13 +55,13 @@ export class GraphAnchor extends BaseGameStructure implements GraphTarget {
   anchorId = "";
 
   triggerIn() {
-
+    if (this.graphService.reference) {
+      let anchorItem = this.graphService.reference.outAnchors.find(anchor => anchor.id === this.anchorId);      
+      this.graphService.parentCluster.playAllIn(anchorItem, this.graphService.reference.parentGraphItem);
+    }
   }
 
   triggerOut() {
-    // this.graphService.playIn(this.baseOutAnchor, this.parentGraphItem);
-    console.log("ixi");
     this.graphService.playOut(this.baseOutAnchor, this.parentGraphItem);
-    // this.graphService.playAllIn(this.baseOutAnchor , this.parentGraphItem);
   }
 }

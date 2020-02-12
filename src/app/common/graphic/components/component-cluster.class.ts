@@ -19,10 +19,8 @@ import { Variable } from 'src/app/logical-graph/game-structures/variable/variabl
 import { DataConstructors } from '../../data/data-contructors.class';
 import { GraphItemType } from 'src/app/logical-graph/graph-item-type.class';
 import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
-import { GraphService } from 'src/app/logical-graph/graph.service';
 import { SceneTransition } from '../transitions/scene-transition.class';
 import { ComponentClusterInterface } from '../../data/interfaces/component-cluster.interface';
-import { GraphViewComponent } from 'src/app/logical-graph/components/graph-view/graph-view.component';
 
 export class ComponentCluster implements ComponentClusterInterface {
 
@@ -40,18 +38,24 @@ export class ComponentCluster implements ComponentClusterInterface {
   banks: { [key: string]: DataBank<any> };
   providers: { [key: string]: DataBank<any> };
 
+  parentCluster: ComponentClusterInterface;
+
+  reference: ComponentReference;
+
   // mainView: GraphViewComponent;
 
   constructor(
-    private electronService: ElectronService,
-    public reference: ComponentReference,
+    electronService: ElectronService,
+    reference: ComponentReference,
     private viewport: FlexibleRectangle,
     public scene: ComponentEditorScene,
-    private graphService: GraphService
+    parentCluster: ComponentClusterInterface
   ) {
     this.dataProvider = new DataProvider(electronService);
     this.dataProvider.loadAll(reference.componentId);
     this.mainScene = scene;
+    this.parentCluster = parentCluster;
+    this.reference = reference;
 
     this.graphItems = new DataBank<GraphItem>(GraphConfiguration.GRAPH_ITEMS_BIS_STORAGE_KEY, GraphItem, electronService, DataConstructors.CONSTRUCTORS);
     this.graphTimerItems = new DataBank<GraphTimer>(GraphConfiguration.GRAPH_TIMERS_STORAGE_KEY, GraphTimer, electronService, DataConstructors.CONSTRUCTORS);
@@ -126,21 +130,13 @@ export class ComponentCluster implements ComponentClusterInterface {
     let inAnchors = this.graphAnchorItems.items.filter(item => item.type === "in").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
       label: item.anchorName,
-      callback: () => {
-        console.log("in", item);
-
-        // Il manque le graphItem
-        // ce n'est pas baseInAnchor à passer ici
-        this.playAllIn(item.baseOutAnchor, item.parentGraphItem);
-        // item.baseOutAnchor.callback();
-
-      }
+      callback: () => this.playAllIn(item.baseOutAnchor, item.parentGraphItem)
     });
     
     let outAnchors = this.graphAnchorItems.items.filter(item => item.type === "out").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
       label: item.anchorName,
-      callback: () => item.baseInAnchor.callback()
+      callback: () => {}
     });
 
     reference.inAnchors.push(...inAnchors);
@@ -187,18 +183,7 @@ export class ComponentCluster implements ComponentClusterInterface {
 
     let outLinks = graphItem.outLinks.filter(link => link.localProperty === anchor.id);
 
-    console.log(anchor.id, outLinks);
-    
-
-    // UTILE ??
-    // let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
-
-    // Inutile pour les componentReference
-    // baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight(this.graphOffset));
-
     outLinks.forEach(link => {
-      console.log(link);
-      
       let targetItem: GraphItem = this.graphItems.items.find(item => item.id === link.targetObject);      
       let targetProp = targetItem.inAnchors.find(anchor => anchor.id === link.targetProperty);
 
@@ -215,9 +200,6 @@ export class ComponentCluster implements ComponentClusterInterface {
     // pas clean de filtrer sur les callback, on devrait le faire sur un type
     let incs = graphItem.outAnchors.filter(anchor => anchor.type === inAnchor.id);
 
-    console.log(incs);
-    
-    
     incs.forEach(inc => {
       this.playIn(inc, graphItem);
       this.playOut(inc, graphItem);
@@ -225,12 +207,6 @@ export class ComponentCluster implements ComponentClusterInterface {
   }
 
   playIn(inAnchor: AnchorItem, graphItem: GraphItem) {
-    // on doit activer tous les liens du type donné
-
-    // UTILE ??
-    // let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
-    // baseItem.getAnchor(inAnchor.id).highlight();
-
     if (inAnchor.callback) {
       inAnchor.callback(inAnchor.argumentValues);
     }

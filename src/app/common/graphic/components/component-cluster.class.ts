@@ -98,14 +98,20 @@ export class ComponentCluster {
     // Mise à jour des ancres du graphObject
     let inAnchors = this.graphAnchorItems.items.filter(item => item.type === "in").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
-      label: item.anchorName,
-      callback: () => console.log("coming soon !", item)
+      label: "Yo",
+      callback: () => {
+        console.log("in", item);
+
+        // Il manque le graphItem
+        this.playOut(item.baseInAnchor, item.parentGraphItem);
+
+      }
     });
     
     let outAnchors = this.graphAnchorItems.items.filter(item => item.type === "out").map((item: GraphAnchor) => <AnchorItem>{
       id: item.anchorId,
       label: item.anchorName,
-      callback: () => console.log("coming soon !", item)
+      callback: () => item.baseInAnchor.callback()
     });
 
     reference.inAnchors.push(...inAnchors);
@@ -120,13 +126,13 @@ export class ComponentCluster {
     this.variableItems.load(this.reference.componentId);
   }
 
-  playAnchor(anchor: AnchorItem, graphItem: GraphItem) {
+  /* playAnchor(anchor: AnchorItem, graphItem: GraphItem) {
     if (anchor.callback) {
       anchor.callback(anchor.argumentValues);
     } else {
       this.playOut(anchor, graphItem);
     }
-  }
+  } */
 
   playOut(anchor: AnchorItem, graphItem: GraphItem) {
 

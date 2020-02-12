@@ -10,6 +10,7 @@ import { GraphTargetSelectionModalComponent } from '../graph-target-selection-mo
 import { GraphItemType } from '../../graph-item-type.class';
 import { GraphItem } from '../../graph-item.class';
 import { Point } from 'electron';
+import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 
 @Component({
   selector: 'graph-view',
@@ -29,7 +30,7 @@ export class GraphViewComponent implements OnInit, OnChanges {
   @Input() width: number = 900;
   @Input() height: number = 500;
   @Input() itemsProviders: { [key: string]: DataBank<any> };
-  @Input() mainScene: Phaser.Scene;
+  @Input() mainScene: ComponentEditorScene;
   @Input() bounds: DOMRect;
 
   @ViewChild("canvasElement") canvasElement: ElementRef;

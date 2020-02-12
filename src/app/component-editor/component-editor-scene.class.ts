@@ -13,6 +13,7 @@ import { NodalContainer } from '../common/graphic/nodal-container.class';
 import { ElectronService } from 'ngx-electron';
 import { ComponentReference } from '../common/graphic/components/component-reference.class';
 import { ComponentCluster } from '../common/graphic/components/component-cluster.class';
+import { GraphService } from '../logical-graph/graph.service';
 
 export class ComponentEditorScene extends Phaser.Scene {
 
@@ -24,7 +25,8 @@ export class ComponentEditorScene extends Phaser.Scene {
         public editorService: ComponentEditorService,
         public dataProvider: DataProviderService,
         public viewport: FlexibleRectangle,
-        public electronService: ElectronService
+        public electronService: ElectronService,
+        public graphService: GraphService
     ) {
         super({
             key: "ComponentEditorScene"
@@ -96,7 +98,7 @@ export class ComponentEditorScene extends Phaser.Scene {
                 case "componentReference":
                     let compRef = <ComponentReference>item;
                     compRef.initObject(this, null, this.viewport);
-                    let cluster = new ComponentCluster(this.electronService, compRef, compRef, this);
+                    let cluster = new ComponentCluster(this.electronService, compRef, compRef, this, this.graphService);
                     break;
             }
            

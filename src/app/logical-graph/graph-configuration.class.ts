@@ -4,7 +4,7 @@ export class GraphConfiguration {
 
     static STATES_STORAGE_KEY = "state";
     static DIFFS_STORAGE_KEY = "diff";
-    static TRANSITIONS_STORAGE_KEY = "transition";
+    static TRANSITIONS_STORAGE_KEY = "scene-transitions";
     static GRAPH_ITEMS_STORAGE_KEY = "graphitems";
     static GRAPH_ITEMS_BIS_STORAGE_KEY = "graph-items-bis";
     static GRAPH_TIMERS_STORAGE_KEY = "graph-timer-items";

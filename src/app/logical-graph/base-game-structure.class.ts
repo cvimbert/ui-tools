@@ -1,12 +1,13 @@
 import { JsonProperty } from 'json2typescript';
-import { GraphService } from './graph.service';
 import { GraphItem } from './graph-item.class';
 import { ArgumentValue } from './argument-value.class';
+import { ComponentCluster } from '../common/graphic/components/component-cluster.class';
+import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
 
 export class BaseGameStructure {
 
-  graphService: GraphService;
-  // cloudService: CloudService;
+  graphService: ComponentClusterInterface;
+  cluster: ComponentCluster;
   parentGraphItem: GraphItem;
 
   label = "";

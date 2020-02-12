@@ -27,13 +27,14 @@ import { AddAnchorModalData } from './interfaces/add-anchor-modal-data.interface
 import { SerializableAnchorItem } from './serializable-anchor-item.class';
 import { ArgumentsEditorModalComponent } from './components/arguments-editor-modal/arguments-editor-modal.component';
 import { ElectronService } from 'ngx-electron';
-import { DataConfiguration } from '../common/data/data-configuration.class';
 import { DataConstructors } from '../common/data/data-contructors.class';
+import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
+import { ComponentEditorScene } from '../component-editor/component-editor-scene.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GraphService {
+export class GraphService implements ComponentClusterInterface {
 
   componentId: string;
 
@@ -41,7 +42,7 @@ export class GraphService {
   items: { [key: string]: BaseGraphItemComponent } = {};
   links: GraphLink[] = [];
   scene: GraphScene;
-  mainScene: Phaser.Scene;
+  mainScene: ComponentEditorScene;
   canvasContainerOffset: Point;
 
   tempLink: TemporaryLink;
@@ -270,11 +271,16 @@ export class GraphService {
   playOut(anchor: AnchorItem, graphItem: GraphItem) {
     // GraphUtils.timeLog("play out: " + graphItem.id + " -> " + anchor.id);
 
+    console.log("play out", anchor, graphItem);
+    
     let outLinks = graphItem.outLinks.filter(link => link.localProperty === anchor.id);
     let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
 
     // c'est ici qu'on highlight tous les graphlinks
-    baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight(this.graphOffset));
+
+    if (baseItem) {
+      baseItem.links.filter(link => link.linkData.localProperty === anchor.id).forEach(link => link.highlight(this.graphOffset));
+    }
 
     outLinks.forEach(link => {
       let targetItem = this.graphItems.items.find(item => item.id === link.targetObject);      
@@ -330,10 +336,15 @@ export class GraphService {
   playIn(inAnchor: AnchorItem, graphItem: GraphItem) {
     // GraphUtils.timeLog("play in: " + graphItem.id + " -> " + inAnchor.id);
 
+    console.log("Play in", inAnchor, graphItem);
+    
+
     // on doit activer tous les liens du type donné
     let baseItem = this.mainView.itemComponents.find(item => item.data.id === graphItem.id);
     
-    baseItem.getAnchor(inAnchor.id).highlight();
+    if (baseItem) {
+      baseItem.getAnchor(inAnchor.id).highlight();
+    }
 
     if (inAnchor.callback) {
       inAnchor.callback(inAnchor.argumentValues);

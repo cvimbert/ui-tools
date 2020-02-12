@@ -4,13 +4,16 @@ import { OutLink } from './out-link.class';
 import { SerializableAnchorItem } from './serializable-anchor-item.class';
 import { AnchorItem } from './interfaces/anchor-item.interface';
 import { GraphService } from './graph.service';
+import { ComponentCluster } from '../common/graphic/components/component-cluster.class';
+import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
 
 @JsonObject("GraphItem")
 export class GraphItem {
 
   constructor() {}
 
-  graphService: GraphService;
+  cluster: ComponentCluster;
+  graphService: ComponentClusterInterface;
 
   @JsonProperty("id", String)
   id = "";
@@ -44,7 +47,8 @@ export class GraphItem {
 
   targetItem: GraphTarget;
 
-  init(target: GraphTarget, graphService: GraphService) {
+  init(target: GraphTarget, graphService: ComponentClusterInterface) {
+    // this.cluster = cluster;
     this.targetItem = target;
     target.graphService = graphService;
     target.parentGraphItem = this;

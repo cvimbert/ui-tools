@@ -97,6 +97,8 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
     }
 
     transitionTo(startCallback: () => void, completeCallback: () => void) {
+        console.log("play transition");
+        
         let sceneObjects: GraphicObjectContainer[] = this.graphService.providers["sceneObject"].items;
         let sceneStates: SceneState[] = this.graphService.providers["sceneState"].items;
         let scene = this.graphService.mainScene;
@@ -105,6 +107,8 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
     }
 
     play() {
+        console.log("play");
+        
         this.transitionTo(() => {
             this.graphService.playAllIn(this.onStartItem, this.parentGraphItem);
         }, () => {
@@ -125,6 +129,8 @@ export class SceneTransition extends BaseGameStructure implements GraphTarget {
     }
 
     onTransitionStart() {
+        console.log("transition start");
+        
         this.graphService.playOut(this.onStartItem, this.parentGraphItem);
     }
 

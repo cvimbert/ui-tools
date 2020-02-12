@@ -59,5 +59,8 @@ export class GraphAnchor extends BaseGameStructure implements GraphTarget {
 
   triggerOut() {
     // this.graphService.playIn(this.baseOutAnchor, this.parentGraphItem);
+    console.log("ixi");
+    this.graphService.playOut(this.baseOutAnchor, this.parentGraphItem);
+    // this.graphService.playAllIn(this.baseOutAnchor , this.parentGraphItem);
   }
 }

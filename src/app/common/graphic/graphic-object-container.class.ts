@@ -12,12 +12,13 @@ import { NodalContainer } from './nodal-container.class';
 import { ArgumentType } from 'src/app/logical-graph/argument-type.class';
 import { ArgumentValue } from 'src/app/logical-graph/argument-value.class';
 import { ValueUnitPair } from '../geometry/value-unit-pair.class';
+import { ComponentCluster } from './components/component-cluster.class';
 
 
 @JsonObject("GraphicObjectContainer")
 export class GraphicObjectContainer extends FlexibleRectangle implements GraphTarget {
 
-    graphService: GraphService;
+    graphService: ComponentCluster;
     parentGraphItem: GraphItem;
 
     // pour phaser uniquement

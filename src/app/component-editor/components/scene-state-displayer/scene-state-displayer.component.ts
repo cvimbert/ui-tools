@@ -4,6 +4,7 @@ import { ComponentEditorService } from '../../component-editor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditSceneStateModalComponent } from '../edit-scene-state-modal/edit-scene-state-modal.component';
 import { EditSceneStateData } from '../../interfaces/edit-scene-state-data.interface';
+import { GraphService } from 'src/app/logical-graph/graph.service';
 
 @Component({
   selector: 'scene-state-displayer',
@@ -16,6 +17,7 @@ export class SceneStateDisplayerComponent implements OnInit {
 
   constructor(
     public editorService: ComponentEditorService,
+    public graphService: GraphService,
     private dialog: MatDialog
   ) { }
 
@@ -23,7 +25,7 @@ export class SceneStateDisplayerComponent implements OnInit {
   }
 
   applyState() {
-    this.editorService.applySceneState(this.state);
+    this.graphService.applySceneState(this.state);
   }
 
   deleteState() {

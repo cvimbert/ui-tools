@@ -31,6 +31,10 @@ import { DataConstructors } from '../common/data/data-contructors.class';
 import { ComponentClusterInterface } from '../common/data/interfaces/component-cluster.interface';
 import { ComponentEditorScene } from '../component-editor/component-editor-scene.class';
 import { ComponentReference } from '../common/graphic/components/component-reference.class';
+import { GraphicObjectState } from '../common/graphic/states/graphic-object-state.class';
+import { GraphicObjectContainer } from '../common/graphic/graphic-object-container.class';
+import { ValueUnitPair } from '../common/geometry/value-unit-pair.class';
+import { SceneState } from '../common/graphic/states/scene-state.class';
 
 @Injectable({
   providedIn: 'root'
@@ -118,6 +122,34 @@ export class GraphService implements ComponentClusterInterface {
         }
       }
     });
+  }
+
+  applySceneState(state: SceneState) {
+    state.states.forEach(state => this.applyObjectState(state));
+  }
+
+  applyObjectState(state: GraphicObjectState) {
+
+    let object: GraphicObjectContainer = this.providers["sceneObject"].items.find(object => object.id === state.targetObjectId);
+    let updatedProperties: string[] = [];
+
+    let props = GraphicObjectState.animatedProperties;
+    
+    props.forEach(prop => {
+      if (object[prop] instanceof ValueUnitPair) {
+        if (!object[prop].equals(state[prop])) {
+          object[prop].setTo(state[prop]);
+          updatedProperties.push(prop);
+        }
+      } else {
+        // ne devrait pas se produire pour le moment
+        console.warn("Why here ?", prop);
+      }
+    });
+
+    if (updatedProperties.length > 0) {
+      object.render();
+    }
   }
 
   displayArgumentModal(argsDic: { [key: string]: Argument }, values?: ArgumentValue[]): Observable<ArgumentValue[]> {

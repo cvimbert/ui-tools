@@ -39,7 +39,7 @@ export class SceneState extends BaseGameStructure implements GraphTarget {
 
     setToState() {
         let scene: ComponentEditorScene = <ComponentEditorScene>this.graphService.mainScene;
-        scene.editorService.applySceneState(this);
+        this.graphService.applySceneState(this);
     }
 
     static fromObjectsArray(objects: GraphicObjectContainer[]): SceneState {

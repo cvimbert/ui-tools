@@ -1,1 +1,1 @@
-{"index":5,"object":[{"id":"graph-anchor-items_3","name":"Start","description":"","t":"in","an":"Start","aid":"start"},{"id":"graph-anchor-items_4","name":"Exit","description":"","t":"in","an":"Exit","aid":"exit"}]}
+{"index":6,"object":[{"id":"graph-anchor-items_3","name":"Start","description":"","t":"in","an":"Start","aid":"start"},{"id":"graph-anchor-items_4","name":"Exit","description":"","t":"in","an":"Exit","aid":"exit"},{"id":"graph-anchor-items_5","name":"Reset all","description":"","t":"in","an":"Reset all","aid":"Reset"}]}

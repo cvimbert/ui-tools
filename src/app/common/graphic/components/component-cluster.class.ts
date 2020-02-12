@@ -21,6 +21,9 @@ import { GraphItemType } from 'src/app/logical-graph/graph-item-type.class';
 import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
 import { SceneTransition } from '../transitions/scene-transition.class';
 import { ComponentClusterInterface } from '../../data/interfaces/component-cluster.interface';
+import { GraphicObjectState } from '../states/graphic-object-state.class';
+import { ValueUnitPair } from '../../geometry/value-unit-pair.class';
+import { SceneState } from '../states/scene-state.class';
 
 export class ComponentCluster implements ComponentClusterInterface {
 
@@ -160,6 +163,34 @@ export class ComponentCluster implements ComponentClusterInterface {
     this.graphAnchorItems.load(this.reference.componentId);
     this.variableItems.load(this.reference.componentId);
     this.transitionItems.load(this.reference.componentId);
+  }
+
+  applySceneState(state: SceneState) {
+    state.states.forEach(state => this.applyObjectState(state));
+  }
+
+  applyObjectState(state: GraphicObjectState) {
+
+    let object: GraphicObjectContainer = this.providers["sceneObject"].items.find(object => object.id === state.targetObjectId);
+    let updatedProperties: string[] = [];
+
+    let props = GraphicObjectState.animatedProperties;
+    
+    props.forEach(prop => {
+      if (object[prop] instanceof ValueUnitPair) {
+        if (!object[prop].equals(state[prop])) {
+          object[prop].setTo(state[prop]);
+          updatedProperties.push(prop);
+        }
+      } else {
+        // ne devrait pas se produire pour le moment
+        console.warn("Why here ?", prop);
+      }
+    });
+
+    if (updatedProperties.length > 0) {
+      object.render();
+    }
   }
 
   initGraphItem(item: GraphItem) {

@@ -73,9 +73,9 @@ export class ComponentEditorService {
     });
   }
 
-  applySceneState(state: SceneState) {
+  /* applySceneState(state: SceneState) {
     state.states.forEach(state => this.applyObjectState(state));
-  }
+  } */
 
   deleteSceneState(state: SceneState) {
     this.dialog.open(DeletionModalComponent).afterClosed().subscribe((deletion: boolean) => {
@@ -85,7 +85,7 @@ export class ComponentEditorService {
     });
   }
 
-  applyObjectState(state: GraphicObjectState) {
+  /* applyObjectState(state: GraphicObjectState) {
 
     let object: GraphicObjectContainer = this.sceneObjects.find(object => object.id === state.targetObjectId);
     let updatedProperties: string[] = [];
@@ -107,7 +107,7 @@ export class ComponentEditorService {
     if (updatedProperties.length > 0) {
       object.render();
     }
-  }
+  } */
 
   get sceneStates(): SceneState[] {
     return this.dataProvider.getBank("scene-states").items;

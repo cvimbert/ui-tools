@@ -4,6 +4,8 @@ import { GraphViewComponent } from 'src/app/logical-graph/components/graph-view/
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { DataBank } from '../data-bank.class';
 import { ComponentReference } from '../../graphic/components/component-reference.class';
+import { GraphicObjectState } from '../../graphic/states/graphic-object-state.class';
+import { SceneState } from '../../graphic/states/scene-state.class';
 
 export interface ComponentClusterInterface {
   playOut(anchor: AnchorItem, graphItem: GraphItem): void;
@@ -14,4 +16,5 @@ export interface ComponentClusterInterface {
   providers: { [key: string]: DataBank<any> };
   parentCluster: ComponentClusterInterface;
   reference: ComponentReference;
+  applySceneState(state: SceneState): void;
 }

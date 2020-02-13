@@ -84,7 +84,7 @@ export class ComponentTreePanelComponent implements OnInit {
       element.children.forEach(sel => flatten.push({
         element: sel.element,
         depth: sel.depth
-      }))
+      }));
     };
 
     return flatten;

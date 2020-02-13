@@ -28,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ToColorStringPipe } from './pipes/to-color-string.pipe';
 import { TreePanelSectionComponent } from './components/tree-panel-section/tree-panel-section.component';
 import { ComponentInstanceEditionModalComponent } from './components/component-instance-edition-modal/component-instance-edition-modal.component';
+import { GeometryUtilsModule } from '../geometry-utils/geometry-utils.module';
 
 @NgModule({
   providers: [
@@ -63,7 +64,8 @@ import { ComponentInstanceEditionModalComponent } from './components/component-i
     LogicalGraphModule,
     AssetsManagerModule,
     NgxElectronModule,
-    DragDropModule
+    DragDropModule,
+    GeometryUtilsModule
   ],
   entryComponents: [
     SceneSizeModalComponent,

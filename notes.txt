@@ -35,7 +35,6 @@
 - Pointerup sur graph à débugger + position du graph à enregistrer dans les settings
 
 - Tree view à mettre à jour : à la suppression, et à l'ajout de graphicObjectContainer
-- Object updater, pour plus de souplesse de développement
 - Identification graphique des graphItems
 - Templating de texte
 - Rotation en degrés

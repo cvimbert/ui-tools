@@ -17,6 +17,7 @@ import { GraphTimerModalComponent } from './components/graph-timer-modal/graph-t
 import { TriggerCreationModalComponent } from './trigger-creation-modal/trigger-creation-modal.component';
 import { GraphAnchorModalComponent } from './components/graph-anchor-modal/graph-anchor-modal.component';
 import { NgxElectronModule } from 'ngx-electron';
+import { GeometryUtilsModule } from '../geometry-utils/geometry-utils.module';
 
 @NgModule({
   providers: [
@@ -42,7 +43,8 @@ import { NgxElectronModule } from 'ngx-electron';
     CommonModule,
     MatDialogModule,
     FormsModule,
-    NgxElectronModule
+    NgxElectronModule,
+    GeometryUtilsModule
   ],
   exports: [
     GraphViewComponent

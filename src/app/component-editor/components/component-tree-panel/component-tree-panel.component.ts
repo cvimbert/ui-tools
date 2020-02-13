@@ -71,6 +71,7 @@ export class ComponentTreePanelComponent implements OnInit {
     return flatten;
   }
 
+  // à vérifier, mais il est possible que ça ne fonctionne que pour deux niveaux pour le moment, vu qu'il n'y a pas de récursivité
   getFlatten(element: TreeElement): TreeElement[] {
     let flatten: TreeElement[] = [];
 

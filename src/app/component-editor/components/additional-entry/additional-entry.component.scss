@@ -7,6 +7,10 @@
 
 input, textarea {
   width: 207px;
+
+  &[type=checkbox] {
+    width: 13px;
+  }
 }
 
 select {

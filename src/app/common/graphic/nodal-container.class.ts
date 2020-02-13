@@ -1,14 +1,54 @@
 import { GraphicObjectContainer } from './graphic-object-container.class';
-import { JsonObject } from 'json2typescript';
+import { JsonObject, JsonProperty } from 'json2typescript';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 import { Rectangle } from '../geometry/interfaces/rectangle.interface';
 import { FlexibleRectangle } from '../geometry/flexible-rectangle.class';
+import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
+import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
+import { LayoutModes } from 'src/app/component-editor/layout/layout-modes.class';
 
 @JsonObject("NodalContainer")
 export class NodalContainer extends GraphicObjectContainer {
 
   container: Phaser.GameObjects.Container;
   children: GraphicObjectContainer[] = [];
+
+  @JsonProperty("layoutMode", String, true)
+  layoutMode = LayoutModes.FREE;
+
+  @JsonProperty("fitToContent", Boolean, true)
+  fitToContent = false;
+  
+  additionnalPanels: AdditionnalPanel[] = [
+    {
+      name: "Layout",
+      entries: [
+        {
+          name: "Fit to content",
+          type: PanelEntryType.BOOLEAN,
+          getter: () => this.fitToContent,
+          setter: (value: boolean) => {
+            this.fitToContent = value;
+            this.updateFitting();
+          }
+        },
+        {
+          name: "Mode",
+          type: PanelEntryType.SELECT,
+          selectValues: [
+              LayoutModes.FREE,
+              LayoutModes.HORIZONTAL,
+              LayoutModes.VERTICAL
+          ],
+          getter: () => this.layoutMode,
+          setter: (value: string) => {
+              this.layoutMode = value;
+              this.updateLayout();
+          }
+        }
+      ]
+    }
+  ];
 
   initObject(
     scene: ComponentEditorScene,
@@ -24,6 +64,30 @@ export class NodalContainer extends GraphicObjectContainer {
       this.mainContainer.add(this.container);
 
       this.render();
+  }
+
+  updateLayout() {
+    switch (this.layoutMode) {
+      case LayoutModes.FREE:
+        this.children.forEach(child => child.render());
+        break;
+
+      case LayoutModes.HORIZONTAL:
+        console.log("Horizontal");
+        this.children.forEach(child => {
+          child.y.value = 0;
+          child.render();
+        });
+        break;
+
+      case LayoutModes.VERTICAL:
+
+        break;
+    }
+  }
+
+  updateFitting() {
+
   }
 
   render() {
@@ -63,7 +127,7 @@ export class NodalContainer extends GraphicObjectContainer {
 
   addObjectToContainer(object: GraphicObjectContainer) {
     
-    // console.log("add object: " + object.id + " in " + this.id);
+    console.log("add object: " + object.id + " in " + this.id);
 
     this.container.add(object.mainContainer);
 
@@ -76,6 +140,9 @@ export class NodalContainer extends GraphicObjectContainer {
     object.render();
     
     this.children.push(object);
+
+    // Pas l'air de marcher
+    this.scene.editorService.treePanel.update();
   }
 
   removeObjectFromContainer(object: GraphicObjectContainer) {
@@ -92,6 +159,9 @@ export class NodalContainer extends GraphicObjectContainer {
     }
 
     object.render();
+
+    // Pas l'air de marcher
+    this.scene.editorService.treePanel.update();
   }
 
   destroy() {

@@ -5,6 +5,7 @@ import { GraphicObjectContainer } from './graphic-object-container.class';
 import { JsonObject, JsonProperty } from 'json2typescript';
 import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
 import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
+import { LayoutModes } from 'src/app/component-editor/layout/layout-modes.class';
 
 @JsonObject("BasicRectSprite")
 export class BasicRectSprite extends GraphicObjectContainer {
@@ -90,8 +91,11 @@ export class BasicRectSprite extends GraphicObjectContainer {
     render() {  
         this.calculate();        
 
-        this.sprite.x = this.x.value;
-        this.sprite.y = this.y.value;
+        // if (this.parentContainer.layoutMode === LayoutModes.FREE) {
+            this.sprite.x = this.x.value;
+            this.sprite.y = this.y.value;
+        // }
+
         this.sprite.rotation = this.rotation.value;
         this.sprite.setOrigin(this.xOrigin.value, this.yOrigin.value);
 

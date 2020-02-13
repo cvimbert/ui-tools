@@ -5,3 +5,4 @@
 <select *ngIf="entry.type === 'select'" [(ngModel)]="value">
   <option *ngFor="let option of entry.selectValues" [value]="option">{{ option }}</option>
 </select>
+<input type="checkbox" *ngIf="entry.type === 'boolean'" [(ngModel)]="value">

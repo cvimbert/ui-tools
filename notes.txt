@@ -38,3 +38,4 @@
 - Identification graphique des graphItems
 - Templating de texte
 - Rotation en degrés
+- Container fit to content option

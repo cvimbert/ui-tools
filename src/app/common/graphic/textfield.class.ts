@@ -53,7 +53,8 @@ export class Textfield extends GraphicObjectContainer {
                     selectValues: [
                         "Arial",
                         "Roboto",
-                        "Times"
+                        "Times",
+                        "Gotham"
                     ],
                     getter: () => this.style.fontFamily,
                     setter: (value: string) => {

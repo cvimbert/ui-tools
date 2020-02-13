@@ -13,6 +13,7 @@ import { ArgumentType } from 'src/app/logical-graph/argument-type.class';
 import { ArgumentValue } from 'src/app/logical-graph/argument-value.class';
 import { ValueUnitPair } from '../geometry/value-unit-pair.class';
 import { ComponentCluster } from './components/component-cluster.class';
+import { GraphicObjectStyle } from '../geometry/graphic-object-style.class';
 
 
 @JsonObject("GraphicObjectContainer")
@@ -85,9 +86,11 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     @JsonProperty("depth", Number, true)
     depth = 1;
 
-    // A sérialiser aussi
     @JsonProperty("parentContainerId", String)
     _parentContainerId = "";
+
+    @JsonProperty("objectStyle", GraphicObjectStyle, true)
+    objectStyle = new GraphicObjectStyle();
 
     parentContainer: NodalContainer;
 

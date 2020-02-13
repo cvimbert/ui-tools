@@ -1,11 +1,10 @@
 import { GraphService } from './graph.service';
 import { Point } from '../common/geometry/interfaces/point.interface';
-import { HostListener } from '@angular/core';
 
 export class GraphScene extends Phaser.Scene {
 
-  downPoint: Point;
-  isDown = false;
+  private downPoint: Point;
+  private isDown = false;
 
   constructor(
     public graphService: GraphService

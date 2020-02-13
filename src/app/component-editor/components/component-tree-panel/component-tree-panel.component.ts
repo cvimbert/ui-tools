@@ -30,9 +30,9 @@ export class ComponentTreePanelComponent implements OnInit {
     let elements: TreeElement[] = [];
     let containersDic: { [key: string]: TreeElement } = {};
 
-    // pas forcément une bonne idée !!
+    let items: GraphicObjectContainer[] = this.editorService.sceneObjectsBank.items.sort((item1: GraphicObjectContainer, item2: GraphicObjectContainer) => item1.depth - item2.depth);
 
-    this.editorService.sceneObjectsBank.items.filter((item: GraphicObjectContainer) => {
+    items.filter((item: GraphicObjectContainer) => {
       return item.objectType === "nodalContainer";
     }).forEach((item: GraphicObjectContainer) => {
       containersDic[item.id] = {
@@ -42,7 +42,7 @@ export class ComponentTreePanelComponent implements OnInit {
       };
     });
 
-    this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer) => {
+    items.forEach((item: GraphicObjectContainer) => {
       let element: TreeElement;
 
       if (item.objectType === "nodalContainer") {
@@ -91,17 +91,9 @@ export class ComponentTreePanelComponent implements OnInit {
 
   update() {
     this.hierarchy = this.getHierarchy();
+
+    this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer, index) => {
+      item.depth = index + 1;
+    });
   }
-
-  get items(): GraphicObjectContainer[] {    
-    return this.editorService.sceneObjectsBank.items;
-  }
-
-  set items(value: GraphicObjectContainer[]) {
-    this.editorService.sceneObjectsBank.items = value;
-  }
-
-
-
-
 }

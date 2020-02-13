@@ -82,11 +82,11 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     @JsonProperty("visibility", Boolean)
     _visibility = true;
 
-    // à sérialiser (ou pas)
-    _depth = 1;
+    @JsonProperty("depth", Number, true)
+    depth = 1;
 
     // A sérialiser aussi
-    @JsonProperty("parentContainerId")
+    @JsonProperty("parentContainerId", String)
     _parentContainerId = "";
 
     parentContainer: NodalContainer;
@@ -205,7 +205,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     setDepth(value: number) {
         this.mainContainer.depth = value;
-        this._depth = value;
+        this.depth = value;
     }
 
     toggleVisibility() {

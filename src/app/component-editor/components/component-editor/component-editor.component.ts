@@ -71,11 +71,6 @@ export class ComponentEditorComponent implements OnInit {
       this.dataProvider.loadAll(this.editorService.componentId);
       this.graphService.loadGraphItems();
 
-      // Temporaire
-      this.editorService.sceneObjectsBank.items.forEach((item: GraphicObjectContainer, index) => {
-        item._depth = index + 1;
-      });
-
       this.loadComponentSettings();
       
       this.viewport = new FlexibleRectangle();

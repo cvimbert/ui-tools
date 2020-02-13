@@ -28,7 +28,6 @@ export class TreePanelSectionComponent implements OnInit, OnChanges {
   }
 
   drop(evt: CdkDragDrop<TreeElement[]>) {
-    console.log(evt);
     
     let moved = this.elements[evt.previousIndex];
     let target = this.elements[evt.currentIndex];

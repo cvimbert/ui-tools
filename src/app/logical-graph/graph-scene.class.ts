@@ -25,14 +25,14 @@ export class GraphScene extends Phaser.Scene {
 
   onPointerDown(pointer: Phaser.Input.Pointer) {
     this.downPoint = { x: pointer.downX, y: pointer.downY };
-    this.input.on("pointermove", this.onPointerMove, this);
-    this.isDown = true;
+
+    if (!this.isDown) {
+      this.input.on("pointermove", this.onPointerMove, this);
+      this.isDown = true;
+    }
   }
 
-  @HostListener("document:mouseup")
-  onPointerUp() {
-    console.log("up");
-    
+  onPointerUp() {    
     if (this.isDown) {
       this.input.off("pointermove", this.onPointerMove);
       this.isDown = false;

@@ -113,6 +113,11 @@ export class GraphViewComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener("document:mouseup")
+  mouseUpHandler() {
+    this.graphScene.onPointerUp();
+  }
+
   initGraphItem(item: GraphItem) {
     if (!this.banks[item.type]) {
       console.warn("ici");

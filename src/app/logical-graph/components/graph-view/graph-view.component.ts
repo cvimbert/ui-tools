@@ -9,7 +9,6 @@ import { GraphTarget } from '../../interfaces/graph-target.interface';
 import { GraphTargetSelectionModalComponent } from '../graph-target-selection-modal/graph-target-selection-modal.component';
 import { GraphItemType } from '../../graph-item-type.class';
 import { GraphItem } from '../../graph-item.class';
-import { Point } from 'electron';
 import { ComponentEditorScene } from 'src/app/component-editor/component-editor-scene.class';
 
 @Component({

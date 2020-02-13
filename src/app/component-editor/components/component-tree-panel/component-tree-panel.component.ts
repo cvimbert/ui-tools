@@ -19,6 +19,7 @@ export class ComponentTreePanelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.editorService.treePanel = this;
     this.update();
   }
 

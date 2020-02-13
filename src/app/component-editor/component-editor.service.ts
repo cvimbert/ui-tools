@@ -5,16 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeletionModalComponent } from './components/deletion-modal/deletion-modal.component';
 import { DataProviderService } from './services/data-provider.service';
 import { SceneState } from '../common/graphic/states/scene-state.class';
-import { GraphicObjectState } from '../common/graphic/states/graphic-object-state.class';
-import { ValueUnitPair } from '../common/geometry/value-unit-pair.class';
 import { MetadataEditionModalComponent } from './components/metadata-edition-modal/metadata-edition-modal.component';
 import { BaseData } from '../common/data/interfaces/base-data.interface';
 import { DataBank } from '../common/data/data-bank.class';
 import { SceneTransition } from '../common/graphic/transitions/scene-transition.class';
 import { SceneTransitionEditModalComponent } from './components/scene-transition-edit-modal/scene-transition-edit-modal.component';
-import { GraphService } from '../logical-graph/graph.service';
 import { ComponentEditorScene } from './component-editor-scene.class';
-import { CoordinatesMode } from '../common/geometry/coordinates-modes.enum';
+import { ComponentTreePanelComponent } from './components/component-tree-panel/component-tree-panel.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,17 +26,14 @@ export class ComponentEditorService {
   mainScene: ComponentEditorScene;
 
   componentId: string;
+  treePanel: ComponentTreePanelComponent;
 
   constructor(
     private dialog: MatDialog,
-    private dataProvider: DataProviderService,
-    private graphService: GraphService
-  ) {
-    
-  }
+    private dataProvider: DataProviderService
+  ) { }
 
   selectObject(object: GraphicObjectContainer) {
-        
     if (this.selectedObject && object !== this.selectedObject) {
       this.selectedObject.selected = false;
     }
@@ -60,10 +54,10 @@ export class ComponentEditorService {
     object.destroy();
     this.selectedObject = null;
     this.dataProvider.getBank("scene-objects").delete(object);
+    this.treePanel.update();
   }
 
   createState() {
-
     this.dialog.open(MetadataEditionModalComponent).afterClosed().subscribe((data: BaseData) => {
       if (data) {
         let sceneState = SceneState.fromObjectsArray(this.sceneObjects);
@@ -73,10 +67,6 @@ export class ComponentEditorService {
     });
   }
 
-  /* applySceneState(state: SceneState) {
-    state.states.forEach(state => this.applyObjectState(state));
-  } */
-
   deleteSceneState(state: SceneState) {
     this.dialog.open(DeletionModalComponent).afterClosed().subscribe((deletion: boolean) => {
       if (deletion) {
@@ -84,30 +74,6 @@ export class ComponentEditorService {
       }
     });
   }
-
-  /* applyObjectState(state: GraphicObjectState) {
-
-    let object: GraphicObjectContainer = this.sceneObjects.find(object => object.id === state.targetObjectId);
-    let updatedProperties: string[] = [];
-
-    let props = GraphicObjectState.animatedProperties;
-    
-    props.forEach(prop => {
-      if (object[prop] instanceof ValueUnitPair) {
-        if (!object[prop].equals(state[prop])) {
-          object[prop].setTo(state[prop]);
-          updatedProperties.push(prop);
-        }
-      } else {
-        // ne devrait pas se produire pour le moment
-        console.warn("Why here ?", prop);
-      }
-    });
-
-    if (updatedProperties.length > 0) {
-      object.render();
-    }
-  } */
 
   get sceneStates(): SceneState[] {
     return this.dataProvider.getBank("scene-states").items;

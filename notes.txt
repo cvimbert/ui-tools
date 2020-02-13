@@ -26,3 +26,13 @@
 - Utilisation de composants en tant que GraphicObject
 - States dans les graphes
 - Mise à jour de l'arborescence de scène
+- Garder le mode TRBL uniquement (XY obsolète). A voir, tout dépend de la manière dont le TRBL est géré.
+- Création dynamique d'instances d'objets
+- Réorganisation du componentCluster et du graphObject (avec fusion des deux par extension)
+- Création global d'un HUD
+- Layout modes
+- Masques (et hidden overflow mode)
+- Pointerup sur graph à débugger + position du graph à enregistrer dans les settings
+
+- Tree view à mettre à jour : à la suppression, et à l'ajout de graphicObjectContainer
+- Object updater, pour plus de souplesse de développement

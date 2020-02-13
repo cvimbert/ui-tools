@@ -20,8 +20,7 @@ export class GraphItemType {
     GraphItemType.ANCHOR,
     GraphItemType.VARIABLE,
     GraphItemType.GRAPHIC_OBJECT,
-    GraphItemType.SCENE_STATE,
-    GraphItemType.COMPONENT_REFERENCE
+    GraphItemType.SCENE_STATE
   ];
 
   static ITEMS_CREATION_MODAL_COMPONENT = {

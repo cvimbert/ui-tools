@@ -274,6 +274,7 @@ export class ComponentEditorComponent implements OnInit {
             break;
         }
 
+        this.editorService.treePanel.update();
         this.editorService.selectObject(item);
       }
     });
@@ -338,6 +339,7 @@ export class ComponentEditorComponent implements OnInit {
             break;
         }
     
+        this.editorService.treePanel.update();
         this.editorService.selectObject(item);
       }
 

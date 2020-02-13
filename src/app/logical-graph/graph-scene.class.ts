@@ -1,9 +1,11 @@
 import { GraphService } from './graph.service';
 import { Point } from '../common/geometry/interfaces/point.interface';
+import { HostListener } from '@angular/core';
 
 export class GraphScene extends Phaser.Scene {
 
   downPoint: Point;
+  isDown = false;
 
   constructor(
     public graphService: GraphService
@@ -24,12 +26,17 @@ export class GraphScene extends Phaser.Scene {
   onPointerDown(pointer: Phaser.Input.Pointer) {
     this.downPoint = { x: pointer.downX, y: pointer.downY };
     this.input.on("pointermove", this.onPointerMove, this);
-    this.input.on("pointerup", this.onPointerUp, this);
+    this.isDown = true;
   }
 
+  @HostListener("document:mouseup")
   onPointerUp() {
-    this.input.off("pointermove", this.onPointerMove);
-    this.input.off("pointerup", this.onPointerUp);
+    console.log("up");
+    
+    if (this.isDown) {
+      this.input.off("pointermove", this.onPointerMove);
+      this.isDown = false;
+    }
   }
 
   onPointerMove(pointer: Phaser.Input.Pointer) {

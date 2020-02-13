@@ -4,8 +4,7 @@
   border-bottom: 1px solid;
   background-color: white;
   display: flex;
-  // padding: 0 0 0 15px;
-  width: 170px;
+  width: 180px;
   font-size: 14px;
 
   &.selected {
@@ -15,6 +14,11 @@
 
 .name {
   flex: 1;
+  font-size: 13px;
+  text-align: left;
+  margin-left: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .object-placeholder {

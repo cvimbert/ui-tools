@@ -28,6 +28,7 @@
     "@types/gsap": "^1.20.2",
     "core-js": "^2.5.4",
     "gsap": "^2.1.3",
+    "j2talt": "^1.0.0",
     "json2typescript": "^1.2.3",
     "ngx-electron": "^2.2.0",
     "phaser": "^3.22.0",

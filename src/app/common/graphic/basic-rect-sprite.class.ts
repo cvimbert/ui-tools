@@ -97,6 +97,8 @@ export class BasicRectSprite extends GraphicObjectContainer {
             this.sprite.y = this.y.value;
         // }
 
+        // this.width.value = this.sprite.width + this.objectStyle.paddingLeft + this.objectStyle.paddingRight;
+
         this.sprite.rotation = this.rotation.value;
         this.sprite.setOrigin(this.xOrigin.value, this.yOrigin.value);
 

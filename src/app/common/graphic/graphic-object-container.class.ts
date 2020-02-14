@@ -241,6 +241,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     updateStyle() {
         this.drawStyleDisplayer();
+        this.render();
     }
 
     setObjectProperty(args: ArgumentValue[]) {

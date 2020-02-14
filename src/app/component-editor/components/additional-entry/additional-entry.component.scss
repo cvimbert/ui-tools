@@ -1,16 +1,18 @@
 .name-display {
   display: inline-block;
-  width: 85px;
-  font-size: 14px;
-  vertical-align: top;
+  width: 110px;
+  font-size: 13px;
+  vertical-align: middle;
 }
 
 input, textarea {
-  width: 207px;
+  width: 180px;
 
   &[type=checkbox] {
     width: 13px;
   }
+
+  vertical-align: middle;
 }
 
 select {

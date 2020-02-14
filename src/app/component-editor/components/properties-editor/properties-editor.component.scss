@@ -1,12 +1,13 @@
 .name-display {
     display: inline-block;
-    width: 85px;
-    font-size: 14px;
-    vertical-align: top;
+    width: 110px;
+    font-size: 13px;
+    vertical-align: middle;
 }
 
 input, textarea, select {
-    width: 207px;
+    width: 180px;
+    vertical-align: middle;
 }
 
 input {

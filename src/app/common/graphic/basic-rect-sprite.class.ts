@@ -10,7 +10,7 @@ import { LayoutModes } from 'src/app/component-editor/layout/layout-modes.class'
 @JsonObject("BasicRectSprite")
 export class BasicRectSprite extends GraphicObjectContainer {
 
-    additionnalPanels: AdditionnalPanel[] = [
+    panels: AdditionnalPanel[] = [
         {
             name: "Rectangle",
             entries: [
@@ -59,6 +59,7 @@ export class BasicRectSprite extends GraphicObjectContainer {
 
     constructor() {
         super();
+        this.pushPanels(this.panels);
     }
 
     initObject(

@@ -10,7 +10,7 @@ import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry
 @JsonObject("Textfield")
 export class Textfield extends GraphicObjectContainer {
 
-    additionnalPanels: AdditionnalPanel[] = [
+    panels: AdditionnalPanel[] = [
         {
             name: "Text settings",
             entries: [
@@ -85,6 +85,7 @@ export class Textfield extends GraphicObjectContainer {
 
     constructor() {
         super();
+        this.pushPanels(this.panels);
     }
 
     initObject(

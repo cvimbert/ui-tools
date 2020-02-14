@@ -14,6 +14,7 @@ import { ArgumentValue } from 'src/app/logical-graph/argument-value.class';
 import { ValueUnitPair } from '../geometry/value-unit-pair.class';
 import { ComponentCluster } from './components/component-cluster.class';
 import { GraphicObjectStyle } from '../geometry/graphic-object-style.class';
+import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
 
 
 @JsonObject("GraphicObjectContainer")
@@ -75,7 +76,104 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         this.pointerDownItem
     ];
  
-    additionnalPanels: AdditionnalPanel[];
+    additionnalPanels: AdditionnalPanel[] = [
+        {
+            name: "Padding",
+            entries: [
+                {
+                    name: "Padding",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.padding,
+                    setter: (value: number) => {
+                        this.objectStyle.padding = value;
+                        this.updateStyle();
+                    }
+                },
+                {
+                    name: "Padding top",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.paddingTop,
+                    setter: (value: number) => {
+                        this.objectStyle.paddingTop = value;
+                    }
+                },
+                {
+                    name: "Padding right",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.paddingRight,
+                    setter: (value: number) => {
+                        this.objectStyle.paddingRight = value;
+                    }
+                },
+                {
+                    name: "Padding bottom",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.paddingBottom,
+                    setter: (value: number) => {
+                        this.objectStyle.paddingBottom = value;
+                    }
+                },
+                {
+                    name: "Padding left",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.paddingLeft,
+                    setter: (value: number) => {
+                        this.objectStyle.paddingLeft = value;
+                    }
+                }
+            ]
+        },
+        {
+            name: "Margin",
+            entries: [
+                {
+                    name: "Margin",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.margin,
+                    setter: (value: number) => {
+                        this.objectStyle.margin = value;
+                        this.updateStyle();
+                    }
+                },
+                {
+                    name: "Margin top",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.marginTop,
+                    setter: (value: number) => {
+                        this.objectStyle.marginTop = value;
+                        this.updateStyle();
+                    }
+                },
+                {
+                    name: "Margin right",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.marginRight,
+                    setter: (value: number) => {
+                        this.objectStyle.marginRight = value;
+                        this.updateStyle();
+                    }
+                },
+                {
+                    name: "Margin bottom",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.marginBottom,
+                    setter: (value: number) => {
+                        this.objectStyle.marginBottom = value;
+                        this.updateStyle();
+                    }
+                },
+                {
+                    name: "Margin left",
+                    type: PanelEntryType.NUMBER,
+                    getter: () => this.objectStyle.marginLeft,
+                    setter: (value: number) => {
+                        this.objectStyle.marginLeft = value;
+                        this.updateStyle();
+                    }
+                }
+            ]
+        }
+    ];
 
     @JsonProperty("objectType", String)
     objectType = "";
@@ -112,8 +210,20 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         this.initLabel();
     }
 
+    pushPanels(panels: AdditionnalPanel[]) {
+        this.additionnalPanels.push(...panels);
+    }
+
+    unshiftPanels(panels: AdditionnalPanel[]) {
+        this.additionnalPanels.unshift(...panels);
+    }
+
     get parentContainerId(): string {
         return this._parentContainerId;
+    }
+
+    updateStyle() {
+
     }
 
     setObjectProperty(args: ArgumentValue[]) {

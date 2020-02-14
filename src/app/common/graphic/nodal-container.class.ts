@@ -19,7 +19,7 @@ export class NodalContainer extends GraphicObjectContainer {
   @JsonProperty("fitToContent", Boolean, true)
   fitToContent = false;
   
-  additionnalPanels: AdditionnalPanel[] = [
+  panels: AdditionnalPanel[] = [
     {
       name: "Layout",
       entries: [
@@ -50,6 +50,11 @@ export class NodalContainer extends GraphicObjectContainer {
     }
   ];
 
+  constructor() {
+    super();
+    this.pushPanels(this.panels);
+  }
+
   initObject(
     scene: ComponentEditorScene,
     rect?: Rectangle,
@@ -64,6 +69,9 @@ export class NodalContainer extends GraphicObjectContainer {
       this.mainContainer.add(this.container);
 
       this.render();
+
+      // console.log(this.additionnalPanels, super.additionalPanels);
+      
   }
 
   updateLayout() {

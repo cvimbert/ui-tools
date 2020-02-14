@@ -19,6 +19,10 @@ export class GraphicObjectStyle {
     this.paddingTop = this.paddingRight = this.paddingBottom = this.paddingLeft = value;
   }
 
+  get padding(): number {
+    return this.getValueIfEquality(this.paddingTop, this.paddingRight, this.paddingBottom, this.paddingLeft);
+  }
+
 
   @JsonProperty("marginTop", Number, true)
   marginTop = 0;
@@ -34,5 +38,25 @@ export class GraphicObjectStyle {
 
   set margin(value: number) {
     this.marginTop = this.marginRight = this.marginBottom = this.marginLeft = value;
+  }
+
+  get margin(): number {
+    return this.getValueIfEquality(this.marginTop, this.marginRight, this.marginBottom, this.marginLeft);
+  }
+
+  getValueIfEquality(...values: number[]): number {
+    let last: number;
+
+    for (let val of values) {
+      if (last == undefined) {
+        last = val;
+      } else {
+        if (val != last) {
+          return null;
+        }
+      }
+    }
+
+    return last;
   }
 }

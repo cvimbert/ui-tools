@@ -394,12 +394,8 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     }
 
     createHitZone() {
-        // console.log("ici");
         
         if (!this.hitZone) {
-            // console.log("create hit zone");
-            
-
             this.hitZone = this.scene.add.rectangle(this.x.value, this.y.value, this.width.value, this.height.value, 0xff0000, 0);
             this.mainContainer.add(this.hitZone);
 

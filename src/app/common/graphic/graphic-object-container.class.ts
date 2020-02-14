@@ -15,6 +15,7 @@ import { ValueUnitPair } from '../geometry/value-unit-pair.class';
 import { ComponentCluster } from './components/component-cluster.class';
 import { GraphicObjectStyle } from '../geometry/graphic-object-style.class';
 import { PanelEntryType } from '../data/interfaces/aditionnal-panels/panel-entry-type.enum';
+import { StyleDisplayer } from './style-displayer.class';
 
 
 @JsonObject("GraphicObjectContainer")
@@ -95,6 +96,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
                     getter: () => this.objectStyle.paddingTop,
                     setter: (value: number) => {
                         this.objectStyle.paddingTop = value;
+                        this.updateStyle();
                     }
                 },
                 {
@@ -103,6 +105,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
                     getter: () => this.objectStyle.paddingRight,
                     setter: (value: number) => {
                         this.objectStyle.paddingRight = value;
+                        this.updateStyle();
                     }
                 },
                 {
@@ -111,6 +114,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
                     getter: () => this.objectStyle.paddingBottom,
                     setter: (value: number) => {
                         this.objectStyle.paddingBottom = value;
+                        this.updateStyle();
                     }
                 },
                 {
@@ -119,6 +123,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
                     getter: () => this.objectStyle.paddingLeft,
                     setter: (value: number) => {
                         this.objectStyle.paddingLeft = value;
+                        this.updateStyle();
                     }
                 }
             ]
@@ -198,6 +203,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     private _selected = false;
     selectionRect: Phaser.GameObjects.Rectangle;
     originDisplayer: OriginDisplayer;
+    styleDisplayer: StyleDisplayer;
 
     private _hitEnabled = false;
     hitZone: Phaser.GameObjects.Rectangle;
@@ -208,6 +214,8 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
 
     init() {
         this.initLabel();
+        this.createStyleDisplayer();
+        
     }
 
     pushPanels(panels: AdditionnalPanel[]) {
@@ -223,7 +231,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     }
 
     updateStyle() {
-
+        this.drawStyleDisplayer();
     }
 
     setObjectProperty(args: ArgumentValue[]) {
@@ -239,9 +247,7 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     }
 
     set parentContainerId(value: string) {
-        if (value == "") {
-            // console.log("no parent");
-            
+        if (value == "") {            
             if (this.parentContainer) {
                 this.parentContainer.removeObjectFromContainer(this);
             }
@@ -338,6 +344,8 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             this.destroyOriginDisplayer();
         }
 
+        this.createStyleDisplayer();
+
         this._selected = value;
 
         if (value) {
@@ -426,6 +434,19 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
         }
     }
 
+    createStyleDisplayer() {
+        if (!this.styleDisplayer) {
+            this.styleDisplayer = new StyleDisplayer(this.scene, this, this.mainContainer);
+        }
+    }
+
+    destroyStyleDisplayer() {
+        if (this.styleDisplayer) {
+            this.styleDisplayer.destroy();
+            this.styleDisplayer = null;
+        }
+    }
+
     render() {
         super.render();
 
@@ -433,6 +454,17 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             this.drawSelection();
             this.drawHitZone();
             this.placeOriginDisplayer();
+            this.drawStyleDisplayer();
+        }
+    }
+
+    drawStyleDisplayer() {
+        if (this.styleDisplayer) {
+            this.styleDisplayer.setPosition(this.x.value, this.y.value);
+            // this.styleDisplayer.displayOriginX = this.xOrigin.value;
+            // this.styleDisplayer.displayOriginY = this.yOrigin.value;
+            this.styleDisplayer.rotation = this.rotation.value;
+            this.styleDisplayer.draw();
         }
     }
 

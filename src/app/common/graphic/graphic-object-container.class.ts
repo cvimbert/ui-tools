@@ -6,7 +6,6 @@ import { OriginDisplayer } from './origin-displayer.class';
 import { AdditionnalPanel } from '../data/interfaces/aditionnal-panels/additionnal-panel.interface';
 import { GraphTarget } from 'src/app/logical-graph/interfaces/graph-target.interface';
 import { AnchorItem } from 'src/app/logical-graph/interfaces/anchor-item.interface';
-import { GraphService } from 'src/app/logical-graph/graph.service';
 import { GraphItem } from 'src/app/logical-graph/graph-item.class';
 import { NodalContainer } from './nodal-container.class';
 import { ArgumentType } from 'src/app/logical-graph/argument-type.class';
@@ -24,7 +23,6 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     graphService: ComponentCluster;
     parentGraphItem: GraphItem;
 
-    // pour phaser uniquement
     gameObjects: Phaser.GameObjects.GameObject[] = [];
     mainContainer: Phaser.GameObjects.Container;
 
@@ -78,6 +76,17 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     ];
  
     additionnalPanels: AdditionnalPanel[] = [
+        {
+            name: "Debug",
+            entries: [
+                {
+                    name: "Debug display",
+                    type: PanelEntryType.BOOLEAN,
+                    getter: () => this.debugDisplay,
+                    setter: (value: boolean) => this.debugDisplay = value
+                }
+            ]
+        },
         {
             name: "Padding",
             entries: [
@@ -195,9 +204,9 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     @JsonProperty("objectStyle", GraphicObjectStyle, true)
     objectStyle = new GraphicObjectStyle();
 
-    parentContainer: NodalContainer;
+    _debugDisplay = false;
 
-    // le parent devrait aussi se trouver ici
+    parentContainer: NodalContainer;
     scene: ComponentEditorScene;
 
     private _selected = false;
@@ -344,9 +353,25 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
             this.destroyOriginDisplayer();
         }
 
-        this.createStyleDisplayer();
-
         this._selected = value;
+
+        if (value) {
+            this.render();
+        }
+    }
+
+    get debugDisplay(): boolean {
+        return this._debugDisplay;
+    }
+
+    set debugDisplay(value: boolean) {
+        if (value && !this._debugDisplay) {
+            this.createStyleDisplayer();
+        } else if (!value && this._debugDisplay) {
+            this.destroyStyleDisplayer();
+        }
+
+        this._debugDisplay = value;
 
         if (value) {
             this.render();
@@ -461,8 +486,6 @@ export class GraphicObjectContainer extends FlexibleRectangle implements GraphTa
     drawStyleDisplayer() {
         if (this.styleDisplayer) {
             this.styleDisplayer.setPosition(this.x.value, this.y.value);
-            // this.styleDisplayer.displayOriginX = this.xOrigin.value;
-            // this.styleDisplayer.displayOriginY = this.yOrigin.value;
             this.styleDisplayer.rotation = this.rotation.value;
             this.styleDisplayer.draw();
         }
